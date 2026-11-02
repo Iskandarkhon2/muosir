@@ -7,82 +7,17 @@
   <link rel="icon" type="image/png" href="assets/images/logo.png">
   
   <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Tailwind CSS (Local & Offline Ready) & Theme Configuration -->
-  <script src="src/shared/vendor/tailwind.min.js"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['"Space Grotesk"', 'ui-monospace', 'monospace']
-          }
-        }
-      }
-    };
-  </script>
-  <script>
-    (function() {
-      var t = localStorage.getItem('muosir_theme') || 'dark';
-      if (t === 'light') {
-        document.documentElement.classList.add('theme-light');
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-    })();
-  </script>
+  <script src="src/app/theme-init.js"></script>
+  <link rel="stylesheet" href="src/shared/styles/utilities.css">
   <link rel="stylesheet" href="src/shared/styles/main.css">
   <link rel="stylesheet" href="src/shared/styles/cinematic.css">
+  <script type="module" src="src/app/theme.js"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-blue-600 selection:text-white">
 
-  <!-- ================= AUTH SCREEN ================= -->
-  <div id="admin-auth-screen" class="min-h-screen flex items-center justify-center p-4 radial-glow-top">
-    <div class="glass-card-accent max-w-md w-full p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
-      <div class="flex items-center gap-3 mb-6">
-        <a href="index.html" class="inline-flex items-center">
-          <img src="assets/images/logo.png" alt="Муосир пласт" class="h-11 w-auto object-contain">
-        </a>
-      </div>
-      <h1 class="text-xl font-extrabold text-white mb-2 tracking-tight">Вход в панель управления</h1>
-      <p class="text-xs text-slate-300 mb-6 leading-relaxed">Управление экспортным каталогом, текстами, рекламой и B2B заявками</p>
-      
-      <div class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-            Пароль администратора
-          </label>
-          <input 
-            type="password" 
-            id="admin-pass-input" 
-            class="w-full b2b-input px-4 py-3 rounded-xl text-sm" 
-            placeholder="Введите пароль (по умолчанию: muosir2026)"
-            autofocus
-          >
-        </div>
-        <button 
-          type="button" 
-          id="admin-login-btn"
-          class="btn-primary-glow w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white shadow-lg transition-all"
-        >
-          Войти в систему
-        </button>
-      </div>
-
-      <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-        <a href="index.html" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
-          <span>← Перейти на сайт</span>
-        </a>
-        <span>Муосир пласт © 2026</span>
-      </div>
-    </div>
-  </div>
-
   <!-- ================= MAIN ADMIN DASHBOARD ================= -->
-  <div id="admin-dashboard" class="hidden min-h-screen flex flex-col">
+  <div id="admin-dashboard" class="hidden min-h-screen flex flex-col" aria-busy="true">
     <!-- Admin Header -->
     <header class="bg-slate-950/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-xl px-4 sm:px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-4">
@@ -153,7 +88,7 @@
             data-admin-tab="documents" 
             class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
           >
-            Сертификаты и ГОСТ
+            Технические документы
           </button>
 
           <button 
@@ -355,7 +290,7 @@
         <div id="tab-pane-documents" class="admin-tab-pane hidden space-y-6">
           <div>
             <h2 class="text-lg font-bold text-white">Сертификаты и документы качества</h2>
-            <p class="text-xs text-slate-400">Управление ссылками на PDF сертификаты соответствия, СЭЗ и форму СТ-1</p>
+            <p class="text-xs text-slate-400">Управление подтверждёнными техническими документами</p>
           </div>
 
           <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 max-w-3xl">

@@ -1,3 +1,5 @@
+import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.js';
+
 (() => {
   const products = {
     'cup-500': {
@@ -43,6 +45,7 @@
   const quoteForm = document.getElementById('quote-form');
 
   let selectedId = 'cup-500';
+  let selectedCatalogProduct = null;
   let productImage = new Image();
   let logoImage = null;
   let logoUrl = null;
@@ -59,6 +62,16 @@
     const product = products[id];
     if (!product) return;
 
+    const categoryById = {
+      'cup-500': 'cups',
+      container: 'containers',
+      'dairy-cup': 'dairy',
+      'egg-tray': 'eggs'
+    };
+    if (selectedCatalogProduct && selectedCatalogProduct.categoryId !== categoryById[id]) {
+      selectedCatalogProduct = null;
+    }
+
     selectedId = id;
     previewStage.classList.add('is-changing');
     document.querySelectorAll('[data-product]').forEach(button => {
@@ -69,7 +82,7 @@
 
     const name = getProductName(product);
     productName.textContent = name;
-    quoteProductName.textContent = name;
+    quoteProductName.textContent = selectedCatalogProduct ? `${name} (${selectedCatalogProduct.sku})` : name;
     const nextImage = new Image();
     nextImage.onload = () => {
       productImage = nextImage;
@@ -104,29 +117,42 @@
       return;
     }
 
-    const zone = products[selectedId].zone;
-    const size = Number(sizeInput.value) / 100;
-    const maxWidth = bounds.width * zone.width * size;
-    const maxHeight = bounds.width * zone.height * size;
-    const aspectRatio = logoImage.naturalWidth / logoImage.naturalHeight;
-    let logoWidth = maxWidth;
-    let logoHeight = logoWidth / aspectRatio;
-
-    if (logoHeight > maxHeight) {
-      logoHeight = maxHeight;
-      logoWidth = logoHeight * aspectRatio;
-    }
-
-    const xPosition = Number(document.getElementById('logo-position-x').value);
-    const yPosition = Number(document.getElementById('logo-position-y').value);
-    const x = bounds.width * (zone.x + zone.width / 2 + (xPosition - 50) * 0.002) - logoWidth / 2;
-    const y = bounds.width * (zone.y + zone.height / 2 + (yPosition - 50) * 0.002) - logoHeight / 2;
+    const geometry = getLogoGeometry(bounds.width);
+    if (!geometry) return;
 
     context.globalAlpha = Number(opacityInput.value) / 100;
-    context.drawImage(logoImage, x, y, logoWidth, logoHeight);
+    context.drawImage(logoImage, geometry.x, geometry.y, geometry.width, geometry.height);
     context.globalAlpha = 1;
     emptyState.hidden = true;
     downloadButton.disabled = false;
+  }
+
+  function getLogoGeometry(width) {
+    if (!logoImage?.complete || !logoImage.naturalWidth) return null;
+    const zone = products[selectedId].zone;
+    const size = Number(sizeInput.value) / 100;
+    const zoneWidth = width * zone.width;
+    const zoneHeight = width * zone.height;
+    const maxWidth = zoneWidth * size;
+    const maxHeight = zoneHeight * size;
+    const scale = Math.min(maxWidth / logoImage.naturalWidth, maxHeight / logoImage.naturalHeight,
+      zoneWidth / logoImage.naturalWidth, zoneHeight / logoImage.naturalHeight);
+    const logoWidth = logoImage.naturalWidth * scale;
+    const logoHeight = logoImage.naturalHeight * scale;
+    const zoneX = width * zone.x;
+    const zoneY = width * zone.y;
+    const xPosition = Number(document.getElementById('logo-position-x').value);
+    const yPosition = Number(document.getElementById('logo-position-y').value);
+    return {
+      x: zoneX + (zoneWidth - logoWidth) * xPosition / 100,
+      y: zoneY + (zoneHeight - logoHeight) * yPosition / 100,
+      width: logoWidth,
+      height: logoHeight,
+      zoneX,
+      zoneY,
+      zoneWidth,
+      zoneHeight
+    };
   }
 
   function showUploadError(message) {
@@ -151,6 +177,8 @@
     const nextLogo = new Image();
     nextLogo.onload = () => {
       logoImage = nextLogo;
+      document.getElementById('logo-position-x').value = '50';
+      document.getElementById('logo-position-y').value = '50';
       uploadTitle.textContent = file.name;
       renderPreview();
     };
@@ -178,6 +206,20 @@
       });
     });
     uploadZone.addEventListener('drop', event => loadLogo(event.dataTransfer.files[0]));
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+      previewStage.addEventListener(eventName, event => {
+        event.preventDefault();
+        previewStage.classList.add('is-dragging');
+      });
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      previewStage.addEventListener(eventName, event => {
+        event.preventDefault();
+        previewStage.classList.remove('is-dragging');
+      });
+    });
+    previewStage.addEventListener('drop', event => loadLogo(event.dataTransfer.files[0]));
   }
 
   function setupControls() {
@@ -191,6 +233,50 @@
         opacityOutput.value = `${opacityInput.value}%`;
         renderPreview();
       }));
+
+    let activePointer = null;
+    canvas.style.touchAction = 'none';
+    canvas.addEventListener('pointerdown', event => {
+      if (!logoImage) return;
+      const bounds = canvas.getBoundingClientRect();
+      const geometry = getLogoGeometry(bounds.width);
+      if (!geometry || !bounds.width || !bounds.height) return;
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      if (x < geometry.x || x > geometry.x + geometry.width
+        || y < geometry.y || y > geometry.y + geometry.height) return;
+      activePointer = event.pointerId;
+      canvas.setPointerCapture(activePointer);
+      event.preventDefault();
+    });
+    canvas.addEventListener('pointermove', event => {
+      if (event.pointerId !== activePointer) return;
+      const bounds = canvas.getBoundingClientRect();
+      const geometry = getLogoGeometry(bounds.width);
+      if (!geometry || !bounds.width || !bounds.height) return;
+      const x = event.clientX - bounds.left;
+      const y = event.clientY - bounds.top;
+      const maxX = Math.max(0, geometry.zoneWidth - geometry.width);
+      const maxY = Math.max(0, geometry.zoneHeight - geometry.height);
+      document.getElementById('logo-position-x').value = String(Math.round(maxX
+        ? Math.max(0, Math.min(1, (x - geometry.zoneX - geometry.width / 2) / maxX)) * 100
+        : 50));
+      document.getElementById('logo-position-y').value = String(Math.round(maxY
+        ? Math.max(0, Math.min(1, (y - geometry.zoneY - geometry.height / 2) / maxY)) * 100
+        : 50));
+      renderPreview();
+    });
+    const releasePointer = event => {
+      if (event.pointerId === activePointer) activePointer = null;
+    };
+    canvas.addEventListener('pointerup', releasePointer);
+    canvas.addEventListener('pointercancel', releasePointer);
+
+    document.getElementById('reset-logo-position').addEventListener('click', () => {
+      document.getElementById('logo-position-x').value = '50';
+      document.getElementById('logo-position-y').value = '50';
+      renderPreview();
+    });
 
     downloadButton.addEventListener('click', () => {
       if (!logoImage) return;
@@ -208,24 +294,28 @@
       if (event.target === quoteDialog) quoteDialog.close();
     });
 
-    quoteForm.addEventListener('submit', event => {
+    addLeadHoneypot(quoteForm);
+    quoteForm.addEventListener('submit', async event => {
       event.preventDefault();
+      if (!quoteForm.reportValidity()) return;
       const values = Object.fromEntries(new FormData(quoteForm));
       const utm = window.muosirAnalytics?.getUtm() || {};
       const lead = {
         ...values,
         country: '',
-        product: getProductName(products[selectedId]),
+        product: selectedCatalogProduct
+          ? `${getProductName(products[selectedId])} (${selectedCatalogProduct.sku})`
+          : getProductName(products[selectedId]),
         comment: 'Запрос на нанесение логотипа.',
         utmSource: utm.source || '',
         utmCampaign: utm.campaign || '',
-        utmContent: utm.content || ''
+        utmContent: utm.content || '',
+        utmMedium: utm.medium || '',
+        utmTerm: utm.term || '',
+        sourcePage: window.location.pathname
       };
 
-      window.muosirStore?.saveLead(lead);
-      window.muosirAnalytics?.trackLead(lead);
-
-      const phone = window.muosirStore?.getData().company.phoneClean || '992922992000';
+      const phone = window.muosirStore?.getData().company.whatsappClean || '992922992000';
       const message = [
         'Здравствуйте! Хочу запросить предложение на нанесение логотипа.',
         `Продукция: ${lead.product}`,
@@ -234,13 +324,35 @@
         `Телефон: ${lead.phone}`,
         lead.email ? `Email: ${lead.email}` : ''
       ].filter(Boolean).join('\n');
-      const link = document.createElement('a');
-      link.href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.click();
-      quoteDialog.close();
-      quoteForm.reset();
+      const popup = window.open('about:blank', '_blank');
+      if (popup) popup.opener = null;
+      const submitButton = quoteForm.querySelector('[type="submit"]');
+      if (submitButton) submitButton.disabled = true;
+      setLeadFeedback(quoteForm, 'Отправляем заявку и сохраняем предпросмотр…');
+
+      try {
+        const preview = await new Promise((resolve, reject) => {
+          canvas.toBlob(blob => {
+            if (!blob) {
+              reject(new Error('Не удалось создать предпросмотр.'));
+              return;
+            }
+            resolve(new File([blob], `muosir-${selectedId}-preview.png`, { type: 'image/png' }));
+          }, 'image/png');
+        });
+        await submitLead(lead, preview, 'customizerPreview');
+        window.muosirAnalytics?.trackLead(lead);
+        const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        if (popup) popup.location.href = whatsappUrl;
+        quoteDialog.close();
+        quoteForm.reset();
+      } catch (error) {
+        if (popup) popup.close();
+        console.error('Visualizer inquiry submission failed:', error);
+        setLeadFeedback(quoteForm, error.message || 'Не удалось отправить заявку. Попробуйте ещё раз.', true);
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
     });
 
     document.querySelectorAll('[data-lang-btn]').forEach(button => {
@@ -257,7 +369,11 @@
     setupUpload();
     setupControls();
     const requestedProduct = new URLSearchParams(window.location.search).get('prod');
-    const catalogProduct = requestedProduct && window.muosirStore?.getProductById(requestedProduct);
+    const catalogProduct = requestedProduct && (
+      window.muosirStore?.getProductById(requestedProduct)
+      || window.muosirStore?.getProductBySku(requestedProduct)
+    );
+    selectedCatalogProduct = catalogProduct || null;
     const productId = requestedProduct && Object.prototype.hasOwnProperty.call(products, requestedProduct)
       ? requestedProduct
       : catalogProduct?.categoryId === 'eggs'

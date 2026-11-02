@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Вход в панель управления · Муосир пласт</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <script src="src/app/theme-init.js"></script>
+  <link rel="stylesheet" href="src/shared/styles/utilities.css">
+  <link rel="stylesheet" href="src/shared/styles/main.css">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css">
+  <script type="module" src="src/app/theme.js"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+  <main class="min-h-screen flex items-center justify-center p-4 radial-glow-top">
+    <section class="glass-card-accent max-w-md w-full p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl">
+      <a href="index.html" class="inline-flex items-center mb-6" aria-label="На сайт Muosir Plast">
+        <img src="assets/images/logo.png" alt="Муосир пласт" width="160" height="48" class="h-11 w-auto object-contain">
+      </a>
+      <h1 class="text-2xl font-semibold text-white mb-2">Вход в панель управления</h1>
+      <p class="text-sm text-slate-300 mb-6">Введите учётные данные администратора.</p>
+      <form id="admin-login-form" class="space-y-4">
+        <label class="block text-sm font-medium text-slate-300" for="admin-username">Логин</label>
+        <input id="admin-username" name="username" type="text" autocomplete="username" required class="w-full b2b-input px-4 py-3 rounded-xl text-sm">
+        <label class="block text-sm font-medium text-slate-300" for="admin-password">Пароль</label>
+        <input id="admin-password" name="password" type="password" autocomplete="current-password" required class="w-full b2b-input px-4 py-3 rounded-xl text-sm">
+        <button type="submit" class="btn-primary-glow w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white">Войти</button>
+        <p id="admin-login-feedback" class="text-sm text-red-400" role="alert" aria-live="polite"></p>
+      </form>
+      <a href="index.html" class="inline-flex mt-6 text-sm text-slate-400 hover:text-white">← На сайт</a>
+    </section>
+  </main>
+  <script src="src/features/admin/login.js"></script>
+</body>
+</html>

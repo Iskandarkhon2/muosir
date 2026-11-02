@@ -6,23 +6,24 @@
     "taglineEn": "Plastic packaging directly from the manufacturer in Tajikistan",
     "subtagline": "Серийное производство и экспортные поставки полимерной упаковки для молочной, пищевой и кондитерской промышленности.",
     "subtaglineEn": "Mass production and export deliveries of polymer packaging for dairy, food, and confectionery industries.",
-    "phone": "+992 92 299 2000",
-    "phoneClean": "992922992000",
+    "phone": "+992 (92) 550-50-50",
+    "phoneClean": "992925505050",
+    "salesPhones": ["+992 (92) 550-50-50", "+992 (99) 550-50-50"],
     "whatsapp": "+992 92 299 2000",
-    "email": "export@muosirplast.tj",
-    "address": "Республика Таджикистан, Согдийская область, г. Худжанд, промышленная зона",
-    "addressEn": "Republic of Tajikistan, Sughd Region, Khujand city, Industrial Zone",
+    "whatsappClean": "992922992000",
+    "email": "info@muosirplast.tj",
+    "address": "Республика Таджикистан, Согдийская область, Б. Гафуровский район, ул. Вахдат, 15",
+    "addressEn": "Republic of Tajikistan, Sughd Region, B. Gafurov District, 15 Vahdat Street",
+    "warehouseAddress": "Республика Таджикистан, г. Душанбе, ул. Джаббора Расулова, 10",
     "instagram": "https://instagram.com/muosirplast",
     "facebook": "https://facebook.com/muosirplast",
     "catalogPdfUrl": "assets/docs/muosir-plast-export-catalog.pdf"
   },
   "stats": [
-    { "id": "years", "number": "12+", "label": "лет на рынке", "labelEn": "years on the market" },
-    { "id": "products", "number": "65+", "label": "видов продукции", "labelEn": "product items" },
-    { "id": "lines", "number": "14", "label": "современных линий", "labelEn": "production lines" },
-    { "id": "capacity", "number": "18 млн", "label": "изделий в месяц", "labelEn": "monthly capacity" },
-    { "id": "clients", "number": "320+", "label": "B2B клиентов", "labelEn": "B2B clients" },
-    { "id": "countries", "number": "5+", "label": "стран экспорта", "labelEn": "export countries" }
+    { "id": "lines", "number": "3+", "label": "автоматизированные линии", "labelEn": "automated production lines" },
+    { "id": "capacity", "number": "20–60 млн", "label": "единиц в год", "labelEn": "units per year" },
+    { "id": "molds", "number": "50+", "label": "видов пресс-форм", "labelEn": "mold types" },
+    { "id": "processes", "number": "3", "label": "основные технологии", "labelEn": "core technologies" }
   ],
   "categories": [
     { "id": "all", "name": "Вся продукция", "nameEn": "All Products" },
@@ -250,104 +251,104 @@
       "icon": "truck",
       "title": "Крупнооптовые объемы",
       "titleEn": "Large Wholesale Volumes",
-      "desc": "Мощность свыше 18 млн изделий ежемесячно гарантирует бесперебойные поставки даже в пиковый сезон.",
-      "descEn": "Monthly capacity exceeding 18M units guarantees stable deliveries even during peak seasons."
+      "desc": "Производственная мощность составляет от 20 до 60 миллионов единиц готовой упаковки в год.",
+      "descEn": "Annual production capacity ranges from 20 to 60 million finished packaging units."
     },
     {
       "icon": "badge-percent",
-      "title": "Экспортная себестоимость",
-      "titleEn": "Competitive Export Pricing",
-      "desc": "Выгодные тарифы на энергоресурсы и оптимизированное производство дают ценовое преимущество для зарубежных импортеров.",
-      "descEn": "Favorable utility rates and optimized production provide cost advantages for international importers."
+      "title": "Экспортные запросы",
+      "titleEn": "Export Inquiries",
+      "desc": "Международный отдел принимает запросы на поставки из Узбекистана, Казахстана, России, Кыргызстана и других стран.",
+      "descEn": "The international team accepts supply inquiries from Uzbekistan, Kazakhstan, Russia, Kyrgyzstan, and other markets."
     },
     {
       "icon": "shield-check",
-      "title": "Первичное сырье и пищевой допуск",
-      "titleEn": "100% Virgin Food-Grade Polymers",
-      "desc": "Используем только первичное сырье ведущих мировых марок. Продукция сертифицирована для прямого контакта с пищей.",
-      "descEn": "We use only certified virgin polymers. Fully compliant with food contact safety regulations."
+      "title": "Пищевая безопасность",
+      "titleEn": "Food Safety",
+      "desc": "Производство соответствует международным санитарно-гигиеническим нормам и требованиям пищевой безопасности.",
+      "descEn": "Production complies with international sanitary, hygiene, and food-safety requirements."
     },
     {
       "icon": "sliders",
-      "title": "Индивидуальный подход и пресс-формы",
-      "titleEn": "Custom Molds & Branding",
-      "desc": "Разработка уникальной геометрии, подбор цвета по Pantone, изготовление пресс-форм и нанесение фирменной печати.",
-      "descEn": "Custom packaging geometry, Pantone color matching, mold tooling, and branded printing."
+      "title": "Производственные пресс-формы",
+      "titleEn": "Production Molds",
+      "desc": "Парк предприятия включает более 50 видов высокоточных пресс-форм.",
+      "descEn": "The facility's tooling park includes more than 50 types of precision molds."
     },
     {
       "icon": "globe",
       "title": "Международная логистика",
       "titleEn": "International Logistics Support",
-      "desc": "Опыт экспорта в Узбекистан, Казахстан, РФ. Оформление таможенных деклараций, сертификатов СТ-1, отгрузка авто и ж/д.",
-      "descEn": "Export experience to Uzbekistan, Kazakhstan, Russia. Full customs support, CT-1 certificates, rail & truck."
+      "desc": "Международный отдел принимает запросы из Узбекистана, Казахстана, России, Кыргызстана и других стран.",
+      "descEn": "The international team accepts inquiries from Uzbekistan, Kazakhstan, Russia, Kyrgyzstan, and other markets."
     }
   ],
   "production": [
     {
       "step": "01",
-      "title": "Экструзия полимерного листа",
-      "titleEn": "Polymer Sheet Extrusion",
-      "desc": "Высокоточные многослойные экструзионные линии обеспечивают равномерную толщину и прочность полимерного полотна.",
-      "descEn": "High-precision multi-layer extrusion lines provide uniform thickness and strength of polymer rolls."
+      "title": "Термоформование",
+      "titleEn": "Thermoforming",
+      "desc": "Один из трёх производственных процессов для выпуска жесткой пластиковой упаковки.",
+      "descEn": "One of the three production technologies used to manufacture rigid plastic packaging."
     },
     {
       "step": "02",
-      "title": "Автоматическое термоформование",
-      "titleEn": "Automated Thermoforming",
-      "desc": "Европейские пресс-формы и немецкие сервоприводы гарантируют идеальную геометрию и герметичность каждого замка.",
-      "descEn": "European tooling and high-speed servo-drives ensure precise geometry and tight rim sealing."
+      "title": "Литьё под давлением",
+      "titleEn": "Injection Molding",
+      "desc": "Производственная технология, применяемая для изготовления пластиковой упаковки.",
+      "descEn": "A production technology used to manufacture plastic packaging."
     },
     {
       "step": "03",
-      "title": "Контроль качества (ОТК)",
-      "titleEn": "Quality Assurance (QA Lab)",
-      "desc": "Каждая партия тестируется на прочность, герметичность швов, отсутствие запаха и точность габаритов.",
-      "descEn": "Every batch is tested for rigidity, seal tightness, zero odor, and exact dimensional tolerance."
+      "title": "IML-декорирование",
+      "titleEn": "IML Decoration",
+      "desc": "Декорирование изделий по технологии In-Mould Labelling.",
+      "descEn": "In-mould labelling (IML) decoration for products."
     },
     {
       "step": "04",
-      "title": "Автоматическая упаковка и паллетирование",
-      "titleEn": "Packaging & Palletizing",
-      "desc": "Изделия упаковываются в герметичные пакеты и пятислойные гофрокороба, гарантирующие сохранность при дальнем транзите.",
-      "descEn": "Products are sealed in protective bags and heavy-duty 5-layer corrugated boxes for long-distance transit."
+      "title": "Производственная оснастка",
+      "titleEn": "Production Tooling",
+      "desc": "Парк предприятия включает более 50 видов высокоточных пресс-форм.",
+      "descEn": "The facility has more than 50 types of precision molds."
     }
   ],
   "documents": [
     {
       "id": "doc-1",
-      "title": "Сертификат соответствия на пищевую полимерную упаковку",
-      "titleEn": "Certificate of Conformity for Food-Grade Plastic Packaging",
-      "type": "ГОСТ / ТР ТС",
-      "number": "№ ТД-2026-0814",
-      "date": "2026",
-      "file": "assets/docs/certificate-conformity.pdf"
+      "title": "Требования пищевой безопасности",
+      "titleEn": "Food Safety Requirements",
+      "type": "Информация",
+      "number": "По запросу",
+      "date": "",
+      "file": ""
     },
     {
       "id": "doc-2",
-      "title": "Санитарно-эпидемиологическое заключение (безопасность контакта с пищей)",
-      "titleEn": "Sanitary & Epidemiological Certificate (Food Contact)",
-      "type": "СЭЗ",
-      "number": "№ СЭЗ-992-0412",
-      "date": "2026",
-      "file": "assets/docs/sanitary-conclusion.pdf"
+      "title": "Материалы и технологии",
+      "titleEn": "Materials & Technologies",
+      "type": "Информация",
+      "number": "По запросу",
+      "date": "",
+      "file": ""
     },
     {
       "id": "doc-3",
-      "title": "Паспорт качества на первичное гранулированное сырье PP/PET",
-      "titleEn": "Quality Certificate for Virgin PP/PET Polymers",
-      "type": "Паспорт сырья",
-      "number": "№ RAW-PP-2026",
-      "date": "2026",
-      "file": "assets/docs/raw-material-spec.pdf"
+      "title": "Техническая информация по изделию",
+      "titleEn": "Product Technical Information",
+      "type": "Спецификация",
+      "number": "По запросу",
+      "date": "",
+      "file": ""
     },
     {
       "id": "doc-4",
-      "title": "Сертификат происхождения товара (Форма СТ-1 для беспошлинного экспорта в СНГ)",
-      "titleEn": "Certificate of Origin (Form CT-1 for CIS Duty-Free Export)",
-      "type": "СТ-1",
-      "number": "№ TJ-СТ1-8841",
-      "date": "2026",
-      "file": "assets/docs/ct1-certificate.pdf"
+      "title": "Документы для экспортной поставки",
+      "titleEn": "Export Shipment Documentation",
+      "type": "Информация",
+      "number": "По запросу",
+      "date": "",
+      "file": ""
     }
   ],
   "workflow": [
@@ -370,21 +371,21 @@
       "title": "Контракт и условия оплаты",
       "titleEn": "Contract & Terms",
       "desc": "Согласовываем контракт, спецификацию, график отгрузок и условия поставки (FCA, DAP, CIF).",
-      "descEn": "We finalize contract, specification, shipping schedule, and Incoterms (FCA, DAP, CIF)."
+      "descEn": "Product, volume, pricing, and delivery terms are confirmed with the sales team."
     },
     {
       "step": "4",
       "title": "Производство партии",
       "titleEn": "Batch Production",
-      "desc": "Изготовление заказа на автоматизированных линиях с соблюдением ГОСТ и контролем ОТК.",
-      "descEn": "Manufacturing on automated lines in strict compliance with safety and QA standards."
+      "desc": "Изготовление заказа на автоматизированных линиях с соблюдением международных санитарно-гигиенических норм и требований пищевой безопасности.",
+      "descEn": "Manufacturing on automated lines in accordance with international hygiene and food-safety requirements."
     },
     {
       "step": "5",
-      "title": "Таможенное оформление и отгрузка",
-      "titleEn": "Customs & Dispatch",
-      "desc": "Предоставляем полный пакет документов (СТ-1, инвойс, СЭЗ) и контролируем транзит до склада клиента.",
-      "descEn": "We provide full documentation (CT-1, invoice, sanitary permits) and monitor transit."
+      "title": "Согласование поставки",
+      "titleEn": "Confirm the Shipment",
+      "desc": "Условия отгрузки и применимые документы согласуются с отделом продаж для выбранного направления.",
+      "descEn": "Shipping terms and applicable documents are confirmed with the sales team for the destination market."
     }
   ],
   "leads": []

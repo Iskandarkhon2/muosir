@@ -1,10 +1,11 @@
 /**
  * store.js - Central Data Store for Muosir Plast
  * Manages reactive data state, persistence (localStorage), and sync between Admin & Landing.
- * Fully aligned with all 27 points of the Technical Specification (ТЗ).
+ * Provides local persistence for site content and inquiry records.
  */
 
-const STORAGE_KEY = 'muosir_plast_data_v2';
+const STORAGE_KEY = 'muosir_plast_data_v4';
+const LEGACY_STORAGE_KEYS = ['muosir_plast_data_v3', 'muosir_plast_data_v2'];
 const LEADS_KEY = 'muosir_plast_leads_v2';
 
 // Default initial state
@@ -20,14 +21,17 @@ const DEFAULT_DATA = {
     subtaglineEn: "Mass production and wholesale export supply of plastic packaging for food, dairy, confectionery and other manufacturing industries.",
     subtaglineUz: "Oziq-ovqat, sut va qandolatchilik mahsulotlari uchun qattiq polimer qadoqlash vositalarini seriyali ishlab chiqarish va eksport qilish.",
     subtaglineKk: "Азық-түлік, сүт және кондитерлік өнімдер өндірушілеріне арналған сапалы полимерлі қаптамаларды сериялық өндіру және экспорттау.",
-    phone: "+992 92 299 2000",
-    phoneClean: "992922992000",
+    phone: "+992 (92) 550-50-50",
+    phoneClean: "992925505050",
+    salesPhones: ["+992 (92) 550-50-50", "+992 (99) 550-50-50"],
     whatsapp: "+992 92 299 2000",
-    email: "export@muosirplast.tj",
-    address: "Республика Таджикистан, Согдийская область, г. Худжанд, промышленная зона",
-    addressEn: "Republic of Tajikistan, Sughd Region, Khujand city, Industrial Zone",
-    addressUz: "Tojikiston Respublikasi, Sug'd viloyati, Xo'jand shahri, sanoat zonasi",
-    addressKk: "Тәжікстан Республикасы, Соғды облысы, Худжанд қаласы, өндірістік аймақ",
+    whatsappClean: "992922992000",
+    email: "info@muosirplast.tj",
+    address: "Республика Таджикистан, Согдийская область, Б. Гафуровский район, ул. Вахдат, 15",
+    addressEn: "Republic of Tajikistan, Sughd Region, B. Gafurov District, 15 Vahdat Street",
+    addressUz: "Tojikiston Respublikasi, Sug'd viloyati, B. G'afurov tumani, Vahdat ko'chasi, 15",
+    addressKk: "Тәжікстан Республикасы, Соғды облысы, Б. Ғафуров ауданы, Вахдат көшесі, 15",
+    warehouseAddress: "Республика Таджикистан, г. Душанбе, ул. Джаббора Расулова, 10",
     website: "https://muosirplast.tj",
     instagram: "https://instagram.com/muosirplast",
     facebook: "https://facebook.com/muosirplast",
@@ -38,12 +42,10 @@ const DEFAULT_DATA = {
     crmWebhookUrl: ""
   },
   stats: [
-    { id: "years", number: "12+", label: "лет на рынке", labelEn: "years in manufacturing", labelUz: "yil bozorda", labelKk: "жыл нарықта" },
-    { id: "products", number: "65+", label: "видов продукции", labelEn: "product SKUs", labelUz: "tur mahsulot", labelKk: "түрлі өнім" },
-    { id: "lines", number: "14", label: "производственных линий", labelEn: "production lines", labelUz: "ishlab chiqarish liniyasi", labelKk: "өндірістік желі" },
-    { id: "capacity", number: "18+ млн", label: "мощность (шт/мес)", labelEn: "monthly capacity (units)", labelUz: "oylik quvvat (dona)", labelKk: "қуаттылық (дана/ай)" },
-    { id: "clients", number: "320+", label: "B2B клиентов", labelEn: "B2B clients", labelUz: "B2B mijozlar", labelKk: "B2B клиенттер" },
-    { id: "countries", number: "5+", label: "стран экспорта", labelEn: "export destinations", labelUz: "eksport mamlakatlari", labelKk: "экспорт елдері" }
+    { id: "lines", number: "3+", label: "автоматизированные линии", labelEn: "automated production lines", labelUz: "avtomatlashtirilgan liniyalar", labelKk: "автоматтандырылған желілер" },
+    { id: "capacity", number: "20–60 млн", label: "единиц в год", labelEn: "units per year", labelUz: "dona yiliga", labelKk: "дана жылына" },
+    { id: "molds", number: "50+", label: "видов пресс-форм", labelEn: "mold types", labelUz: "qolip turlari", labelKk: "қалып түрлері" },
+    { id: "processes", number: "3", label: "основные технологии", labelEn: "core technologies", labelUz: "asosiy texnologiyalar", labelKk: "негізгі технологиялар" }
   ],
   categories: [
     { id: "all", name: "Вся продукция", nameEn: "All Products", nameUz: "Barcha mahsulotlar", nameKk: "Барлық өнімдер" },
@@ -68,6 +70,8 @@ const DEFAULT_DATA = {
       boxQty: "1 000 шт.",
       minOrder: "50 000 шт.",
       image: "assets/images/product-dairy-cup.svg",
+      photo: "assets/images/products/dairy-cup-400.png",
+      customizable: true,
       desc: "Герметичный стакан под запайку платинкой из фольги или нахлобучку. Подходит для автоматических линий фасовки.",
       descEn: "Sealed cup suitable for aluminum foil sealing or snap-on lid. Designed for automated filling lines.",
       descUz: "Folga bilan payvandlanadigan va qopqoqli germetik stakan. Avtomatlashtirilgan quyish liniyalariga mos.",
@@ -87,6 +91,7 @@ const DEFAULT_DATA = {
       boxQty: "1 200 шт.",
       minOrder: "50 000 шт.",
       image: "assets/images/product-dairy-250.svg",
+      photo: "assets/images/products/dairy-cup-250.png",
       desc: "Устойчив к глубокой заморозке и температурным перепадам. Прочный ободок под стандартную запайку.",
       descEn: "Resistant to deep freezing. Rigid rim for standard heat sealing.",
       descUz: "Muzlatishga chidamli. Standart payvandlash uchun mustahkam gardish.",
@@ -106,6 +111,7 @@ const DEFAULT_DATA = {
       boxQty: "2 000 шт.",
       minOrder: "50 000 шт.",
       image: "assets/images/product-lid-95.svg",
+      photo: "assets/images/products/snap-lid-95.png",
       desc: "Идеальная фиксация на стаканах 95 мм. Защищает продукт после снятия фольги.",
       descEn: "Perfect snap-fit on 95mm cups. Protects the product after foil seal is removed.",
       descUz: "95 mm stakanlarga aniq o'tiradi. Folga ochilgandan so'ng mahsulotni toza saqlaydi.",
@@ -125,6 +131,7 @@ const DEFAULT_DATA = {
       boxQty: "600 шт.",
       minOrder: "30 000 шт.",
       image: "assets/images/product-egg-10.svg",
+      photo: "assets/images/products/egg-box-10.png",
       desc: "Усиленные ребра жесткости, надежный двойной замок. Безопасное штабелирование при транспортировке.",
       descEn: "Reinforced stiffening ribs, reliable dual snap locks. Safe stacking during transport.",
       descUz: "Qovurg'alari kuchaytirilgan, mustahkam ikkitalik qulf. Tashishda ustma-ust xavfsiz taxlanadi.",
@@ -144,6 +151,7 @@ const DEFAULT_DATA = {
       boxQty: "450 шт.",
       minOrder: "30 000 шт.",
       image: "assets/images/product-egg-15.svg",
+      photo: "assets/images/products/egg-box-15.png",
       desc: "Эргономичная форма с вентиляционными отверстиями для продления свежести продукции на полке ритейла.",
       descEn: "Ergonomic shape with ventilation holes to prolong shelf life in retail stores.",
       descUz: "Do'kon peshtaxtalarida tuxum uzoq vaqt yangi turishi uchun shamollatish teshiklariga ega.",
@@ -163,6 +171,7 @@ const DEFAULT_DATA = {
       boxQty: "200 шт.",
       minOrder: "20 000 шт.",
       image: "assets/images/product-cake-round.svg",
+      photo: "assets/images/products/cake-round.png",
       desc: "Премиальная презентация кондитерских изделий. Надежная круговая фиксация купола исключает случайное открытие.",
       descEn: "Premium presentation of confectionery. Secure perimeter locking prevents accidental opening.",
       descUz: "Tortlar va pishiriqlar uchun yuqori sifatli ko'rinish. Aylanma mustahkam qulflar tasodifiy ochilib ketishni oldini oladi.",
@@ -182,6 +191,7 @@ const DEFAULT_DATA = {
       boxQty: "1 500 шт.",
       minOrder: "40 000 шт.",
       image: "assets/images/product-correx.svg",
+      photo: "assets/images/products/correx-tray.png",
       desc: "Защищает хрупкую выпечку от ломки при транспортировке. Подходит для автоматических флоу-пак линий.",
       descEn: "Protects delicate bakery items from breaking during transport. Suitable for automated flow-pack lines.",
       descUz: "Tashish paytida mo'rt pishiriqlarni sinishdan saqlaydi. Avtomatik flow-pack qadoqlashga mos.",
@@ -201,6 +211,8 @@ const DEFAULT_DATA = {
       boxQty: "500 шт.",
       minOrder: "30 000 шт.",
       image: "assets/images/product-container-500.svg",
+      photo: "assets/images/products/container-500.png",
+      customizable: true,
       desc: "Подходит для горячих и холодных блюд, разогрева в СВЧ. Герметичный замок по всему периметру.",
       descEn: "Suitable for hot and cold dishes, microwave-safe. Leak-proof perimeter seal.",
       descUz: "Issiq va sovuq taomlar uchun, mikroto'lqinli pechga chidamli. Butun perimetr bo'ylab germetik yopiladi.",
@@ -220,6 +232,7 @@ const DEFAULT_DATA = {
       boxQty: "400 шт.",
       minOrder: "30 000 шт.",
       image: "assets/images/product-salad-750.svg",
+      photo: "assets/images/products/salad-bowl.png",
       desc: "Идеален для готовых салатов, полуфабрикатов и кулинарии. Отличный глянец и жесткость стенок.",
       descEn: "Ideal for ready-to-eat salads, deli and food service. Superb clarity and wall stiffness.",
       descUz: "Tayyor salatlar va yarim tayyor taomlar uchun ideal. Ajoyib shaffoflik va qattiq devorlar.",
@@ -239,6 +252,8 @@ const DEFAULT_DATA = {
       boxQty: "1 000 шт.",
       minOrder: "50 000 шт.",
       image: "assets/images/product-cup-500.svg",
+      photo: "assets/images/products/cup-500.png",
+      customizable: true,
       desc: "Эластичный, не трескается при сжатии. Возможность нанесения многоцветного логотипа бренда.",
       descEn: "Elastic and shatter-proof. Multi-color custom printing available.",
       descUz: "Elastik, siqilganda sinmaydi. Buyurtma asosida ko'p rangli logotip tushirish mumkin.",
@@ -258,6 +273,7 @@ const DEFAULT_DATA = {
       boxQty: "1 000 шт.",
       minOrder: "50 000 шт.",
       image: "assets/images/product-dome-lid.svg",
+      photo: "assets/images/products/dome-lid.png",
       desc: "Купол под коктейльные трубочки, десерты со взбитыми сливками и смузи. Плотно защелкивается.",
       descEn: "Dome for cocktail straws and whipped desserts. Snaps on tightly.",
       descUz: "Kokteyl naychalari, smuzi va desertlar uchun gumbaz qopqoq. Qattiq qisiladi.",
@@ -277,6 +293,8 @@ const DEFAULT_DATA = {
       boxQty: "300 шт.",
       minOrder: "25 000 шт.",
       image: "assets/images/product-lunch-box.svg",
+      photo: "assets/images/products/lunch-box.png",
+      customizable: true,
       desc: "Раздельное хранение основного блюда и гарнира. Прочный замок, выдерживает доставку горячих обедов.",
       descEn: "Separate compartments for main dish and side. Sturdy lock, ideal for hot meal delivery.",
       descUz: "Asosiy taom va garnirni alohida saqlash. Mustahkam qulf, issiq ovqat yetkazib berishga mos.",
@@ -292,8 +310,8 @@ const DEFAULT_DATA = {
       titleEn: "Direct Manufacturing",
       titleUz: "O'z ishlab chiqarishimiz",
       titleKk: "Өз өндірісіміз",
-      desc: "Работа напрямую с заводом в Таджикистане без посредников и торговых наценок. Полный контроль технологий и сырья.",
-      descEn: "Direct cooperation with the factory in Tajikistan without distributors. Complete control of raw materials and technology.",
+      desc: "Первое специализированное предприятие Таджикистана по выпуску жёсткой пластиковой упаковки для пищевой промышленности.",
+      descEn: "Tajikistan's first specialized manufacturer of rigid plastic packaging for the food industry.",
       descUz: "Tojikistondagi zavod bilan vositachilarsiz to'g'ridan-to'g'ri ishlash. Texnologiya va xomashyoni to'liq nazorat qilish.",
       descKk: "Тәжікстандағы зауытпен делдалсыз тікелей жұмыс істеу. Технология мен шикізатты толық бақылау."
     },
@@ -304,8 +322,8 @@ const DEFAULT_DATA = {
       titleEn: "Wholesale Volumes",
       titleUz: "Katta ulgurji hajmlar",
       titleKk: "Ірі көтерме көлемдер",
-      desc: "Возможность выполнения крупных экспортных заказов. Производственная мощность свыше 18 млн единиц в месяц.",
-      descEn: "Capable of handling massive international contracts. Monthly capacity exceeding 18 million units.",
+      desc: "Производственная мощность — от 20 до 60 миллионов единиц готовой упаковки в год.",
+      descEn: "Annual production capacity ranges from 20 to 60 million finished packaging units.",
       descUz: "Katta eksport buyurtmalarini tezkor bajarish. Oyiga 18 million donadan ortiq ishlab chiqarish quvvati.",
       descKk: "Ірі экспорттық тапсырыстарды орындау мүмкіндігі. Айына 18 миллионнан астам өнім қуаттылығы."
     },
@@ -316,8 +334,8 @@ const DEFAULT_DATA = {
       titleEn: "Competitive Pricing",
       titleUz: "Raqobatbardosh narxlar",
       titleKk: "Бәсекеге қабілетті баға",
-      desc: "Выгодные условия для B2B-клиентов и импортёров за счет низких тарифов на энергоносители и оптимизированной логистики.",
-      descEn: "Attractive price advantages for B2B buyers and importers due to optimized energy and local production cost.",
+      desc: "Планирование крупных партий с учётом отрасли, требований к упаковке и направления поставки.",
+      descEn: "Large-batch planning based on industry, packaging requirements, and destination.",
       descUz: "Qulay energiya tariflari va optimallashtirilgan tannarx hisobiga B2B importchilar uchun eng arzon narxlar.",
       descKk: "Төмен энергия тарифтері мен оңтайландырылған өзіндік құн арқасында B2B импорттаушыларға тиімді баға."
     },
@@ -340,10 +358,10 @@ const DEFAULT_DATA = {
       titleEn: "Custom Engineering",
       titleUz: "Yakka yondashuv",
       titleKk: "Жеке көзқарас",
-      desc: "Обсуждение параметров продукции, толщины, цвета по Pantone, изготовление индивидуальных пресс-форм и брендирование.",
-      descEn: "Consultation on packaging geometry, Pantone coloring, wall thickness, tooling molds, and branded foil printing.",
-      descUz: "Mahsulot qalinligi, rangi, maxsus press-qoliplar yasash va brending bo'yicha individual shartlar.",
-      descKk: "Қаптама қалыңдығы, түсі, жеке пресс-қалыптар жасау және брендтеу параметрлерін бейімдеу."
+      desc: "Парк предприятия включает более 50 видов высокоточных пресс-форм для производственных задач.",
+      descEn: "The facility's tooling park includes more than 50 types of precision molds.",
+      descUz: "Korxonada 50 dan ortiq yuqori aniqlikdagi press-qoliplar mavjud.",
+      descKk: "Кәсіпорында 50-ден астам жоғары дәлдіктегі пресс-қалып бар."
     },
     {
       id: "adv-6",
@@ -352,22 +370,22 @@ const DEFAULT_DATA = {
       titleEn: "Rigorous Quality Control",
       titleUz: "Qat'iy sifat nazorati",
       titleKk: "Сапаны қатаң бақылау",
-      desc: "Контроль продукции на всех этапах производства: 100% первичное сырье, испытания на герметичность, прочность и геометрию.",
-      descEn: "Inspection at all production stages: 100% virgin food-grade resin, burst seal testing, and dimensional compliance.",
-      descUz: "Ishlab chiqarishning barcha bosqichlarida nazorat: 100% birlamchi xomashyo, germetiklik va qattiqlik sinovlari.",
-      descKk: "Өндірістің барлық кезеңдерінде бақылау: 100% таза шикізат, герметикалық пен беріктік сынақтары."
+      desc: "Производство соответствует международным санитарно-гигиеническим нормам и требованиям пищевой безопасности.",
+      descEn: "Production complies with international sanitary, hygiene, and food-safety requirements.",
+      descUz: "Ishlab chiqarish xalqaro sanitariya-gigiyena me'yorlari va oziq-ovqat xavfsizligi talablariga mos.",
+      descKk: "Өндіріс халықаралық санитарлық-гигиеналық нормалар мен азық-түлік қауіпсіздігі талаптарына сәйкес."
     },
     {
       id: "adv-7",
       icon: "globe",
-      title: "Экспортная логистика и СТ-1",
-      titleEn: "Export Logistics & CT-1",
-      titleUz: "Eksport logistikasi va ST-1",
-      titleKk: "Экспорттық логистика және СТ-1",
-      desc: "Помощь в организации доставки покупателю (авто и ж/д). Оформление сертификата СТ-1 для беспошлинного ввоза в страны СНГ.",
-      descEn: "Complete logistics assistance (truck and rail dispatch). CT-1 Certificate of Origin for 0% duty import into CIS.",
-      descUz: "Xaridor manziliga yetkazib berish (avto va temir yo'l). MDH mamlakatlariga 0% boj bilan kiritish uchun ST-1 sertifikati.",
-      descKk: "Сатып алушыға дейін жеткізуді ұйымдастыру (авто және т/ж). ТМД елдеріне 0% баж салығымен СТ-1 сертификаты."
+      title: "Экспортные запросы",
+      titleEn: "Export Inquiries",
+      titleUz: "Eksport so'rovlari",
+      titleKk: "Экспорттық сұраныстар",
+      desc: "Работа с импортёрами из Узбекистана, Казахстана, России, Кыргызстана и других зарубежных рынков.",
+      descEn: "The international team accepts inquiries from Uzbekistan, Kazakhstan, Russia, Kyrgyzstan, and other markets.",
+      descUz: "Xalqaro bo'lim O'zbekiston, Qozog'iston, Rossiya, Qirg'iziston va boshqa mamlakatlardan so'rovlarni qabul qiladi.",
+      descKk: "Халықаралық бөлім Өзбекстан, Қазақстан, Ресей, Қырғызстан және басқа елдерден сұраныстарды қабылдайды."
     }
   ],
   // Production departments / galleries matching Section 12 of ТЗ:
@@ -379,98 +397,171 @@ const DEFAULT_DATA = {
       titleEn: "Automated Thermoforming Lines",
       titleUz: "Avtomatlashtirilgan termoformirovka liniyalari",
       titleKk: "Автоматтандырылған термоформалау желілері",
-      desc: "Высокоскоростные немецкие и европейские сервоформовочные станки с точностью вырубки ±0.05 мм.",
-      descEn: "High-speed servo thermoforming machinery with precision cutting tolerance of ±0.05 mm.",
-      image: "assets/images/production-lines.svg"
+      desc: "На предприятии работают 3+ современные автоматизированные линии для производства упаковки.",
+      descEn: "The facility operates 3+ modern automated packaging production lines.",
     },
     {
       id: "process",
       category: "process",
-      title: "Техпроцесс и экструзия листа",
-      titleEn: "Sheet Extrusion & Forming Process",
-      titleUz: "Plastmassa listi ekstruziyasi va qoliplash",
-      titleKk: "Парақ экструзиясы және қалыптау процесі",
-      desc: "Многослойные экструдеры для PP, PET, PS обеспечивают идеальный глянец, калибр и отсутствие микротрещин.",
-      descEn: "Multi-layer PP, PET, and PS extruders deliver uniform sheet gauge, mirror gloss, and structural integrity.",
-      image: "assets/images/production-process.svg"
+      title: "Технологии производства",
+      titleEn: "Production Technologies",
+      titleUz: "Ishlab chiqarish texnologiyalari",
+      titleKk: "Өндіріс технологиялары",
+      desc: "Основные процессы: термоформование, литьё пластмасс под давлением и декорирование IML.",
+      descEn: "Core processes include thermoforming, injection molding, and in-mold labelling (IML).",
     },
     {
       id: "warehouse",
       category: "warehouse",
-      title: "Складской комплекс и сырьевые силосы",
-      titleEn: "Warehouse & Raw Material Storage",
-      titleUz: "Zamonaviy omborxona va xomashyo zaxirasi",
-      titleKk: "Қойма кешені және шикізат қоры",
-      desc: "Более 3 000 м² крытых площадей хранения. Постоянный резерв готовой серийной упаковки для срочных отгрузок.",
-      descEn: "Over 3,000 m² of covered warehouse space with buffered inventory of popular items for 48h dispatch.",
-      image: "assets/images/production-warehouse.svg"
+      title: "Производственный адрес",
+      titleEn: "Production Site",
+      titleUz: "Ishlab chiqarish manzili",
+      titleKk: "Өндіріс мекенжайы",
+      desc: "Республика Таджикистан, Согдийская область, Б. Гафуровский район, ул. Вахдат, 15.",
+      descEn: "15 Vahdat Street, B. Gafurov District, Sughd Region, Republic of Tajikistan.",
     },
     {
       id: "qc",
       category: "qc",
-      title: "Лаборатория контроля качества (ОТК)",
-      titleEn: "Quality Assurance Laboratory (QA)",
-      titleUz: "Sifat nazorati laboratoriyasi (OTK)",
-      titleKk: "Сапаны бақылау зертханасы (ОТК)",
-      desc: "Оптические микрометры, вакуумные камеры проверки запайки фольгой и стенды вертикальной нагрузки.",
-      descEn: "Optical micrometers, vacuum burst seal chambers, and top-load compression testers.",
-      image: "assets/images/production-qc.svg"
+      title: "Пищевая безопасность",
+      titleEn: "Food Safety",
+      titleUz: "Oziq-ovqat xavfsizligi",
+      titleKk: "Азық-түлік қауіпсіздігі",
+      desc: "Производство ведётся с соблюдением международных санитарно-гигиенических норм и требований пищевой безопасности.",
+      descEn: "Production follows international sanitary, hygiene, and food-safety requirements.",
     },
     {
       id: "shipping",
       category: "shipping",
-      title: "Зона отгрузки в еврофуры и таможня",
-      titleEn: "Export Dispatch & Euro-Truck Loading",
-      titleUz: "Eksport yuklash va bojxona rasmiylashtiruvi",
-      titleKk: "Еурофураларға тиеу және кедендік ресімдеу",
-      desc: "Формирование паллетных партий, стретч-обмотка и опломбирование для безопасной доставки на 1500+ км.",
-      descEn: "Pallet batch preparation, heavy stretch-wrapping, and customs sealing for safe transit up to 1,500+ km.",
-      image: "assets/images/production-shipping.svg"
+      title: "Складской комплекс в Душанбе",
+      titleEn: "Dushanbe Warehouse",
+      titleUz: "Dushanbedagi ombor majmuasi",
+      titleKk: "Душанбедегі қойма кешені",
+      desc: "Филиал и складской комплекс: Республика Таджикистан, г. Душанбе, ул. Джаббора Расулова, 10.",
+      descEn: "Branch and warehouse: 10 Jabbora Rasulova Street, Dushanbe, Republic of Tajikistan.",
     }
   ],
   documents: [
     {
       id: "doc-1",
-      title: "Сертификат соответствия на пищевую полимерную упаковку",
-      titleEn: "Certificate of Conformity for Food-Grade Packaging",
-      titleUz: "Oziq-ovqat polimer qadoqlari muvofiqlik sertifikati",
-      titleKk: "Тағамдық қаптамаға сәйкестік сертификаты",
-      type: "ГОСТ / ТР ТС",
-      number: "№ ТД-2026-0814",
-      file: "assets/docs/certificate-conformity.pdf"
+      title: "Требования пищевой безопасности",
+      titleEn: "Food Safety Requirements",
+      titleUz: "Oziq-ovqat xavfsizligi talablari",
+      titleKk: "Азық-түлік қауіпсіздігі талаптары",
+      type: "Информация",
+      number: "По запросу",
+      file: ""
     },
     {
       id: "doc-2",
-      title: "Санитарно-эпидемиологическое заключение (прямой контакт с пищей)",
-      titleEn: "Sanitary & Epidemiological Certificate (Direct Food Contact)",
-      titleUz: "Sanitariya-epidemiologiya xulosasi (oziq-ovqat bilan aloqa)",
-      titleKk: "Санитарлық-эпидемиологиялық қорытынды (тағаммен байланыс)",
-      type: "СЭЗ",
-      number: "№ СЭЗ-992-0412",
-      file: "assets/docs/sanitary-conclusion.pdf"
+      title: "Материалы и технологии",
+      titleEn: "Materials & Technologies",
+      titleUz: "Materiallar va texnologiyalar",
+      titleKk: "Материалдар мен технологиялар",
+      type: "Информация",
+      number: "По запросу",
+      file: ""
     },
     {
       id: "doc-3",
-      title: "Паспорт качества и безопасности на первичное гранулированное сырье",
-      titleEn: "Quality & Safety Passport for Virgin Polymer Pellets",
-      titleUz: "Birlamchi polimer xomashyosi sifat pasporti",
-      titleKk: "Бастапқы полимерлі шикізаттың сапа паспорты",
-      type: "Паспорт сырья",
-      number: "№ RAW-PP-2026",
-      file: "assets/docs/raw-material-spec.pdf"
+      title: "Техническая информация по изделию",
+      titleEn: "Product Technical Information",
+      titleUz: "Mahsulot bo'yicha texnik ma'lumot",
+      titleKk: "Өнім туралы техникалық ақпарат",
+      type: "Спецификация",
+      number: "По запросу",
+      file: ""
     },
     {
       id: "doc-4",
-      title: "Сертификат происхождения товара (Форма СТ-1 для беспошлинного ввоза в СНГ)",
-      titleEn: "Certificate of Origin (Form CT-1 for 0% Duty in CIS)",
-      titleUz: "Tovarning kelib chiqishi to'g'risida sertifikat (ST-1)",
-      titleKk: "Тауардың шығу тегі туралы сертификат (СТ-1 нөлдік баж)",
-      type: "СТ-1",
-      number: "№ TJ-СТ1-8841",
-      file: "assets/docs/ct1-certificate.pdf"
+      title: "Документы для экспортной поставки",
+      titleEn: "Export Shipment Documentation",
+      titleUz: "Eksport yetkazib berish hujjatlari",
+      titleKk: "Экспорттық жеткізу құжаттары",
+      type: "Информация",
+      number: "По запросу",
+      file: ""
     }
   ]
 };
+
+const PRODUCT_SKUS = {
+  "prod-1": "MP-PP-DAIRY-400-D95",
+  "prod-2": "MP-PP-DAIRY-250-D95",
+  "prod-3": "MP-PET-PS-LID-95",
+  "prod-4": "MP-PET-EGG-10",
+  "prod-5": "MP-PET-EGG-15",
+  "prod-6": "MP-PET-PS-CAKE-210",
+  "prod-7": "MP-PS-PET-CORREX-3",
+  "prod-8": "MP-PP-CONTAINER-500",
+  "prod-9": "MP-PET-SALAD-750",
+  "prod-10": "MP-PP-CUP-500",
+  "prod-11": "MP-PET-DOME-LID-95",
+  "prod-12": "MP-PP-LUNCH-1000"
+};
+const RELATED_PRODUCT_IDS = {
+  "prod-1": ["prod-2", "prod-3", "prod-11"],
+  "prod-2": ["prod-1", "prod-3", "prod-11"],
+  "prod-3": ["prod-1", "prod-2", "prod-11"],
+  "prod-4": ["prod-5"],
+  "prod-5": ["prod-4"],
+  "prod-6": ["prod-7"],
+  "prod-7": ["prod-6"],
+  "prod-8": ["prod-9", "prod-12"],
+  "prod-9": ["prod-8", "prod-12"],
+  "prod-10": ["prod-11", "prod-3"],
+  "prod-11": ["prod-10", "prod-3"],
+  "prod-12": ["prod-8", "prod-9"]
+};
+const PRODUCT_GALLERIES = {
+  "prod-9": [
+    "media/photo/PNG/DSC04874.png",
+    "media/photo/PNG/DSC04876.png",
+    "media/photo/PNG/DSC04896.png"
+  ],
+  "prod-10": [
+    "media/photo/PNG/DSC05020.png",
+    "media/photo/PNG/DSC05091.png"
+  ]
+};
+
+function createProductSku(product) {
+  const material = product.material?.match(/\b(PP|PET|PS)\b/i)?.[1]?.toUpperCase() || "MIX";
+  const volume = product.volume?.match(/\d+/)?.[0] || "ITEM";
+  const id = String(product.id || "NEW").replace(/[^a-z0-9]/gi, "").toUpperCase();
+  return `MP-${material}-${volume}-${id}`;
+}
+
+function enrichProduct(product) {
+  const diameter = product.diameter?.match(/Ø\s*(\d+)\s*мм/i)?.[1];
+  const height = product.diameter?.match(/\bH\s*(\d+)\s*мм/i)?.[1];
+  const gallery = product.gallery?.length
+    ? product.gallery
+    : PRODUCT_GALLERIES[product.id] || [...new Set([product.photo, product.image].filter(Boolean))];
+
+  return {
+    ...product,
+    sku: product.sku || PRODUCT_SKUS[product.id] || createProductSku(product),
+    dimensions: {
+      description: product.diameter || "",
+      ...(diameter ? { diameterTop: `${diameter} мм` } : {}),
+      ...(height ? { height: `${height} мм` } : {}),
+      ...(product.dimensions || {})
+    },
+    packing: {
+      inBox: product.packing?.inBox || product.boxQty || "",
+      onPallet: product.packing?.onPallet || "",
+      boxWeight: product.packing?.boxWeight || ""
+    },
+    moq: product.moq || product.minOrder || "",
+    gallery,
+    relatedSkus: product.relatedSkus || (RELATED_PRODUCT_IDS[product.id] || [])
+      .map(id => PRODUCT_SKUS[id])
+      .filter(Boolean)
+  };
+}
+
+DEFAULT_DATA.products = DEFAULT_DATA.products.map(enrichProduct);
 
 class Store {
   constructor() {
@@ -480,14 +571,48 @@ class Store {
 
   loadData() {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const currentStored = localStorage.getItem(STORAGE_KEY);
+      const stored = currentStored || LEGACY_STORAGE_KEYS
+        .map(key => localStorage.getItem(key))
+        .find(Boolean);
       if (stored) {
         const parsed = JSON.parse(stored);
-        return {
+        const products = (parsed.products || DEFAULT_DATA.products).map(product => {
+          const defaults = DEFAULT_DATA.products.find(item => item.id === product.id);
+          return enrichProduct({
+            ...defaults,
+            ...product,
+            photo: product.photo || defaults?.photo,
+            customizable: product.customizable ?? defaults?.customizable ?? false
+          });
+        });
+        const isLegacyData = !currentStored;
+        const data = {
           ...DEFAULT_DATA,
           ...parsed,
-          company: { ...DEFAULT_DATA.company, ...(parsed.company || {}) }
+          company: {
+            ...DEFAULT_DATA.company,
+            ...(parsed.company || {}),
+            phone: DEFAULT_DATA.company.phone,
+            phoneClean: DEFAULT_DATA.company.phoneClean,
+            salesPhones: DEFAULT_DATA.company.salesPhones,
+            whatsapp: DEFAULT_DATA.company.whatsapp,
+            whatsappClean: DEFAULT_DATA.company.whatsappClean,
+            email: DEFAULT_DATA.company.email,
+            address: DEFAULT_DATA.company.address,
+            addressEn: DEFAULT_DATA.company.addressEn,
+            addressUz: DEFAULT_DATA.company.addressUz,
+            addressKk: DEFAULT_DATA.company.addressKk,
+            warehouseAddress: DEFAULT_DATA.company.warehouseAddress
+          },
+          products,
+          stats: isLegacyData ? DEFAULT_DATA.stats : (parsed.stats || DEFAULT_DATA.stats),
+          advantages: isLegacyData ? DEFAULT_DATA.advantages : (parsed.advantages || DEFAULT_DATA.advantages),
+          productionShowcase: isLegacyData ? DEFAULT_DATA.productionShowcase : (parsed.productionShowcase || DEFAULT_DATA.productionShowcase),
+          documents: isLegacyData ? DEFAULT_DATA.documents : (parsed.documents || DEFAULT_DATA.documents)
         };
+        if (isLegacyData) localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        return data;
       }
     } catch (e) {
       console.warn("Error loading stored data:", e);
@@ -529,11 +654,15 @@ class Store {
     return this.data.products.find(p => p.id === id);
   }
 
+  getProductBySku(sku) {
+    return this.data.products.find(product => product.sku === sku);
+  }
+
   addProduct(product) {
     if (!product.id) {
       product.id = 'prod-' + Date.now();
     }
-    this.data.products.unshift(product);
+    this.data.products.unshift(enrichProduct(product));
     this.saveData();
     return product;
   }
@@ -541,7 +670,7 @@ class Store {
   updateProduct(id, updatedFields) {
     const idx = this.data.products.findIndex(p => p.id === id);
     if (idx !== -1) {
-      this.data.products[idx] = { ...this.data.products[idx], ...updatedFields };
+      this.data.products[idx] = enrichProduct({ ...this.data.products[idx], ...updatedFields });
       this.saveData();
       return true;
     }

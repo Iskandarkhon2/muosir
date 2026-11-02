@@ -1,6 +1,6 @@
 /**
  * analytics.js - Meta Pixel, Google Analytics 4 & UTM Tracking Engine
- * Sections 18 & 19 of the Technical Specification (ТЗ).
+ * Analytics and campaign attribution for the B2B site.
  * Accurately tracks B2B conversion funnels, captures ad campaign parameters,
  * and passes them into lead records and analytics providers.
  */
@@ -122,7 +122,7 @@ class AnalyticsTracker {
   }
 
   // ========================================================
-  // The 8 Core Events required by Section 18 of ТЗ:
+  // Core site and inquiry events.
   // ========================================================
 
   // 1. Просмотр Landing Page
@@ -168,7 +168,6 @@ class AnalyticsTracker {
       currency: 'USD',
       lead_type: 'B2B Export Inquiry',
       country: leadData.country || 'Unknown',
-      company: leadData.company || 'Unknown',
       product: leadData.product || 'General',
       utm_source: leadData.utmSource,
       utm_campaign: leadData.utmCampaign,
@@ -177,7 +176,6 @@ class AnalyticsTracker {
     this.trackMeta('Lead', payload);
     this.trackGA4('generate_lead', {
       country: leadData.country,
-      company: leadData.company,
       product: leadData.product,
       utm_source: leadData.utmSource,
       utm_campaign: leadData.utmCampaign

@@ -30,7 +30,7 @@
       prepareReveal(element, index % 4);
     });
 
-    document.querySelectorAll('header, .motion-section:first-of-type h1, .motion-section:first-of-type p, .motion-section:first-of-type a, .motion-section:first-of-type button, .page-hero h1')
+    document.querySelectorAll('header, .site-hero h1, .site-hero p, .site-hero a, .site-hero button, .page-hero h1')
       .forEach((element, index) => prepareReveal(element, index));
 
     document.querySelectorAll(cardSelector).forEach((element, index) => {
@@ -62,6 +62,36 @@
       });
   }
 
+  function setupScrollProgress() {
+    const indicator = document.createElement('div');
+    const fill = document.createElement('span');
+    indicator.className = 'scroll-progress';
+    indicator.setAttribute('aria-hidden', 'true');
+    indicator.append(fill);
+    document.body.append(indicator);
+
+    let frame = 0;
+    const updateProgress = () => {
+      frame = 0;
+      const scrollableDistance = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollableDistance > 0
+        ? Math.min(Math.max(window.scrollY / scrollableDistance, 0), 1)
+        : 0;
+      document.documentElement.style.setProperty('--scroll-progress', String(progress));
+    };
+    const scheduleUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateProgress);
+    };
+
+    window.addEventListener('scroll', scheduleUpdate, { passive: true });
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+    window.addEventListener('load', scheduleUpdate, { once: true });
+    window.addEventListener('muosir_products_rendered', scheduleUpdate);
+    window.addEventListener('muosir_store_updated', scheduleUpdate);
+    scheduleUpdate();
+  }
+
   function setupPageTransitions() {
     if (reducedMotion) return;
 
@@ -80,13 +110,13 @@
           link.target || link.hasAttribute('download')) return;
 
       const destination = new URL(link.href, window.location.href);
-      if (destination.origin !== window.location.origin ||
-          destination.pathname === window.location.pathname ||
-          destination.hash && destination.pathname === window.location.pathname) return;
+      const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+      const destinationPath = destination.pathname.replace(/\/+$/, '') || '/';
+      if (destination.origin !== window.location.origin || destinationPath === currentPath) return;
 
       event.preventDefault();
       document.documentElement.classList.add('page-exiting');
-      window.setTimeout(() => window.location.assign(destination.href), 180);
+      window.setTimeout(() => window.location.assign(destination.href), 360);
     });
 
     window.addEventListener('pageshow', () => {
@@ -97,6 +127,7 @@
   function initializeMotion() {
     setupReveals();
     setupMagneticTargets();
+    setupScrollProgress();
     setupPageTransitions();
 
     window.addEventListener('muosir_products_rendered', () => {

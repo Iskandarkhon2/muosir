@@ -1,52 +1,73 @@
 /**
  * admin.js - Management Controller for Muosir Plast Admin Panel
  * Allows editing catalog, texts, contacts, stats, certificates, marketing integrations,
- * and managing qualified B2B leads according to Sections 18, 19, 23 & 26 of the ТЗ.
+ * and managing B2B inquiries and optional analytics integrations.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   const store = window.muosirStore;
-  const ADMIN_PASS = 'muosir2026';
-
-  const authScreen = document.getElementById('admin-auth-screen');
   const dashboard = document.getElementById('admin-dashboard');
-  const passInput = document.getElementById('admin-pass-input');
-  const loginBtn = document.getElementById('admin-login-btn');
   const logoutBtn = document.getElementById('admin-logout-btn');
+  let serverLeads = [];
 
-  // Check existing session
-  if (sessionStorage.getItem('muosir_admin_auth') === 'true') {
-    showDashboard();
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, character => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[character]);
   }
 
-  // Login handler
-  loginBtn.addEventListener('click', () => {
-    const entered = passInput.value.trim();
-    const storedPass = localStorage.getItem('muosir_admin_password') || ADMIN_PASS;
-    if (entered === storedPass) {
-      sessionStorage.setItem('muosir_admin_auth', 'true');
-      showDashboard();
-    } else {
-      alert('Неверный пароль администратора!');
-      passInput.focus();
+  async function handleAdminResponse(response) {
+    if (response.status === 401) {
+      window.location.replace('/admin-login.html');
+      throw new Error('Administrator session expired.');
+    }
+    if (!response.ok) {
+      const result = await response.json().catch(() => ({}));
+      throw new Error(result.error || `Request failed (${response.status}).`);
+    }
+    return response;
+  }
+
+  async function checkAdminSession() {
+    try {
+      const response = await fetch('/api/admin/session', {
+        credentials: 'same-origin',
+        cache: 'no-store'
+      });
+      if (response.status === 401) {
+        window.location.replace('/admin-login.html');
+        return;
+      }
+      if (!response.ok) throw new Error(`Session check failed (${response.status}).`);
+      dashboard.classList.remove('hidden');
+      dashboard.setAttribute('aria-busy', 'false');
+      renderAllAdminSections();
+    } catch (error) {
+      console.error('Unable to verify administrator session:', error);
+      dashboard.setAttribute('aria-busy', 'false');
+      dashboard.innerHTML = '<p class="m-auto p-8 text-center text-red-300">Не удалось проверить сессию. Обновите страницу или войдите снова.</p>';
+    }
+  }
+
+  logoutBtn.addEventListener('click', async () => {
+    logoutBtn.disabled = true;
+    try {
+      const response = await fetch('/api/admin/logout', {
+        method: 'POST',
+        credentials: 'same-origin'
+      });
+      if (!response.ok) throw new Error(`Logout failed (${response.status}).`);
+      window.location.replace('/admin-login.html');
+    } catch (error) {
+      console.error('Administrator logout failed:', error);
+      logoutBtn.disabled = false;
+      alert('Не удалось завершить сессию. Повторите попытку.');
     }
   });
-
-  passInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') loginBtn.click();
-  });
-
-  logoutBtn.addEventListener('click', () => {
-    sessionStorage.removeItem('muosir_admin_auth');
-    authScreen.classList.remove('hidden');
-    dashboard.classList.add('hidden');
-  });
-
-  function showDashboard() {
-    authScreen.classList.add('hidden');
-    dashboard.classList.remove('hidden');
-    renderAllAdminSections();
-  }
 
   // --- Tab Navigation ---
   const tabButtons = document.querySelectorAll('[data-admin-tab]');
@@ -77,11 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
     renderStatsEditor();
     renderDocumentsEditor();
     renderMarketingForm();
-    renderLeadsTable();
+    loadLeads();
   }
 
   // ==========================================
-  // TAB 1: PRODUCTS CATALOG (Section 23 of ТЗ)
+  // TAB 1: PRODUCTS CATALOG
   // ==========================================
   function renderProductsTable() {
     const data = store.getData();
@@ -164,10 +185,19 @@ document.addEventListener('DOMContentLoaded', () => {
     },
 
     deleteLead: (id) => {
-      if (confirm('Удалить эту заявку из журнала?')) {
-        store.deleteLead(id);
-        renderLeadsTable();
-      }
+      if (!confirm('Удалить эту заявку из журнала?')) return;
+      fetch(`/api/admin/leads/${encodeURIComponent(id)}`, {
+        method: 'DELETE',
+        credentials: 'same-origin'
+      })
+        .then(handleAdminResponse)
+        .then(loadLeads)
+        .catch(error => {
+          if (error.message !== 'Administrator session expired.') {
+            console.error('Unable to delete lead:', error);
+            alert('Не удалось удалить заявку с сервера.');
+          }
+        });
     }
   };
 
@@ -334,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // TAB 5: MARKETING & INTEGRATIONS (Sections 18, 19, 26 of ТЗ)
+  // TAB 5: MARKETING & INTEGRATIONS
   // ==========================================
   function renderMarketingForm() {
     const data = store.getData();
@@ -355,21 +385,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // TAB 6: LEADS TABLE & EXPORT (Section 19 of ТЗ)
+  // TAB 6: LEADS TABLE & EXPORT
   // ==========================================
-  function renderLeadsTable() {
-    const leads = store.getLeads();
+  async function loadLeads() {
+    const tbody = document.getElementById('admin-leads-tbody');
+    if (!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-slate-400">Загрузка заявок…</td></tr>';
+    try {
+      const response = await handleAdminResponse(await fetch('/api/admin/leads', {
+        credentials: 'same-origin',
+        cache: 'no-store'
+      }));
+      const result = await response.json();
+      if (!Array.isArray(result.leads)) throw new Error('Server returned an invalid lead list.');
+      serverLeads = result.leads;
+      renderLeadsTable(serverLeads);
+    } catch (error) {
+      if (error.message !== 'Administrator session expired.') {
+        console.error('Unable to load server leads:', error);
+        tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-red-300">Не удалось загрузить заявки с сервера.</td></tr>';
+      }
+    }
+  }
+
+  function renderLeadsTable(leads) {
     const tbody = document.getElementById('admin-leads-tbody');
     const badge = document.getElementById('leads-count-badge');
     if (badge) badge.textContent = leads.length;
-
     if (!tbody) return;
 
     if (leads.length === 0) {
       tbody.innerHTML = `
         <tr>
           <td colspan="7" class="p-8 text-center text-slate-500">
-            Заявок пока не поступало. Заполните тестовую форму на сайте!
+            Новые заявки появятся здесь после отправки запроса через сайт.
           </td>
         </tr>
       `;
@@ -384,29 +433,30 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <tr class="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
           <td class="p-3 text-xs text-slate-400 font-mono whitespace-nowrap">
-            ${l.formattedDate || l.createdAt?.slice(0, 16)}
+            ${escapeHtml(l.formattedDate || l.createdAt?.slice(0, 16))}
           </td>
           <td class="p-3 text-xs font-bold text-white">
-            ${l.name}
-            <div class="text-[11px] text-slate-400 font-normal">${l.company || '—'}</div>
+            ${escapeHtml(l.name)}
+            <div class="text-[11px] text-slate-400 font-normal">${escapeHtml(l.company || '—')}</div>
           </td>
           <td class="p-3 text-xs text-slate-300">
-            <span class="px-2 py-0.5 rounded bg-slate-800 text-blue-300 font-semibold">${l.country || '—'}</span>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-blue-300 font-semibold">${escapeHtml(l.country || '—')}</span>
           </td>
           <td class="p-3 text-xs">
-            <div class="text-white font-mono font-semibold">${l.phone}</div>
-            <div class="text-slate-400 text-[11px]">${l.email || '—'}</div>
+            <div class="text-white font-mono font-semibold">${escapeHtml(l.phone)}</div>
+            <div class="text-slate-400 text-[11px]">${escapeHtml(l.email || '—')}</div>
           </td>
           <td class="p-3 text-xs text-slate-300 max-w-xs">
-            <div class="font-semibold text-cyan-300">${l.product || 'Любая'}</div>
+            <div class="font-semibold text-cyan-300">${escapeHtml(l.product || 'Любая')}</div>
             <div class="text-slate-400 truncate text-[11px]">
-              ${l.volume ? 'Объем: ' + l.volume + ' · ' : ''} ${l.comment || ''}
+              ${l.volume ? 'Объем: ' + escapeHtml(l.volume) + ' · ' : ''} ${escapeHtml(l.comment || '')}
             </div>
+            ${l.attachment ? `<a href="/api/admin/leads/${encodeURIComponent(l.id)}/attachment" class="mt-1 inline-block text-[11px] text-blue-300 underline underline-offset-2" download>${escapeHtml(l.attachment.name)}</a>` : ''}
           </td>
           <td class="p-3 text-[11px] text-slate-400 font-mono">
-            <span class="text-emerald-400 font-semibold">${l.utmSource || 'direct'}</span>
-            ${l.utmCampaign ? `<br><span class="text-slate-500">cmp:</span> ${l.utmCampaign}` : ''}
-            ${l.utmContent ? `<br><span class="text-slate-500">ad:</span> ${l.utmContent}` : ''}
+            <span class="text-emerald-400 font-semibold">${escapeHtml(l.utmSource || 'direct')}</span>
+            ${l.utmCampaign ? `<br><span class="text-slate-500">cmp:</span> ${escapeHtml(l.utmCampaign)}` : ''}
+            ${l.utmContent ? `<br><span class="text-slate-500">ad:</span> ${escapeHtml(l.utmContent)}` : ''}
           </td>
           <td class="p-3 text-right space-x-2 whitespace-nowrap">
             ${cleanPhone ? `
@@ -433,46 +483,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
   }
 
-  // Export Leads to CSV (Section 23 & 26 of ТЗ)
-  document.getElementById('export-leads-csv-btn')?.addEventListener('click', () => {
-    const leads = store.getLeads();
-    if (leads.length === 0) {
+  document.getElementById('export-leads-csv-btn')?.addEventListener('click', async event => {
+    const button = event.currentTarget;
+    if (serverLeads.length === 0) {
       alert('Нет заявок для экспорта.');
       return;
     }
-
-    const headers = ['Дата', 'Имя', 'Компания', 'Страна', 'Телефон', 'Email', 'Продукция', 'Объем', 'Комментарий', 'UTM_Source', 'UTM_Medium', 'UTM_Campaign', 'UTM_Content'];
-    const rows = leads.map(l => [
-      `"${l.formattedDate || l.createdAt}"`,
-      `"${(l.name || '').replace(/"/g, '""')}"`,
-      `"${(l.company || '').replace(/"/g, '""')}"`,
-      `"${(l.country || '').replace(/"/g, '""')}"`,
-      `"${(l.phone || '').replace(/"/g, '""')}"`,
-      `"${(l.email || '').replace(/"/g, '""')}"`,
-      `"${(l.product || '').replace(/"/g, '""')}"`,
-      `"${(l.volume || '').replace(/"/g, '""')}"`,
-      `"${(l.comment || '').replace(/"/g, '""')}"`,
-      `"${(l.utmSource || '').replace(/"/g, '""')}"`,
-      `"${(l.utmMedium || '').replace(/"/g, '""')}"`,
-      `"${(l.utmCampaign || '').replace(/"/g, '""')}"`,
-      `"${(l.utmContent || '').replace(/"/g, '""')}"`
-    ]);
-
-    const csvContent = "\uFEFF" + [headers.join(';'), ...rows.map(r => r.join(';'))].join("\r\n");
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `muosir-leads-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+    button.disabled = true;
+    try {
+      const response = await handleAdminResponse(await fetch('/api/admin/export-csv', {
+        credentials: 'same-origin',
+        cache: 'no-store'
+      }));
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `muosir-leads-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch (error) {
+      if (error.message !== 'Administrator session expired.') {
+        console.error('Unable to export server leads:', error);
+        alert('Не удалось скачать заявки с сервера.');
+      }
+    } finally {
+      button.disabled = false;
+    }
   });
 
-  // Clear leads
-  document.getElementById('clear-leads-btn')?.addEventListener('click', () => {
-    if (confirm('Очистить все заявки из журнала? Действие необратимо!')) {
-      store.clearLeads();
-      renderLeadsTable();
+  document.getElementById('clear-leads-btn')?.addEventListener('click', async () => {
+    if (!confirm('Очистить все заявки из журнала? Действие необратимо!')) return;
+    try {
+      await handleAdminResponse(await fetch('/api/admin/leads', {
+        method: 'DELETE',
+        credentials: 'same-origin'
+      }));
+      await loadLeads();
+    } catch (error) {
+      if (error.message !== 'Administrator session expired.') {
+        console.error('Unable to clear server leads:', error);
+        alert('Не удалось очистить заявки на сервере.');
+      }
     }
   });
 
@@ -505,4 +557,6 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Данные сброшены к начальным значениям ТЗ.');
     }
   });
+
+  checkAdminSession();
 });

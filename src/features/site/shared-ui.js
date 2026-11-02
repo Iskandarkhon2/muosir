@@ -1,39 +1,4 @@
 (() => {
-  function applyTheme(theme) {
-    const isLight = theme === 'light';
-    document.documentElement.classList.toggle('theme-light', isLight);
-    document.documentElement.dataset.theme = isLight ? 'light' : 'dark';
-
-    document.querySelectorAll('.theme-toggle-btn').forEach(button => {
-      button.setAttribute('aria-label', isLight ? 'Включить тёмную тему' : 'Включить светлую тему');
-      button.setAttribute('title', isLight ? 'Тёмная тема' : 'Светлая тема');
-      button.querySelector('.theme-icon-sun')?.classList.toggle('hidden', isLight);
-      button.querySelector('.theme-icon-moon')?.classList.toggle('hidden', !isLight);
-    });
-  }
-
-  function setupThemeToggle() {
-    let theme = 'dark';
-    try {
-      theme = localStorage.getItem('muosir_theme') || theme;
-    } catch (error) {
-      console.warn('Theme preference could not be read:', error);
-    }
-
-    applyTheme(theme);
-    document.querySelectorAll('.theme-toggle-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const nextTheme = document.documentElement.classList.contains('theme-light') ? 'dark' : 'light';
-        try {
-          localStorage.setItem('muosir_theme', nextTheme);
-        } catch (error) {
-          console.warn('Theme preference could not be saved:', error);
-        }
-        applyTheme(nextTheme);
-      });
-    });
-  }
-
   function setupLanguageSwitcher() {
     const i18n = window.muosirI18n;
     if (!i18n) return;
@@ -72,10 +37,55 @@
     });
   }
 
+  function setupCompanyContacts() {
+    const store = window.muosirStore;
+    if (!store) return;
+
+    const render = () => {
+      const company = store.getData().company;
+      document.querySelectorAll('.dynamic-phone-link').forEach(link => {
+        link.href = `tel:${company.phoneClean}`;
+        link.textContent = company.phone;
+      });
+      document.querySelectorAll('.dynamic-email-link').forEach(link => {
+        link.href = `mailto:${company.email}`;
+        link.textContent = company.email;
+      });
+      document.querySelectorAll('[data-dynamic-whatsapp]').forEach(link => {
+        link.href = `https://wa.me/${company.whatsappClean || '992922992000'}`;
+      });
+    };
+
+    render();
+    window.addEventListener('muosir_store_updated', render);
+  }
+
+  function setupProductExplorer() {
+    if (!document.querySelector('.site-content') || !window.muosirStore) return;
+    if (document.querySelector('script[src$="product-explorer.js"]')) return;
+
+    const script = document.createElement('script');
+    script.src = 'src/features/site/product-explorer.js';
+    script.defer = true;
+    document.body.append(script);
+  }
+
+  function setupPhotoLightbox() {
+    if (!document.querySelector('[data-lightbox-src]')) return;
+    if (document.querySelector('script[src$="photo-lightbox.js"]')) return;
+
+    const script = document.createElement('script');
+    script.src = 'src/features/site/photo-lightbox.js';
+    script.defer = true;
+    document.body.append(script);
+  }
+
   function initialize() {
-    setupThemeToggle();
     setupLanguageSwitcher();
     setupMobileMenu();
+    setupCompanyContacts();
+    setupProductExplorer();
+    setupPhotoLightbox();
     window.muosirAnalytics?.trackPageView();
   }
 

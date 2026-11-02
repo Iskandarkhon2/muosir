@@ -1,0 +1,15 @@
+{
+  "name": "muosir-plast-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss --config tailwind.config.js --input src/shared/styles/tailwind.css --output src/shared/styles/utilities.css --minify",
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
