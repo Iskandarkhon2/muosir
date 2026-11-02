@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="none">
+  <defs>
+    <linearGradient id="shipBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0A1428"/>
+      <stop offset="100%" stop-color="#030814"/>
+    </linearGradient>
+    <linearGradient id="trailerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#shipBg)"/>
+
+  <!-- Loading Dock Platform -->
+  <rect x="0" y="340" width="800" height="160" fill="#0F172A"/>
+  <line x1="0" y1="340" x2="800" y2="340" stroke="#38BDF8" stroke-width="3"/>
+  <rect x="0" y="343" width="800" height="10" fill="#0284C7" fill-opacity="0.3"/>
+
+  <!-- International Heavy Euro-Truck (TIR) at Dock -->
+  <g transform="translate(180, 140)">
+    <!-- Semi-Trailer (82-120 m³) -->
+    <rect x="180" y="40" width="380" height="180" rx="8" fill="url(#trailerGrad)" stroke="#38BDF8" stroke-width="2"/>
+    <!-- Trailer Curtains / Ribs -->
+    <g stroke="#075985" stroke-width="2">
+      <line x1="260" y1="40" x2="260" y2="220"/>
+      <line x1="340" y1="40" x2="340" y2="220"/>
+      <line x1="420" y1="40" x2="420" y2="220"/>
+      <line x1="500" y1="40" x2="500" y2="220"/>
+    </g>
+    <!-- Brand Logo on Truck -->
+    <rect x="230" y="90" width="280" height="60" rx="8" fill="#0B132B" fill-opacity="0.8" stroke="#00D2FF"/>
+    <text x="370" y="125" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="20" font-weight="900" text-anchor="middle" letter-spacing="2">MUOSIR PLAST</text>
+    <text x="370" y="142" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">INTERNATIONAL B2B EXPORT LOGISTICS</text>
+
+    <!-- Truck Cab -->
+    <path d="M560 220 L560 80 L620 80 L645 130 L665 150 L665 220 Z" fill="#0284C7" stroke="#38BDF8" stroke-width="2"/>
+    <!-- Windshield & Window -->
+    <polygon points="575,95 615,95 635,135 575,135" fill="#0F172A" stroke="#00D2FF"/>
+    
+    <!-- Wheels -->
+    <circle cx="240" cy="225" r="22" fill="#0F172A" stroke="#475569" stroke-width="6"/>
+    <circle cx="295" cy="225" r="22" fill="#0F172A" stroke="#475569" stroke-width="6"/>
+    <circle cx="480" cy="225" r="22" fill="#0F172A" stroke="#475569" stroke-width="6"/>
+    <circle cx="535" cy="225" r="22" fill="#0F172A" stroke="#475569" stroke-width="6"/>
+    <circle cx="625" cy="225" r="22" fill="#0F172A" stroke="#475569" stroke-width="6"/>
+
+    <!-- Customs Seal CT-1 Badge -->
+    <g transform="translate(140, 20)">
+      <rect x="0" y="0" width="85" height="40" rx="6" fill="#059669" stroke="#34D399" stroke-width="1.5"/>
+      <text x="42" y="18" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="9" font-weight="900" text-anchor="middle">СЕРТИФИКАТ</text>
+      <text x="42" y="32" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="12" font-weight="900" text-anchor="middle">СТ-1 (0%)</text>
+    </g>
+  </g>
+
+  <!-- Euro Pallet Ready to Load on Dock -->
+  <g transform="translate(60, 230)">
+    <rect x="0" y="40" width="90" height="70" rx="3" fill="#D97706" stroke="#92400E" stroke-width="2"/>
+    <rect x="0" y="110" width="90" height="8" fill="#78350F"/>
+    <!-- Stretch Film wrap -->
+    <rect x="0" y="40" width="90" height="70" fill="#00D2FF" fill-opacity="0.15"/>
+    <text x="45" y="78" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">EXPORT BATCH</text>
+  </g>
+
+  <!-- Bottom Dispatch Guarantee Strip -->
+  <rect x="50" y="415" width="700" height="60" rx="10" fill="#0B1322" stroke="#1E293B"/>
+  <text x="80" y="440" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">РЕГУЛЯРНЫЕ ОТГРУЗКИ В СТРАНЫ СНГ (FCA, DAP, DDP, CIF)</text>
+  <text x="80" y="458" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">Прямой авто-транзит: Ташкент (1–2 дня), Самарканд (2 дня), Алматы (3–4 дня), Бишкек (2–3 дня)</text>
+  <rect x="630" y="427" width="100" height="28" rx="6" fill="#10B981" fill-opacity="0.2" stroke="#10B981"/>
+  <text x="680" y="445" fill="#34D399" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">БЕСПОШЛИННО</text>
+</svg>

@@ -1,0 +1,14 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="400" height="320" fill="none">
+  <rect width="400" height="320" rx="16" fill="#0B132B"/>
+  <ellipse cx="200" cy="265" rx="100" ry="18" fill="#000" fill-opacity="0.35"/>
+  <!-- Container Body -->
+  <g transform="translate(80, 85)">
+    <path d="M15 45 L35 140 Q38 145 45 145 L195 145 Q202 145 205 140 L225 45 Z" fill="#E2E8F0" fill-opacity="0.8" stroke="#94A3B8" stroke-width="1.5"/>
+    <!-- Rim -->
+    <rect x="10" y="35" width="220" height="15" rx="4" fill="#F8FAFC" stroke="#64748B" stroke-width="1.5"/>
+    <!-- Hinged Lid -->
+    <path d="M10 35 L50 0 L210 0 L230 35 Z" fill="#38BDF8" fill-opacity="0.35" stroke="#38BDF8" stroke-width="2"/>
+    <text x="120" y="105" font-family="system-ui, sans-serif" font-size="13" font-weight="900" fill="#0F172A" text-anchor="middle">500 ml В· MICROWAVE SAFE</text>
+  </g>
+  <text x="20" y="32" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#38BDF8">FOOD-GRADE THERMAL PP</text>
+</svg>

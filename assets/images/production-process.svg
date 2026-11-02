@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="none">
+  <defs>
+    <linearGradient id="procBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B132B"/>
+      <stop offset="100%" stop-color="#080F1E"/>
+    </linearGradient>
+    <linearGradient id="polymerRibbon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#procBg)"/>
+
+  <!-- Stage Process Flow: 1. Granulate -> 2. Extruder -> 3. Sheet -> 4. Mold -> 5. Trimming -->
+  
+  <!-- Step 1: Granulate Hopper -->
+  <g transform="translate(60, 100)">
+    <polygon points="20,0 80,0 65,90 35,90" fill="#1E293B" stroke="#00D2FF" stroke-width="2"/>
+    <rect x="35" y="90" width="30" height="30" fill="#0F172A" stroke="#475569"/>
+    <!-- Polymer Pellets Graphic -->
+    <circle cx="45" cy="30" r="3" fill="#38BDF8"/>
+    <circle cx="55" cy="35" r="3" fill="#FFFFFF"/>
+    <circle cx="40" cy="50" r="3" fill="#38BDF8"/>
+    <circle cx="60" cy="55" r="3" fill="#FFFFFF"/>
+    <circle cx="50" cy="70" r="3" fill="#38BDF8"/>
+    <text x="50" y="140" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">1. Сырье PP/PET</text>
+    <text x="50" y="156" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Первичные гранулы</text>
+  </g>
+
+  <!-- Flow Arrow -->
+  <path d="M170 150 L200 150" stroke="#00D2FF" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Step 2: Multi-zone Extruder & Flat Die -->
+  <g transform="translate(210, 110)">
+    <rect x="0" y="20" width="130" height="50" rx="4" fill="#1E293B" stroke="#0066FF" stroke-width="2"/>
+    <circle cx="25" cy="45" r="16" fill="#0B132B" stroke="#38BDF8"/>
+    <circle cx="65" cy="45" r="16" fill="#0B132B" stroke="#38BDF8"/>
+    <circle cx="105" cy="45" r="16" fill="#0B132B" stroke="#38BDF8"/>
+    <text x="65" y="95" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">2. Экструзия листа</text>
+    <text x="65" y="111" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Равномерный калибр</text>
+  </g>
+
+  <!-- Flow Arrow -->
+  <path d="M350 150 L380 150" stroke="#00D2FF" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Step 3: Calender Rolls (Cooling & Gauge) -->
+  <g transform="translate(390, 85)">
+    <circle cx="45" cy="30" r="24" fill="#334155" stroke="#CBD5E1" stroke-width="2"/>
+    <circle cx="45" cy="75" r="24" fill="#334155" stroke="#CBD5E1" stroke-width="2"/>
+    <circle cx="45" cy="120" r="24" fill="#334155" stroke="#CBD5E1" stroke-width="2"/>
+    <path d="M20 75 L70 75" stroke="#00D2FF" stroke-width="4"/>
+    <text x="45" y="165" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">3. Каландрирование</text>
+    <text x="45" y="181" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Глянец и калибр</text>
+  </g>
+
+  <!-- Flow Arrow -->
+  <path d="M495 150 L525 150" stroke="#00D2FF" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Step 4: Thermoforming & Vacuum Die -->
+  <g transform="translate(535, 90)">
+    <rect x="10" y="15" width="100" height="70" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="2"/>
+    <path d="M25 45 C35 70, 45 70, 55 45 C65 70, 75 70, 85 45" stroke="#38BDF8" stroke-width="3" fill="none"/>
+    <text x="60" y="110" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">4. Формование</text>
+    <text x="60" y="126" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Вакуум и сервоштамп</text>
+  </g>
+
+  <!-- Flow Arrow -->
+  <path d="M650 150 L675 150" stroke="#00D2FF" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Step 5: High Precision Trimming & Stacking -->
+  <g transform="translate(685, 90)">
+    <rect x="0" y="15" width="80" height="70" rx="6" fill="#1E293B" stroke="#00D2FF" stroke-width="2"/>
+    <rect x="25" y="25" width="30" height="45" rx="3" fill="#F8FAFC"/>
+    <text x="40" y="110" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">5. Вырубка</text>
+    <text x="40" y="126" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">Чистый срез</text>
+  </g>
+
+  <!-- Large Interactive Process Dashboard at bottom -->
+  <rect x="50" y="320" width="700" height="135" rx="14" fill="#0A1224" stroke="#1E293B" stroke-width="1.5"/>
+  <text x="80" y="355" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">СКВОЗНОЙ ТЕХНОЛОГИЧЕСКИЙ РЕГЛАМЕНТ</text>
+  
+  <g transform="translate(80, 375)">
+    <rect x="0" y="0" width="195" height="55" rx="8" fill="#0F172A" stroke="#1E293B"/>
+    <text x="15" y="24" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Без вторичных примесей</text>
+    <text x="15" y="42" fill="#64748B" font-family="system-ui, sans-serif" font-size="10">Только сертифицированный гранулят</text>
+
+    <rect x="215" y="0" width="205" height="55" rx="8" fill="#0F172A" stroke="#1E293B"/>
+    <text x="15" y="24" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" transform="translate(215, 0)">Контроль толщины стенки</text>
+    <text x="15" y="42" fill="#64748B" font-family="system-ui, sans-serif" font-size="10" transform="translate(215, 0)">Отсутствие разнотолщинности</text>
+
+    <rect x="440" y="0" width="195" height="55" rx="8" fill="#0F172A" stroke="#1E293B"/>
+    <text x="15" y="24" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" transform="translate(440, 0)">Идеальный буртик</text>
+    <text x="15" y="42" fill="#64748B" font-family="system-ui, sans-serif" font-size="10" transform="translate(440, 0)">Стабильная запайка фольгой</text>
+  </g>
+</svg>

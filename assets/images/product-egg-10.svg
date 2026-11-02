@@ -1,0 +1,33 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="400" height="320" fill="none">
+  <defs>
+    <linearGradient id="eggBox" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E0F2FE" stop-opacity="0.85"/>
+      <stop offset="50%" stop-color="#BAE6FD" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="320" rx="16" fill="#0B132B"/>
+  <ellipse cx="200" cy="265" rx="120" ry="18" fill="#000" fill-opacity="0.35"/>
+  <!-- Isometric-style Egg Container -->
+  <g transform="translate(60, 80)">
+    <rect x="0" y="0" width="280" height="130" rx="16" fill="url(#eggBox)" stroke="#38BDF8" stroke-width="2"/>
+    <!-- 2x5 Egg cells -->
+    <!-- Row 1 -->
+    <circle cx="45" cy="40" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="95" cy="40" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="145" cy="40" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="195" cy="40" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="240" cy="40" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <!-- Row 2 -->
+    <circle cx="45" cy="90" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="95" cy="90" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="145" cy="90" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="195" cy="90" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <circle cx="240" cy="90" r="20" fill="#FFFFFF" fill-opacity="0.25" stroke="#38BDF8" stroke-width="1.5"/>
+    <!-- Locks -->
+    <rect x="90" y="125" width="25" height="10" rx="3" fill="#0284C7"/>
+    <rect x="170" y="125" width="25" height="10" rx="3" fill="#0284C7"/>
+  </g>
+  <text x="200" y="245" font-family="system-ui, sans-serif" font-size="14" font-weight="900" fill="#FFFFFF" text-anchor="middle">EGG CONTAINER 10 PCS</text>
+  <text x="20" y="32" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#38BDF8">LOCK-SAFE RIGID PET</text>
+</svg>

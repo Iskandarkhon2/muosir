@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Предварительная 2D-визуализация логотипа на пластиковой упаковке Muosir Plast.">
+  <meta name="theme-color" content="#07131d">
+  <title data-i18n="viz_page_title">Визуализатор упаковки · Muosir Plast</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/shared/styles/main.css">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css">
+  <link rel="stylesheet" href="src/features/visualizer/visualizer.css">
+  <script>
+    const savedTheme = localStorage.getItem('muosir_theme');
+    if (savedTheme === 'light') {
+      document.documentElement.classList.add('theme-light');
+      document.documentElement.dataset.theme = 'light';
+    }
+  </script>
+  <script src="src/shared/data/store.js" defer></script>
+  <script src="src/features/localization/i18n.js" defer></script>
+  <script src="src/features/analytics/analytics.js" defer></script>
+  <script src="src/features/site/shared-ui.js" defer></script>
+  <script src="src/features/motion/scroll-motion.js" defer></script>
+  <script src="src/features/visualizer/visualizer.js" defer></script>
+</head>
+<body class="visualizer-page">
+  <header class="visualizer-header">
+    <a class="visualizer-brand" href="index.html" data-i18n-aria-label="viz_brand_home">
+      <img src="assets/images/logo.png" alt="Муосир пласт">
+      <span class="visualizer-brand-caption">Packaging studio <span>·</span> Khujand, Tajikistan</span>
+    </a>
+    <div class="visualizer-header-actions">
+      <button type="button" class="theme-toggle-btn visualizer-theme" aria-label="Переключить тему">
+        <span class="theme-icon-sun" aria-hidden="true">☼</span>
+        <span class="theme-icon-moon hidden" aria-hidden="true">☾</span>
+      </button>
+      <div class="visualizer-languages" data-i18n-aria-label="viz_language_selector">
+        <button type="button" class="lang-btn" data-lang-btn="ru">RU</button>
+        <button type="button" class="lang-btn" data-lang-btn="en">EN</button>
+        <button type="button" class="lang-btn" data-lang-btn="uz">UZ</button>
+        <button type="button" class="lang-btn" data-lang-btn="kk">KK</button>
+      </div>
+      <a class="visualizer-back" href="index.html" data-i18n="viz_back_home">На главную</a>
+    </div>
+  </header>
+
+  <main class="visualizer-main">
+    <section class="visualizer-intro" data-motion-reveal aria-labelledby="visualizer-title">
+      <p class="visualizer-eyebrow"><span></span><span data-i18n="viz_hero_badge">Интерактивная визуализация</span></p>
+      <h1 id="visualizer-title" data-i18n="viz_hero_title">Ваш логотип на нашей упаковке</h1>
+      <p data-i18n="viz_hero_subtitle">Загрузите файл логотипа и посмотрите, как он будет выглядеть на продукции Muosir Plast.</p>
+    </section>
+
+    <div class="visualizer-workspace" data-motion-reveal>
+      <section class="preview-panel" data-i18n-aria-label="viz_preview_region">
+        <div class="preview-toolbar">
+          <div>
+            <p class="panel-kicker">LIVE PREVIEW</p>
+            <h2 id="preview-product-name">Стакан 500 мл</h2>
+          </div>
+          <span class="preview-status"><span></span> BROWSER RENDER</span>
+        </div>
+        <div class="preview-stage" id="preview-stage">
+          <canvas id="mockup-canvas" width="800" height="800" data-i18n-aria-label="viz_mockup_region"></canvas>
+          <div class="preview-empty" id="preview-empty">
+            <span class="preview-empty-mark" aria-hidden="true">+</span>
+            <p data-i18n="viz_no_logo">Загрузите логотип, чтобы увидеть его на упаковке</p>
+          </div>
+          <span class="preview-corner preview-corner-top">MP / STUDIO 01</span>
+          <span class="preview-corner preview-corner-bottom">PREVIEW · NOT FOR PRODUCTION</span>
+        </div>
+        <div class="preview-footer">
+          <span>MUOSIR PLAST <span>—</span> PRIVATE LABEL PREVIEW</span>
+          <button type="button" id="download-preview" class="text-action" data-i18n="viz_btn_download">Сохранить макет</button>
+        </div>
+      </section>
+
+      <aside class="control-panel" data-i18n-aria-label="viz_controls_region">
+        <section class="control-section">
+          <div class="section-heading">
+            <span class="step-index">01</span>
+            <div>
+              <p class="panel-kicker">PRODUCT</p>
+              <h2 data-i18n="viz_select_product">Выберите упаковку</h2>
+            </div>
+          </div>
+          <div class="product-options" id="product-options" role="group" data-i18n-aria-label="viz_product_options">
+            <button type="button" class="product-option is-selected" data-product="cup-500" aria-pressed="true">
+              <img src="assets/images/cup_3d_base.jpg" alt="">
+              <span><strong data-i18n="viz_prod_cup_500">Стакан 500 мл</strong><small>PP · 500 ml</small></span>
+            </button>
+            <button type="button" class="product-option" data-product="container" aria-pressed="false">
+              <img src="assets/images/container_3d_base.jpg" alt="">
+              <span><strong data-i18n="viz_prod_container">Контейнер с крышкой</strong><small>PET · FOOD</small></span>
+            </button>
+            <button type="button" class="product-option" data-product="dairy-cup" aria-pressed="false">
+              <img src="assets/images/dairy_cup_3d_base.jpg" alt="">
+              <span><strong data-i18n="viz_prod_dairy_cup">Молочный стакан</strong><small>PP · DAIRY</small></span>
+            </button>
+            <button type="button" class="product-option" data-product="egg-tray" aria-pressed="false">
+              <img src="assets/images/egg_tray_3d_base.jpg" alt="">
+              <span><strong data-i18n="viz_prod_egg_tray">Лоток для яиц</strong><small>PET · 10 PCS</small></span>
+            </button>
+          </div>
+        </section>
+
+        <section class="control-section logo-control-section">
+          <div class="section-heading">
+            <span class="step-index">02</span>
+            <div>
+              <p class="panel-kicker">YOUR BRAND</p>
+              <h2 data-i18n="viz_upload_label">Загрузите ваш логотип</h2>
+            </div>
+          </div>
+          <label class="upload-zone" for="logo-file">
+            <span class="upload-icon" aria-hidden="true">↑</span>
+            <span class="upload-copy"><strong id="upload-title" data-i18n="viz_choose_file">Выберите файл или перетащите</strong><small data-i18n="viz_upload_hint">PNG, JPG, WebP, SVG до 5 МБ</small></span>
+            <input id="logo-file" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+          </label>
+          <p class="upload-error" id="upload-error" role="status" aria-live="polite"></p>
+
+          <label class="slider-control" for="logo-size">
+            <span><span data-i18n="viz_logo_size">Размер логотипа</span><output id="logo-size-output">50%</output></span>
+            <input id="logo-size" type="range" min="20" max="90" value="50">
+          </label>
+          <label class="slider-control" for="logo-opacity">
+            <span><span data-i18n="viz_logo_opacity">Непрозрачность</span><output id="logo-opacity-output">100%</output></span>
+            <input id="logo-opacity" type="range" min="30" max="100" value="100">
+          </label>
+          <label class="slider-control" for="logo-position-x">
+            <span><span data-i18n="viz_position_x">Положение по горизонтали</span><output aria-hidden="true">↔</output></span>
+            <input id="logo-position-x" type="range" min="20" max="80" value="50">
+          </label>
+          <label class="slider-control" for="logo-position-y">
+            <span><span data-i18n="viz_position_y">Положение по вертикали</span><output aria-hidden="true">↕</output></span>
+            <input id="logo-position-y" type="range" min="20" max="80" value="50">
+          </label>
+        </section>
+
+        <div class="visualizer-actions">
+          <button type="button" class="visualizer-quote" id="open-quote" data-i18n="viz_btn_get_quote">Запросить предложение</button>
+          <p data-i18n="viz_local_privacy">Логотип обрабатывается локально в браузере и не отправляется на сервер.</p>
+        </div>
+      </aside>
+    </div>
+
+    <p class="visualizer-disclaimer" data-motion-reveal>
+      <span aria-hidden="true">i</span>
+      <span data-i18n="viz_disclaimer">Предварительная визуализация не заменяет финальный дизайн-макет и техническое согласование перед производством.</span>
+    </p>
+  </main>
+
+  <dialog class="quote-dialog" id="quote-dialog" aria-labelledby="quote-title">
+    <form id="quote-form">
+      <div class="dialog-heading">
+        <div>
+          <p class="panel-kicker">NEXT STEP</p>
+          <h2 id="quote-title" data-i18n="viz_btn_get_quote">Запросить предложение</h2>
+          <p id="quote-product-name">Стакан 500 мл</p>
+        </div>
+        <button type="button" id="close-quote" class="dialog-close" aria-label="Закрыть">×</button>
+      </div>
+      <label for="quote-name" data-i18n="form_name">Ваше имя *</label>
+      <input id="quote-name" name="name" autocomplete="name" required>
+      <label for="quote-company" data-i18n="form_company">Компания *</label>
+      <input id="quote-company" name="company" autocomplete="organization" required>
+      <label for="quote-phone" data-i18n="form_phone">Телефон / WhatsApp *</label>
+      <input id="quote-phone" name="phone" type="tel" autocomplete="tel" required>
+      <label for="quote-email" data-i18n="form_email">Email</label>
+      <input id="quote-email" name="email" type="email" autocomplete="email">
+      <button class="visualizer-quote" type="submit" data-i18n="form_submit">Отправить запрос</button>
+      <p class="dialog-note">Нажимая кнопку, вы продолжите общение с менеджером в WhatsApp.</p>
+    </form>
+  </dialog>
+</body>
+</html>

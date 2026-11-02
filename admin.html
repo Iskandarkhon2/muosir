@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Панель управления · Муосир пласт (B2B Admin)</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS (Local & Offline Ready) & Theme Configuration -->
+  <script src="src/shared/vendor/tailwind.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <script>
+    (function() {
+      var t = localStorage.getItem('muosir_theme') || 'dark';
+      if (t === 'light') {
+        document.documentElement.classList.add('theme-light');
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="src/shared/styles/main.css">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css">
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ================= AUTH SCREEN ================= -->
+  <div id="admin-auth-screen" class="min-h-screen flex items-center justify-center p-4 radial-glow-top">
+    <div class="glass-card-accent max-w-md w-full p-8 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
+      <div class="flex items-center gap-3 mb-6">
+        <a href="index.html" class="inline-flex items-center">
+          <img src="assets/images/logo.png" alt="Муосир пласт" class="h-11 w-auto object-contain">
+        </a>
+      </div>
+      <h1 class="text-xl font-extrabold text-white mb-2 tracking-tight">Вход в панель управления</h1>
+      <p class="text-xs text-slate-300 mb-6 leading-relaxed">Управление экспортным каталогом, текстами, рекламой и B2B заявками</p>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+            Пароль администратора
+          </label>
+          <input 
+            type="password" 
+            id="admin-pass-input" 
+            class="w-full b2b-input px-4 py-3 rounded-xl text-sm" 
+            placeholder="Введите пароль (по умолчанию: muosir2026)"
+            autofocus
+          >
+        </div>
+        <button 
+          type="button" 
+          id="admin-login-btn"
+          class="btn-primary-glow w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white shadow-lg transition-all"
+        >
+          Войти в систему
+        </button>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <a href="index.html" class="hover:text-cyan-400 transition-colors flex items-center gap-1">
+          <span>← Перейти на сайт</span>
+        </a>
+        <span>Муосир пласт © 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN ADMIN DASHBOARD ================= -->
+  <div id="admin-dashboard" class="hidden min-h-screen flex flex-col">
+    <!-- Admin Header -->
+    <header class="bg-slate-950/90 border-b border-slate-800 sticky top-0 z-40 backdrop-blur-xl px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <a href="index.html" target="_blank" title="Открыть сайт" class="flex-shrink-0">
+          <img src="assets/images/logo.png" alt="Муосир пласт" class="h-9 w-auto object-contain">
+        </a>
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-500/20 text-cyan-300 border border-blue-500/30">
+          B2B Admin Console
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a 
+          href="index.html" 
+          target="_blank" 
+          class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-200 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-700/80 transition-all flex items-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <span>Просмотр сайта</span>
+        </a>
+        <button 
+          type="button" 
+          id="admin-logout-btn"
+          class="px-3.5 py-1.5 rounded-xl text-xs font-bold text-red-400 hover:text-white hover:bg-red-600/30 border border-red-500/30 transition-all"
+        >
+          Выйти
+        </button>
+      </div>
+    </header>
+
+    <!-- Admin Body with Tabs (Responsive Stack on Mobile/Tablet) -->
+    <div class="flex-1 flex flex-col lg:flex-row max-w-7xl w-full mx-auto p-4 sm:p-6 gap-6">
+      
+      <!-- Sidebar Tabs: Grid on mobile/tablet, Column on desktop -->
+      <aside class="w-full lg:w-64 flex-shrink-0 space-y-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-1.5">
+          <button 
+            data-admin-tab="products" 
+            class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-blue-600 text-white flex items-center justify-between shadow-md"
+          >
+            <span>Каталог продукции</span>
+            <span class="text-[11px] bg-black/20 px-2 py-0.5 rounded-full font-mono">12+</span>
+          </button>
+
+          <button 
+            data-admin-tab="leads" 
+            class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900 flex items-center justify-between"
+          >
+            <span>Лиды / Заявки</span>
+            <span id="leads-count-badge" class="text-[11px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-mono font-bold">0</span>
+          </button>
+
+          <button 
+            data-admin-tab="content" 
+            class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+          >
+            Тексты и статистика
+          </button>
+
+          <button 
+            data-admin-tab="contacts" 
+            class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+          >
+            Контакты и WhatsApp
+          </button>
+
+          <button 
+            data-admin-tab="documents" 
+            class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900"
+          >
+            Сертификаты и ГОСТ
+          </button>
+
+          <button 
+            data-admin-tab="marketing" 
+            class="w-full text-left px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-300 hover:text-white hover:bg-slate-900 flex items-center justify-between"
+          >
+            <span>Реклама и Пиксели</span>
+            <span class="text-[10px] bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded font-mono">Meta/GA4</span>
+          </button>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 space-y-2">
+          <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-2">Резервное копирование</p>
+          <div class="grid grid-cols-2 lg:grid-cols-1 gap-2">
+            <button 
+              type="button" 
+              id="backup-json-btn"
+              class="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800/80 flex items-center gap-2"
+            >
+              <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Скачать бэкап (JSON)</span>
+            </button>
+            
+            <label class="w-full text-left px-3 py-2 rounded-lg text-xs text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800/80 flex items-center gap-2 cursor-pointer">
+              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              <span>Импорт из JSON</span>
+              <input type="file" id="restore-json-input" accept=".json" class="hidden">
+            </label>
+          </div>
+
+          <button 
+            type="button" 
+            id="reset-defaults-btn"
+            class="w-full text-left px-3 py-2 rounded-lg text-xs text-red-400 hover:bg-red-950/40 border border-red-950/40 transition-colors"
+          >
+            Сброс к значениям ТЗ
+          </button>
+        </div>
+      </aside>
+
+      <!-- Main Tab Content Area -->
+      <main class="flex-1 min-w-0">
+        
+        <!-- PANE 1: PRODUCTS -->
+        <div id="tab-pane-products" class="admin-tab-pane space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-bold text-white">Экспортный каталог продукции</h2>
+              <p class="text-xs text-slate-400">Управление номенклатурой упаковки, размерами, материалами и тиражами</p>
+            </div>
+            <button 
+              type="button" 
+              onclick="window.adminController.openAddProduct()"
+              class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 flex items-center gap-1.5"
+            >
+              <span>+ Добавить товар</span>
+            </button>
+          </div>
+
+          <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-900/80 border-b border-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                    <th class="p-3">Фото</th>
+                    <th class="p-3">Наименование</th>
+                    <th class="p-3">Категория</th>
+                    <th class="p-3">Материал</th>
+                    <th class="p-3">Объем</th>
+                    <th class="p-3">Мин. заказ</th>
+                    <th class="p-3 text-right">Действия</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-products-tbody" class="divide-y divide-slate-800/60 text-sm">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 2: LEADS (ЗАЯВКИ) -->
+        <div id="tab-pane-leads" class="admin-tab-pane hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-lg font-bold text-white">Журнал входящих B2B заявок</h2>
+              <p class="text-xs text-slate-400">Лиды с квалификационными данными, телефонами и рекламными UTM-метками (Раздел 19 ТЗ)</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button 
+                type="button" 
+                id="export-leads-csv-btn"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600/30 text-emerald-400 hover:bg-emerald-600 hover:text-white border border-emerald-500/30 flex items-center gap-1.5"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Экспорт в Excel / CSV</span>
+              </button>
+              <button 
+                type="button" 
+                id="clear-leads-btn"
+                class="px-3 py-1.5 rounded-lg text-xs font-semibold text-red-400 hover:bg-red-950/40 border border-red-500/20"
+              >
+                Очистить журнал
+              </button>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-2xl border border-slate-800 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-900/80 border-b border-slate-800 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                    <th class="p-3">Дата</th>
+                    <th class="p-3">Клиент / Компания</th>
+                    <th class="p-3">Страна</th>
+                    <th class="p-3">Контакты</th>
+                    <th class="p-3">Запрос / Объем</th>
+                    <th class="p-3">UTM Разметка</th>
+                    <th class="p-3 text-right">Действия</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-leads-tbody" class="divide-y divide-slate-800/60 text-sm">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- PANE 3: CONTENT & STATS -->
+        <div id="tab-pane-content" class="admin-tab-pane hidden space-y-6">
+          <div>
+            <h2 class="text-lg font-bold text-white">Тексты и статистика компании</h2>
+            <p class="text-xs text-slate-400">Редактирование главного экспортного оффера и подтвержденных цифр</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4">
+            <h3 class="text-sm font-bold text-cyan-400 uppercase tracking-wider">Главный оффер (Hero Section)</h3>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Главный заголовок / оффер</label>
+              <input type="text" id="content-tagline" class="w-full b2b-input px-3 py-2 rounded-xl text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Подзаголовок</label>
+              <textarea id="content-subtagline" rows="3" class="w-full b2b-input px-3 py-2 rounded-xl text-sm"></textarea>
+            </div>
+            <button type="button" id="save-content-btn" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">
+              Сохранить тексты
+            </button>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4">
+            <h3 class="text-sm font-bold text-cyan-400 uppercase tracking-wider">Ключевые цифры (Счетчики фактов)</h3>
+            <div id="admin-stats-editor" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              <!-- Populated dynamically -->
+            </div>
+            <button type="button" id="save-stats-btn" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">
+              Сохранить статистику
+            </button>
+          </div>
+        </div>
+
+        <!-- PANE 4: CONTACTS & WHATSAPP -->
+        <div id="tab-pane-contacts" class="admin-tab-pane hidden space-y-6">
+          <div>
+            <h2 class="text-lg font-bold text-white">Контакты и экспортный отдел</h2>
+            <p class="text-xs text-slate-400">Телефон, номер WhatsApp для приема заявок (+992 92 299 2000) и адрес завода</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 max-w-2xl">
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Отображаемый телефон / WhatsApp</label>
+              <input type="text" id="contact-phone" class="w-full b2b-input px-3 py-2 rounded-xl text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Чистый номер (для wa.me, только цифры)</label>
+              <input type="text" id="contact-phone-clean" class="w-full b2b-input px-3 py-2 rounded-xl text-sm font-mono" placeholder="992922992000">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Корпоративный E-mail для спецификаций</label>
+              <input type="email" id="contact-email" class="w-full b2b-input px-3 py-2 rounded-xl text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Адрес производства (RU)</label>
+              <input type="text" id="contact-address" class="w-full b2b-input px-3 py-2 rounded-xl text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1">Адрес производства (EN)</label>
+              <input type="text" id="contact-address-en" class="w-full b2b-input px-3 py-2 rounded-xl text-sm">
+            </div>
+
+            <button type="button" id="save-contacts-btn" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">
+              Сохранить контакты
+            </button>
+          </div>
+        </div>
+
+        <!-- PANE 5: DOCUMENTS -->
+        <div id="tab-pane-documents" class="admin-tab-pane hidden space-y-6">
+          <div>
+            <h2 class="text-lg font-bold text-white">Сертификаты и документы качества</h2>
+            <p class="text-xs text-slate-400">Управление ссылками на PDF сертификаты соответствия, СЭЗ и форму СТ-1</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-4 max-w-3xl">
+            <div id="admin-docs-editor" class="space-y-3">
+              <!-- Populated dynamically -->
+            </div>
+            <button type="button" id="save-docs-btn" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white">
+              Сохранить изменения
+            </button>
+          </div>
+        </div>
+
+        <!-- PANE 6: MARKETING & INTEGRATIONS (Разделы 18, 19, 26 ТЗ) -->
+        <div id="tab-pane-marketing" class="admin-tab-pane hidden space-y-6">
+          <div>
+            <h2 class="text-lg font-bold text-white">Реклама, Аналитика и CRM Интеграции</h2>
+            <p class="text-xs text-slate-400">Настройка Meta Pixel, Google Analytics 4, мгновенных уведомлений в Telegram и интеграции с CRM</p>
+          </div>
+
+          <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-5 max-w-3xl">
+            <div>
+              <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">Meta Pixel ID (Facebook / Instagram Ads)</h3>
+              <p class="text-[11px] text-slate-400 mb-2">Фиксирует события: просмотр лендинга, просмотр карточек, клик WhatsApp, клик телефона, скачивание каталога и отправку формы лида.</p>
+              <input type="text" id="marketing-meta-pixel" placeholder="например, 123456789012345" class="w-full b2b-input px-3 py-2 rounded-xl text-sm font-mono">
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">Google Analytics 4 Measurement ID</h3>
+              <p class="text-[11px] text-slate-400 mb-2">Идентификатор потока данных GA4 для сбора статистики и отслеживания рекламных кампаний.</p>
+              <input type="text" id="marketing-ga4-id" placeholder="G-XXXXXXXXXX" class="w-full b2b-input px-3 py-2 rounded-xl text-sm font-mono">
+            </div>
+
+            <div class="pt-2 border-t border-slate-800">
+              <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">Мгновенные уведомления в Telegram (Webhook)</h3>
+              <p class="text-[11px] text-slate-400 mb-2">URL вебхука бота или интегратора. При каждой заявке на этот адрес отправляется карточка лида с UTM-метками.</p>
+              <input type="text" id="marketing-telegram-webhook" placeholder="https://api.telegram.org/bot<TOKEN>/sendMessage?chat_id=<CHAT_ID>" class="w-full b2b-input px-3 py-2 rounded-xl text-sm font-mono">
+            </div>
+
+            <div>
+              <h3 class="text-xs font-bold text-blue-400 uppercase tracking-wider mb-1">Подключение CRM (Bitrix24 / amoCRM Webhook)</h3>
+              <p class="text-[11px] text-slate-400 mb-2">Входящий вебхук для создания лида/сделки в корпоративной CRM-системе.</p>
+              <input type="text" id="marketing-crm-webhook" placeholder="https://your-domain.bitrix24.ru/rest/1/webhook-key/crm.lead.add.json" class="w-full b2b-input px-3 py-2 rounded-xl text-sm font-mono">
+            </div>
+
+            <div class="pt-2">
+              <button type="button" id="save-marketing-btn" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30">
+                Сохранить настройки интеграций
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ================= PRODUCT EDIT MODAL ================= -->
+  <div id="product-edit-modal" class="modal-overlay fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="glass-card-accent max-w-2xl w-full p-6 rounded-3xl border border-slate-700 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+        <h3 id="prod-modal-title" class="text-base font-bold text-white">Редактирование товара</h3>
+        <button type="button" id="close-prod-modal-btn" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <form id="product-edit-form" class="space-y-4 text-xs">
+        <input type="hidden" id="prod-form-id">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Наименование (RU) *</label>
+            <input type="text" id="prod-form-title" required class="w-full b2b-input px-3 py-2 rounded-xl text-xs">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Наименование (EN)</label>
+            <input type="text" id="prod-form-title-en" class="w-full b2b-input px-3 py-2 rounded-xl text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Категория</label>
+            <select id="prod-form-category" class="w-full b2b-input px-3 py-2 rounded-xl text-xs bg-slate-900">
+              <option value="dairy">Упаковка для молочной продукции</option>
+              <option value="eggs">Упаковка для яиц</option>
+              <option value="confectionery">Упаковка для кондитерских изделий</option>
+              <option value="containers">Контейнеры для пищевых продуктов</option>
+              <option value="cups">Стаканы и крышки</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Объем / Емкость</label>
+            <input type="text" id="prod-form-volume" placeholder="400 мл" class="w-full b2b-input px-3 py-2 rounded-xl text-xs">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Диаметр / Размеры</label>
+            <input type="text" id="prod-form-diameter" placeholder="Ø 95 мм" class="w-full b2b-input px-3 py-2 rounded-xl text-xs">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Материал</label>
+            <input type="text" id="prod-form-material" placeholder="PP / PET / PS" class="w-full b2b-input px-3 py-2 rounded-xl text-xs">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">В коробке (шт)</label>
+            <input type="text" id="prod-form-box-qty" placeholder="1 000 шт." class="w-full b2b-input px-3 py-2 rounded-xl text-xs">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Мин. партия</label>
+            <input type="text" id="prod-form-min-order" placeholder="50 000 шт." class="w-full b2b-input px-3 py-2 rounded-xl text-xs">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Путь к изображению (SVG / WebP / JPG)</label>
+          <input type="text" id="prod-form-image" placeholder="assets/images/product-dairy-cup.svg" class="w-full b2b-input px-3 py-2 rounded-xl text-xs font-mono">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Описание (RU)</label>
+          <textarea id="prod-form-desc" rows="2" class="w-full b2b-input px-3 py-2 rounded-xl text-xs"></textarea>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Описание (EN)</label>
+          <textarea id="prod-form-desc-en" rows="2" class="w-full b2b-input px-3 py-2 rounded-xl text-xs"></textarea>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 flex justify-end gap-2">
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30">
+            Сохранить товар
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="src/shared/data/store.js"></script>
+  <script src="src/features/localization/i18n.js"></script>
+  <script src="src/features/site/shared-ui.js"></script>
+  <script src="src/features/admin/admin.js"></script>
+</body>
+</html>

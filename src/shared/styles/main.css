@@ -1,0 +1,401 @@
+/*
+ * Shared industrial B2B design system.
+ * Muosir Plast - Premium Export Landing Page & Admin Console
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Grotesk', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Premium Industrial Color Tokens */
+  --bg-dark: #050811;
+  --bg-surface: #0B1323;
+  --bg-surface-elevated: #101B33;
+  --bg-surface-glass: rgba(11, 19, 35, 0.78);
+  
+  --primary-blue: #0284C7;
+  --primary-blue-hover: #0EA5E9;
+  --primary-glow: rgba(2, 132, 199, 0.38);
+  
+  --cyan-accent: #00D2FF;
+  --cyan-glow: rgba(0, 210, 255, 0.35);
+  
+  --emerald-accent: #10B981;
+  --emerald-glow: rgba(16, 185, 129, 0.3);
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-active: rgba(0, 210, 255, 0.45);
+  --border-blue: rgba(2, 132, 199, 0.45);
+
+  --text-main: #F8FAFC;
+  --text-muted: #CBD5E1;
+  --text-dim: #94A3B8;
+}
+
+/* Light Theme Variables & Overrides */
+html.theme-light, [data-theme="light"] {
+  --bg-dark: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F1F5F9;
+  --bg-surface-glass: rgba(255, 255, 255, 0.92);
+
+  --primary-blue: #0284C7;
+  --primary-blue-hover: #0369A1;
+  --primary-glow: rgba(2, 132, 199, 0.2);
+
+  --cyan-accent: #0284C7;
+  --cyan-glow: rgba(2, 132, 199, 0.2);
+
+  --emerald-accent: #059669;
+  --emerald-glow: rgba(5, 150, 105, 0.2);
+
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-medium: rgba(15, 23, 42, 0.15);
+  --border-active: rgba(2, 132, 199, 0.45);
+  --border-blue: rgba(2, 132, 199, 0.45);
+
+  --text-main: #0F172A;
+  --text-muted: #334155;
+  --text-dim: #64748B;
+}
+
+html.theme-light body {
+  background-color: #F8FAFC !important;
+  color: #0F172A !important;
+}
+
+html.theme-light .bg-slate-950,
+html.theme-light .bg-slate-950\/85,
+html.theme-light .bg-slate-950\/90,
+html.theme-light .bg-slate-950\/95 {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+}
+
+html.theme-light .bg-slate-900,
+html.theme-light .bg-slate-900\/90,
+html.theme-light .bg-slate-900\/80,
+html.theme-light .bg-slate-900\/60,
+html.theme-light .bg-slate-900\/40 {
+  background-color: #F1F5F9 !important;
+}
+
+html.theme-light .border-slate-800,
+html.theme-light .border-slate-800\/80,
+html.theme-light .border-slate-700,
+html.theme-light .border-slate-700\/80,
+html.theme-light .border-slate-900 {
+  border-color: #E2E8F0 !important;
+}
+
+html.theme-light .text-white,
+html.theme-light .text-slate-100 {
+  color: #0F172A !important;
+}
+
+html.theme-light .text-slate-200,
+html.theme-light .text-slate-300 {
+  color: #334155 !important;
+}
+
+html.theme-light .text-slate-400 {
+  color: #475569 !important;
+}
+
+html.theme-light .text-slate-500 {
+  color: #64748B !important;
+}
+
+html.theme-light .glass-card,
+html.theme-light .glass-card-accent {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.08) !important;
+}
+
+html.theme-light header {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
+}
+
+html.theme-light footer {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+}
+
+html.theme-light .b2b-input {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+  border-color: #CBD5E1 !important;
+}
+
+html.theme-light .b2b-input:focus {
+  background-color: #FFFFFF !important;
+  border-color: #0284C7 !important;
+}
+
+/* Utility to hide scrollbars for touch/swipe carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth HTML scroll behavior & Font smoothing */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Numeric / Technical Specification typography */
+.font-mono-numbers,
+.font-spec {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* Keep transformed content in a predictable stacking context. */
+.site-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Used as a stacking context for card overlays. */
+.interactive-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* Glassmorphism Surface Panels */
+.glass-card {
+  background: var(--bg-surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: var(--border-medium);
+  box-shadow: 0 14px 34px -10px rgba(0, 0, 0, 0.5);
+}
+
+.glass-card-accent {
+  background: rgba(16, 27, 51, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-active);
+  box-shadow: 0 10px 30px -10px rgba(2, 132, 199, 0.28);
+}
+
+/* Modern Industrial Grid Pattern Accents */
+.industrial-grid-bg {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.radial-glow-top {
+  background: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.18) 0%, transparent 70%);
+}
+
+/* Glow Text & Gradient Accents */
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #FFFFFF 15%, #38BDF8 60%, #00D2FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #A7F3D0 0%, #10B981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animated Floating Elements */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.8deg); }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* Premium Buttons */
+.btn-primary-glow {
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 8px 24px -4px rgba(2, 132, 199, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary-glow:hover {
+  background: linear-gradient(135deg, #0EA5E9 0%, #0284C7 100%);
+  box-shadow: 0 12px 32px -4px rgba(2, 132, 199, 0.65), 0 0 18px rgba(0, 210, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.btn-primary-glow:active {
+  transform: translateY(0px);
+}
+
+.btn-glass-secondary {
+  background: rgba(16, 27, 51, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #F8FAFC;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-glass-secondary:hover {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(0, 210, 255, 0.5);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-glass-secondary:active {
+  transform: translateY(0px);
+}
+
+/* WhatsApp Pulse Radar Ring */
+@keyframes pulseRing {
+  0% { transform: scale(0.95); opacity: 0.85; }
+  50% { transform: scale(1.35); opacity: 0; }
+  100% { transform: scale(0.95); opacity: 0; }
+}
+
+.whatsapp-pulse-ring {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 9999px;
+  background: #25D366;
+  opacity: 0.45;
+  animation: pulseRing 2.4s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+  pointer-events: none;
+}
+
+/* Floating Back To Top Button */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 100px;
+  z-index: 45;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.back-to-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Modal Blur & Transitions */
+.modal-overlay {
+  background: rgba(3, 7, 18, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* B2B Form inputs styling with enhanced focus glow */
+.b2b-input {
+  background: rgba(11, 19, 35, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #F8FAFC;
+  transition: none;
+  font-family: var(--font-sans);
+}
+
+.b2b-input:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.b2b-input:focus {
+  outline: none;
+  border-color: #00D2FF;
+  box-shadow: 0 0 0 3px rgba(0, 210, 255, 0.22), 0 4px 16px rgba(0, 210, 255, 0.15);
+  background: rgba(16, 27, 51, 0.98);
+}
+
+/* Table styling for Admin panel & specs */
+.admin-table th {
+  background: #0B1324;
+  color: #CBD5E1;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.875rem;
+  color: #F1F5F9;
+}
+
+.admin-table tr:hover td {
+  background: rgba(2, 132, 199, 0.08);
+}
+
+/* Interactive Product Catalog Card Zoom */
+.catalog-img-container img {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.interactive-card:hover .catalog-img-container img {
+  transform: scale(1.06);
+}
+
+/* Badge Glow Styling */
+.badge-status-pill {
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.2);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+}

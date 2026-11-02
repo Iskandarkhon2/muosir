@@ -1,0 +1,391 @@
+{
+  "company": {
+    "name": "Муосир пласт",
+    "nameEn": "Muosir Plast",
+    "tagline": "Пластиковая упаковка напрямую от производителя из Таджикистана",
+    "taglineEn": "Plastic packaging directly from the manufacturer in Tajikistan",
+    "subtagline": "Серийное производство и экспортные поставки полимерной упаковки для молочной, пищевой и кондитерской промышленности.",
+    "subtaglineEn": "Mass production and export deliveries of polymer packaging for dairy, food, and confectionery industries.",
+    "phone": "+992 92 299 2000",
+    "phoneClean": "992922992000",
+    "whatsapp": "+992 92 299 2000",
+    "email": "export@muosirplast.tj",
+    "address": "Республика Таджикистан, Согдийская область, г. Худжанд, промышленная зона",
+    "addressEn": "Republic of Tajikistan, Sughd Region, Khujand city, Industrial Zone",
+    "instagram": "https://instagram.com/muosirplast",
+    "facebook": "https://facebook.com/muosirplast",
+    "catalogPdfUrl": "assets/docs/muosir-plast-export-catalog.pdf"
+  },
+  "stats": [
+    { "id": "years", "number": "12+", "label": "лет на рынке", "labelEn": "years on the market" },
+    { "id": "products", "number": "65+", "label": "видов продукции", "labelEn": "product items" },
+    { "id": "lines", "number": "14", "label": "современных линий", "labelEn": "production lines" },
+    { "id": "capacity", "number": "18 млн", "label": "изделий в месяц", "labelEn": "monthly capacity" },
+    { "id": "clients", "number": "320+", "label": "B2B клиентов", "labelEn": "B2B clients" },
+    { "id": "countries", "number": "5+", "label": "стран экспорта", "labelEn": "export countries" }
+  ],
+  "categories": [
+    { "id": "all", "name": "Вся продукция", "nameEn": "All Products" },
+    { "id": "dairy", "name": "Для молочной продукции", "nameEn": "Dairy Packaging" },
+    { "id": "eggs", "name": "Упаковка для яиц", "nameEn": "Egg Packaging" },
+    { "id": "confectionery", "name": "Кондитерская тара", "nameEn": "Confectionery" },
+    { "id": "containers", "name": "Пищевые контейнеры", "nameEn": "Food Containers" },
+    { "id": "cups", "name": "Стаканы и крышки", "nameEn": "Cups & Lids" }
+  ],
+  "products": [
+    {
+      "id": "prod-1",
+      "categoryId": "dairy",
+      "title": "Стакан для сметаны и йогурта 400 мл (Ø 95 мм)",
+      "titleEn": "Sour cream & yogurt cup 400 ml (Ø 95 mm)",
+      "volume": "400 мл",
+      "volumeEn": "400 ml",
+      "diameter": "Ø 95 мм",
+      "material": "PP (Полипропилен)",
+      "color": "Белый / Прозрачный / С печатью",
+      "colorEn": "White / Transparent / Printed",
+      "boxQty": "1 000 шт.",
+      "minOrder": "50 000 шт.",
+      "image": "assets/images/product-dairy-cup.svg",
+      "desc": "Герметичный стакан под запайку платинкой из фольги или нахлобучку. Подходит для высокоскоростных фасовочных автоматов.",
+      "descEn": "Sealed cup suitable for foil sealing or snap-on lid. Designed for high-speed automated filling lines."
+    },
+    {
+      "id": "prod-2",
+      "categoryId": "dairy",
+      "title": "Стакан под творог и десерты 250 мл (Ø 95 мм)",
+      "titleEn": "Cottage cheese & dessert cup 250 ml (Ø 95 mm)",
+      "volume": "250 мл",
+      "volumeEn": "250 ml",
+      "diameter": "Ø 95 мм",
+      "material": "PP (Первичное сырье)",
+      "color": "Белый / Индивидуальный цвет",
+      "colorEn": "White / Custom color",
+      "boxQty": "1 200 шт.",
+      "minOrder": "50 000 шт.",
+      "image": "assets/images/product-dairy-250.svg",
+      "desc": "Устойчив к глубокой заморозке и температурным перепадам. Прочный ободок под стандартную запайку.",
+      "descEn": "Resistant to deep freezing and temperature fluctuations. Rigid rim for standard heat sealing."
+    },
+    {
+      "id": "prod-3",
+      "categoryId": "dairy",
+      "title": "Крышка-нахлобучка прозрачная Ø 95 мм",
+      "titleEn": "Transparent snap-on lid Ø 95 mm",
+      "volume": "Ø 95 мм",
+      "volumeEn": "Ø 95 mm",
+      "diameter": "Ø 95 мм",
+      "material": "PET / PS",
+      "color": "Кристально прозрачный",
+      "colorEn": "Crystal clear",
+      "boxQty": "2 000 шт.",
+      "minOrder": "50 000 шт.",
+      "image": "assets/images/product-lid-95.svg",
+      "desc": "Идеальная фиксация на стаканах 95 мм. Защищает продукт после снятия фольги.",
+      "descEn": "Perfect snap-fit on 95mm cups. Protects the product after foil seal is removed."
+    },
+    {
+      "id": "prod-4",
+      "categoryId": "eggs",
+      "title": "Контейнер для яиц на 10 шт. (C0 / C1 / C2)",
+      "titleEn": "Egg container for 10 pcs (C0 / C1 / C2)",
+      "volume": "10 яиц",
+      "volumeEn": "10 eggs",
+      "diameter": "248 x 105 x 70 мм",
+      "material": "PET (Высокая прозрачность)",
+      "color": "Прозрачный",
+      "colorEn": "Transparent",
+      "boxQty": "600 шт.",
+      "minOrder": "30 000 шт.",
+      "image": "assets/images/product-egg-10.svg",
+      "desc": "Усиленные ребра жесткости, надежный двойной замок. Позволяет штабелировать упаковку без повреждения яиц.",
+      "descEn": "Reinforced stiffening ribs, reliable dual snap locks. Safe stacking during transport."
+    },
+    {
+      "id": "prod-5",
+      "categoryId": "eggs",
+      "title": "Контейнер для яиц на 15 шт. с вентиляцией",
+      "titleEn": "Egg container for 15 pcs with ventilation",
+      "volume": "15 яиц",
+      "volumeEn": "15 eggs",
+      "diameter": "295 x 150 x 70 мм",
+      "material": "PET пищевой",
+      "color": "Прозрачный глянцевый",
+      "colorEn": "Transparent glossy",
+      "boxQty": "450 шт.",
+      "minOrder": "30 000 шт.",
+      "image": "assets/images/product-egg-15.svg",
+      "desc": "Эргономичная форма с вентиляционными отверстиями для продления свежести продукции на полке ритейла.",
+      "descEn": "Ergonomic shape with ventilation holes to prolong shelf life in retail stores."
+    },
+    {
+      "id": "prod-6",
+      "categoryId": "confectionery",
+      "title": "Тортовница круглая премиум Ø 210 мм с замком",
+      "titleEn": "Round cake container premium Ø 210 mm",
+      "volume": "до 1.5 кг",
+      "volumeEn": "up to 1.5 kg",
+      "diameter": "Ø 210 мм, H 110 мм",
+      "material": "PET купол + PS дно",
+      "color": "Черное дно + прозрачный купол",
+      "colorEn": "Black base + crystal clear dome",
+      "boxQty": "200 шт.",
+      "minOrder": "20 000 шт.",
+      "image": "assets/images/product-cake-round.svg",
+      "desc": "Премиальная презентация кондитерских изделий. Надежная круговая фиксация купола исключает случайное открытие.",
+      "descEn": "Premium presentation of confectionery. Secure perimeter locking prevents accidental opening."
+    },
+    {
+      "id": "prod-7",
+      "categoryId": "confectionery",
+      "title": "Коррекс для печенья и зефира (3 секции)",
+      "titleEn": "Cookie & marshmallow tray (3 sections)",
+      "volume": "350-500 г",
+      "volumeEn": "350-500 g",
+      "diameter": "215 x 115 x 45 мм",
+      "material": "PS (Полистирол) / PET",
+      "color": "Коричневый / Прозрачный / Золотой",
+      "colorEn": "Brown / Transparent / Gold",
+      "boxQty": "1 500 шт.",
+      "minOrder": "40 000 шт.",
+      "image": "assets/images/product-correx.svg",
+      "desc": "Защищает хрупкую выпечку от ломки при транспортировке. Подходит для автоматических флоу-пак линий.",
+      "descEn": "Protects delicate bakery items from breaking during transport. Suitable for automated flow-pack lines."
+    },
+    {
+      "id": "prod-8",
+      "categoryId": "containers",
+      "title": "Прямоугольный контейнер с крышкой 500 мл",
+      "titleEn": "Rectangular container with hinged lid 500 ml",
+      "volume": "500 мл",
+      "volumeEn": "500 ml",
+      "diameter": "140 x 115 x 52 мм",
+      "material": "PP пищевой термостойкий",
+      "color": "Прозрачный / Черный",
+      "colorEn": "Transparent / Black",
+      "boxQty": "500 шт.",
+      "minOrder": "30 000 шт.",
+      "image": "assets/images/product-container-500.svg",
+      "desc": "Подходит для горячих и холодных блюд, разогрева в СВЧ. Герметичный замок по всему периметру.",
+      "descEn": "Suitable for hot and cold dishes, microwave-safe. Leak-proof perimeter seal."
+    },
+    {
+      "id": "prod-9",
+      "categoryId": "containers",
+      "title": "Контейнер салатный круглый 750 мл с крышкой",
+      "titleEn": "Round salad bowl 750 ml with lid",
+      "volume": "750 мл",
+      "volumeEn": "750 ml",
+      "diameter": "Ø 150 мм, H 65 мм",
+      "material": "PET сверхпрозрачный",
+      "color": "Прозрачный",
+      "colorEn": "Clear transparent",
+      "boxQty": "400 шт.",
+      "minOrder": "30 000 шт.",
+      "image": "assets/images/product-salad-750.svg",
+      "desc": "Идеален для готовых салатов, полуфабрикатов и кулинарии. Отличный глянец и жесткость стенок.",
+      "descEn": "Ideal for ready-to-eat salads, deli and food service. Excellent gloss and wall rigidity."
+    },
+    {
+      "id": "prod-10",
+      "categoryId": "cups",
+      "title": "Одноразовый стакан для холодных напитков 500 мл",
+      "titleEn": "Disposable cold beverage cup 500 ml",
+      "volume": "500 мл",
+      "volumeEn": "500 ml",
+      "diameter": "Ø 95 мм, H 135 мм",
+      "material": "PP первичный",
+      "color": "Прозрачный",
+      "colorEn": "Transparent",
+      "boxQty": "1 000 шт.",
+      "minOrder": "50 000 шт.",
+      "image": "assets/images/product-cup-500.svg",
+      "desc": "Эластичный, не трескается при сжатии. Возможность нанесения многоцветного логотипа бренда.",
+      "descEn": "Elastic and shatter-proof. Multi-color custom brand printing available."
+    },
+    {
+      "id": "prod-11",
+      "categoryId": "cups",
+      "title": "Купольная крышка с отверстием Ø 95 мм",
+      "titleEn": "Dome lid with hole Ø 95 mm",
+      "volume": "Ø 95 мм",
+      "volumeEn": "Ø 95 mm",
+      "diameter": "Ø 95 мм, H 45 мм",
+      "material": "PET кристальный",
+      "color": "Прозрачный",
+      "colorEn": "Clear transparent",
+      "boxQty": "1 000 шт.",
+      "minOrder": "50 000 шт.",
+      "image": "assets/images/product-dome-lid.svg",
+      "desc": "Купол под коктейльные трубочки, десерты со взбитыми сливками и смузи. Плотно защелкивается.",
+      "descEn": "Dome for cocktail straws, smoothies, and whipped desserts. Snaps on tightly."
+    },
+    {
+      "id": "prod-12",
+      "categoryId": "containers",
+      "title": "Ланч-бокс двухсекционный 1000 мл (PP)",
+      "titleEn": "2-compartment lunch box 1000 ml (PP)",
+      "volume": "1000 мл (650+350)",
+      "volumeEn": "1000 ml (650+350)",
+      "diameter": "220 x 175 x 48 мм",
+      "material": "PP термостойкий (-20°C до +120°C)",
+      "color": "Черный корпус + прозрачная крышка",
+      "colorEn": "Black base + clear lid",
+      "boxQty": "300 шт.",
+      "minOrder": "25 000 шт.",
+      "image": "assets/images/product-lunch-box.svg",
+      "desc": "Раздельное хранение основного блюда и гарнира. Прочный замок, выдерживает доставку горячих обедов.",
+      "descEn": "Separate compartments for main dish and side. Sturdy lock, ideal for hot meal delivery."
+    }
+  ],
+  "advantages": [
+    {
+      "icon": "factory",
+      "title": "Собственное производство",
+      "titleEn": "Direct Manufacturing",
+      "desc": "Работа напрямую с заводом без торговых наценок и перекупщиков. Полный контроль технологического цикла.",
+      "descEn": "Direct cooperation with the factory without distributor markups. Full control of the entire cycle."
+    },
+    {
+      "icon": "truck",
+      "title": "Крупнооптовые объемы",
+      "titleEn": "Large Wholesale Volumes",
+      "desc": "Мощность свыше 18 млн изделий ежемесячно гарантирует бесперебойные поставки даже в пиковый сезон.",
+      "descEn": "Monthly capacity exceeding 18M units guarantees stable deliveries even during peak seasons."
+    },
+    {
+      "icon": "badge-percent",
+      "title": "Экспортная себестоимость",
+      "titleEn": "Competitive Export Pricing",
+      "desc": "Выгодные тарифы на энергоресурсы и оптимизированное производство дают ценовое преимущество для зарубежных импортеров.",
+      "descEn": "Favorable utility rates and optimized production provide cost advantages for international importers."
+    },
+    {
+      "icon": "shield-check",
+      "title": "Первичное сырье и пищевой допуск",
+      "titleEn": "100% Virgin Food-Grade Polymers",
+      "desc": "Используем только первичное сырье ведущих мировых марок. Продукция сертифицирована для прямого контакта с пищей.",
+      "descEn": "We use only certified virgin polymers. Fully compliant with food contact safety regulations."
+    },
+    {
+      "icon": "sliders",
+      "title": "Индивидуальный подход и пресс-формы",
+      "titleEn": "Custom Molds & Branding",
+      "desc": "Разработка уникальной геометрии, подбор цвета по Pantone, изготовление пресс-форм и нанесение фирменной печати.",
+      "descEn": "Custom packaging geometry, Pantone color matching, mold tooling, and branded printing."
+    },
+    {
+      "icon": "globe",
+      "title": "Международная логистика",
+      "titleEn": "International Logistics Support",
+      "desc": "Опыт экспорта в Узбекистан, Казахстан, РФ. Оформление таможенных деклараций, сертификатов СТ-1, отгрузка авто и ж/д.",
+      "descEn": "Export experience to Uzbekistan, Kazakhstan, Russia. Full customs support, CT-1 certificates, rail & truck."
+    }
+  ],
+  "production": [
+    {
+      "step": "01",
+      "title": "Экструзия полимерного листа",
+      "titleEn": "Polymer Sheet Extrusion",
+      "desc": "Высокоточные многослойные экструзионные линии обеспечивают равномерную толщину и прочность полимерного полотна.",
+      "descEn": "High-precision multi-layer extrusion lines provide uniform thickness and strength of polymer rolls."
+    },
+    {
+      "step": "02",
+      "title": "Автоматическое термоформование",
+      "titleEn": "Automated Thermoforming",
+      "desc": "Европейские пресс-формы и немецкие сервоприводы гарантируют идеальную геометрию и герметичность каждого замка.",
+      "descEn": "European tooling and high-speed servo-drives ensure precise geometry and tight rim sealing."
+    },
+    {
+      "step": "03",
+      "title": "Контроль качества (ОТК)",
+      "titleEn": "Quality Assurance (QA Lab)",
+      "desc": "Каждая партия тестируется на прочность, герметичность швов, отсутствие запаха и точность габаритов.",
+      "descEn": "Every batch is tested for rigidity, seal tightness, zero odor, and exact dimensional tolerance."
+    },
+    {
+      "step": "04",
+      "title": "Автоматическая упаковка и паллетирование",
+      "titleEn": "Packaging & Palletizing",
+      "desc": "Изделия упаковываются в герметичные пакеты и пятислойные гофрокороба, гарантирующие сохранность при дальнем транзите.",
+      "descEn": "Products are sealed in protective bags and heavy-duty 5-layer corrugated boxes for long-distance transit."
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-1",
+      "title": "Сертификат соответствия на пищевую полимерную упаковку",
+      "titleEn": "Certificate of Conformity for Food-Grade Plastic Packaging",
+      "type": "ГОСТ / ТР ТС",
+      "number": "№ ТД-2026-0814",
+      "date": "2026",
+      "file": "assets/docs/certificate-conformity.pdf"
+    },
+    {
+      "id": "doc-2",
+      "title": "Санитарно-эпидемиологическое заключение (безопасность контакта с пищей)",
+      "titleEn": "Sanitary & Epidemiological Certificate (Food Contact)",
+      "type": "СЭЗ",
+      "number": "№ СЭЗ-992-0412",
+      "date": "2026",
+      "file": "assets/docs/sanitary-conclusion.pdf"
+    },
+    {
+      "id": "doc-3",
+      "title": "Паспорт качества на первичное гранулированное сырье PP/PET",
+      "titleEn": "Quality Certificate for Virgin PP/PET Polymers",
+      "type": "Паспорт сырья",
+      "number": "№ RAW-PP-2026",
+      "date": "2026",
+      "file": "assets/docs/raw-material-spec.pdf"
+    },
+    {
+      "id": "doc-4",
+      "title": "Сертификат происхождения товара (Форма СТ-1 для беспошлинного экспорта в СНГ)",
+      "titleEn": "Certificate of Origin (Form CT-1 for CIS Duty-Free Export)",
+      "type": "СТ-1",
+      "number": "№ TJ-СТ1-8841",
+      "date": "2026",
+      "file": "assets/docs/ct1-certificate.pdf"
+    }
+  ],
+  "workflow": [
+    {
+      "step": "1",
+      "title": "Запрос спецификации",
+      "titleEn": "Inquiry & Spec",
+      "desc": "Выберите позиции из каталога или отправьте вашу спецификацию и требования к фасовке.",
+      "descEn": "Select items from our catalog or send your custom technical specification."
+    },
+    {
+      "step": "2",
+      "title": "Расчет и отправка КП",
+      "titleEn": "Cost Calculation & Offer",
+      "desc": "Экспорт-менеджер рассчитывает стоимость с учетом объема и логистики, отправляет образцы для тестов.",
+      "descEn": "Export manager prepares tailored quote considering volumes and logistics, sends free testing samples."
+    },
+    {
+      "step": "3",
+      "title": "Контракт и условия оплаты",
+      "titleEn": "Contract & Terms",
+      "desc": "Согласовываем контракт, спецификацию, график отгрузок и условия поставки (FCA, DAP, CIF).",
+      "descEn": "We finalize contract, specification, shipping schedule, and Incoterms (FCA, DAP, CIF)."
+    },
+    {
+      "step": "4",
+      "title": "Производство партии",
+      "titleEn": "Batch Production",
+      "desc": "Изготовление заказа на автоматизированных линиях с соблюдением ГОСТ и контролем ОТК.",
+      "descEn": "Manufacturing on automated lines in strict compliance with safety and QA standards."
+    },
+    {
+      "step": "5",
+      "title": "Таможенное оформление и отгрузка",
+      "titleEn": "Customs & Dispatch",
+      "desc": "Предоставляем полный пакет документов (СТ-1, инвойс, СЭЗ) и контролируем транзит до склада клиента.",
+      "descEn": "We provide full documentation (CT-1, invoice, sanitary permits) and monitor transit."
+    }
+  ],
+  "leads": []
+}

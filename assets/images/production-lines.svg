@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" fill="none">
+  <defs>
+    <linearGradient id="lineBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#08101F"/>
+      <stop offset="60%" stop-color="#0F1B33"/>
+      <stop offset="100%" stop-color="#060B14"/>
+    </linearGradient>
+    <linearGradient id="machineMetal" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="50%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="accentGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0066FF"/>
+      <stop offset="100%" stop-color="#00D2FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#lineBg)"/>
+  
+  <!-- Perspective Floor Lines -->
+  <g stroke="#0066FF" stroke-opacity="0.15" stroke-width="1.5">
+    <line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="0" y1="410" x2="800" y2="410"/>
+    <line x1="0" y1="465" x2="800" y2="465"/>
+    <line x1="400" y1="240" x2="0" y2="500"/>
+    <line x1="400" y1="240" x2="200" y2="500"/>
+    <line x1="400" y1="240" x2="600" y2="500"/>
+    <line x1="400" y1="240" x2="800" y2="500"/>
+  </g>
+
+  <!-- Industrial High-Speed Multi-Station Thermoforming Machine -->
+  <!-- Main Frame -->
+  <rect x="70" y="160" width="660" height="200" rx="10" fill="url(#machineMetal)" stroke="#00D2FF" stroke-width="2"/>
+  
+  <!-- Safety Inspection Windows -->
+  <rect x="100" y="190" width="160" height="110" rx="6" fill="#0B132B" stroke="#38BDF8" stroke-width="1.5"/>
+  <rect x="290" y="190" width="220" height="110" rx="6" fill="#0B132B" stroke="#0066FF" stroke-width="1.5"/>
+  <rect x="540" y="190" width="160" height="110" rx="6" fill="#0B132B" stroke="#38BDF8" stroke-width="1.5"/>
+
+  <!-- Glowing Forming Zone & Molds -->
+  <g fill="#0284C7" fill-opacity="0.8">
+    <circle cx="340" cy="235" r="18"/>
+    <circle cx="400" cy="235" r="18"/>
+    <circle cx="460" cy="235" r="18"/>
+    <circle cx="340" cy="275" r="18"/>
+    <circle cx="400" cy="275" r="18"/>
+    <circle cx="460" cy="275" r="18"/>
+  </g>
+  <text x="400" y="210" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="10" font-weight="900" text-anchor="middle" letter-spacing="1.5">MULTI-CAVITY SERVO MOLD</text>
+
+  <!-- Digital Touch Control Panel Console -->
+  <rect x="650" y="110" width="110" height="75" rx="6" fill="#030712" stroke="#00D2FF" stroke-width="1.5"/>
+  <line x1="705" y1="185" x2="705" y2="240" stroke="#475569" stroke-width="5"/>
+  <rect x="660" y="120" width="90" height="40" rx="3" fill="#0B1B38"/>
+  <text x="705" y="135" fill="#10B981" font-family="monospace" font-size="9" font-weight="bold" text-anchor="middle">SPEED: 42 cpm</text>
+  <text x="705" y="150" fill="#00D2FF" font-family="monospace" font-size="8" text-anchor="middle">HEAT: 168.4°C</text>
+  
+  <!-- LED Status Bar -->
+  <circle cx="670" cy="172" r="4" fill="#10B981"/>
+  <circle cx="685" cy="172" r="4" fill="#3B82F6"/>
+  <circle cx="700" cy="172" r="4" fill="#64748B"/>
+
+  <!-- Conveyor Output & Stacked Products -->
+  <rect x="40" y="310" width="720" height="24" fill="#1E293B" stroke="#475569"/>
+  <!-- Stacked White Cups moving out -->
+  <g fill="#F8FAFC" stroke="#CBD5E1">
+    <rect x="130" y="270" width="22" height="35" rx="2"/>
+    <rect x="156" y="270" width="22" height="35" rx="2"/>
+    <rect x="182" y="270" width="22" height="35" rx="2"/>
+    <rect x="208" y="270" width="22" height="35" rx="2"/>
+  </g>
+
+  <!-- Industrial Banner Overlay -->
+  <rect x="70" y="390" width="660" height="60" rx="10" fill="#0B1322" stroke="#1E293B"/>
+  <text x="100" y="416" fill="#FFFFFF" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">АВТОМАТИЧЕСКИЕ ЛИНИИ ТЕРМОФОРМОВАНИЯ</text>
+  <text x="100" y="436" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">Европейские термоформовочные станки с точностью штампа ±0.05 мм</text>
+  <rect x="620" y="405" width="90" height="28" rx="6" fill="#0066FF" fill-opacity="0.2" stroke="#0066FF"/>
+  <text x="665" y="423" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">СЕРВОПРИВОД</text>
+</svg>

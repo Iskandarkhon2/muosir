@@ -1,0 +1,68 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" fill="none">
+  <defs>
+    <linearGradient id="hallGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0B132B"/>
+      <stop offset="60%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0066FF" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#00D2FF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="metalLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="50%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#hallGrad)"/>
+  
+  <!-- Perspective Floor Grid -->
+  <g stroke="#0066FF" stroke-opacity="0.18" stroke-width="1.5">
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="460" x2="1200" y2="460"/>
+    <line x1="0" y1="510" x2="1200" y2="510"/>
+    <line x1="0" y1="570" x2="1200" y2="570"/>
+    <!-- Perspective Rays -->
+    <line x1="600" y1="280" x2="0" y2="600"/>
+    <line x1="600" y1="280" x2="200" y2="600"/>
+    <line x1="600" y1="280" x2="400" y2="600"/>
+    <line x1="600" y1="280" x2="800" y2="600"/>
+    <line x1="600" y1="280" x2="1000" y2="600"/>
+    <line x1="600" y1="280" x2="1200" y2="600"/>
+  </g>
+  
+  <!-- Industrial Gantry / Ceilings -->
+  <rect x="0" y="30" width="1200" height="40" fill="#1E293B" stroke="#475569"/>
+  <line x1="200" y1="70" x2="200" y2="350" stroke="#334155" stroke-width="6"/>
+  <line x1="600" y1="70" x2="600" y2="350" stroke="#334155" stroke-width="6"/>
+  <line x1="1000" y1="70" x2="1000" y2="350" stroke="#334155" stroke-width="6"/>
+
+  <!-- High-Tech Extrusion / Thermoforming Line Units -->
+  <!-- Unit 1 -->
+  <rect x="80" y="260" width="300" height="150" rx="8" fill="url(#metalLine)" stroke="#0066FF" stroke-width="2"/>
+  <rect x="110" y="280" width="100" height="50" rx="4" fill="#0F172A" stroke="#00D2FF" stroke-width="1.5"/>
+  <circle cx="160" cy="305" r="18" fill="#0066FF" fill-opacity="0.4"/>
+  <rect x="230" y="280" width="120" height="110" fill="#0B132B" stroke="#475569"/>
+  <!-- Status Lights -->
+  <circle cx="110" cy="360" r="5" fill="#10B981"/>
+  <circle cx="130" cy="360" r="5" fill="#3B82F6"/>
+  
+  <!-- Unit 2 (Thermoforming Servo Mold) -->
+  <rect x="450" y="220" width="340" height="190" rx="8" fill="url(#metalLine)" stroke="#00D2FF" stroke-width="2.5"/>
+  <rect x="490" y="250" width="260" height="90" rx="6" fill="#0B132B" stroke="#0066FF"/>
+  <!-- Robotic Vacuum / Mold Head -->
+  <rect x="570" y="260" width="100" height="55" rx="4" fill="#0284C7" stroke="#38BDF8" stroke-width="1.5"/>
+  <text x="620" y="295" font-family="system-ui, sans-serif" font-size="11" font-weight="900" fill="#FFFFFF" text-anchor="middle">LINE #04 ACTIVE</text>
+  <circle cx="480" cy="380" r="6" fill="#10B981"/>
+
+  <!-- Unit 3 (Automated Stacker & Conveyor) -->
+  <rect x="850" y="280" width="280" height="130" rx="8" fill="url(#metalLine)" stroke="#0066FF" stroke-width="2"/>
+  <line x1="850" y1="340" x2="1130" y2="340" stroke="#00D2FF" stroke-width="3" stroke-dasharray="6,4"/>
+  
+  <!-- Futuristic HUD / Factory Overlay -->
+  <g transform="translate(40, 40)">
+    <text x="0" y="0" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#00D2FF" letter-spacing="2">MUOSIR PLAST В· MANUFACTURING PLANT В· KHUJAND</text>
+    <text x="0" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94A3B8">ISO 9001 / FOOD PACKAGING CERTIFIED В· CAPACITY 18M UNITS/MO</text>
+  </g>
+</svg>

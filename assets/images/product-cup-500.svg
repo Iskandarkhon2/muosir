@@ -1,0 +1,12 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" width="400" height="320" fill="none">
+  <rect width="400" height="320" rx="16" fill="#0B132B"/>
+  <ellipse cx="200" cy="275" rx="65" ry="14" fill="#000" fill-opacity="0.35"/>
+  <!-- Tall Cup Body -->
+  <path d="M135 65 L155 255 Q158 262 165 262 L235 262 Q242 262 245 255 L265 65 Z" fill="#38BDF8" fill-opacity="0.25" stroke="#38BDF8" stroke-width="2"/>
+  <ellipse cx="200" cy="65" rx="65" ry="12" fill="#F8FAFC" stroke="#64748B" stroke-width="2"/>
+  <!-- Ribs -->
+  <ellipse cx="200" cy="120" rx="58" ry="8" stroke="#38BDF8" stroke-opacity="0.5" stroke-dasharray="3,3"/>
+  <ellipse cx="200" cy="160" rx="52" ry="7" stroke="#38BDF8" stroke-opacity="0.5" stroke-dasharray="3,3"/>
+  <text x="200" y="210" font-family="system-ui, sans-serif" font-size="14" font-weight="900" fill="#FFFFFF" text-anchor="middle">500 ml BEVERAGE</text>
+  <text x="20" y="32" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#38BDF8">CRYSTAL TRANSPARENT PP</text>
+</svg>

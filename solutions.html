@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отраслевые решения · Муосир пласт (Muosir Plast) — Упаковка для бизнеса</title>
+  <meta name="description" content="Комплексные упаковочные решения для молочных комбинатов, птицефабрик, кондитерских производств, фасовочных предприятий, HoReCa и дистрибьюторов от завода Муосир пласт.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="src/shared/vendor/tailwind.min.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'ui-monospace', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <script>
+    (function() {
+      var t = localStorage.getItem('muosir_theme') || 'dark';
+      if (t === 'light') {
+        document.documentElement.classList.add('theme-light');
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="src/shared/styles/main.css">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css">
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
+  <div class="site-content relative z-10">
+
+    <!-- ================= HEADER ================= -->
+    <header class="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-2xl border-b border-slate-800/80 transition-all duration-300 shadow-xl shadow-black/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          
+          <a href="index.html" class="flex items-center gap-3 group focus:outline-none flex-shrink-0" aria-label="Муосир пласт">
+            <img src="assets/images/logo.png" alt="Муосир пласт" class="h-11 sm:h-12 w-auto object-contain transition-transform group-hover:scale-105 duration-300">
+          </a>
+
+          <!-- Navigation Links -->
+          <nav class="hidden xl:flex items-center space-x-3.5 2xl:space-x-5 text-xs font-bold tracking-wider uppercase text-slate-300 mx-2">
+            <a href="index.html" data-i18n="nav_home" class="hover:text-cyan-400 transition-colors py-1">Главная</a>
+            <a href="about.html" data-i18n="nav_about" class="hover:text-cyan-400 transition-colors py-1">О компании</a>
+            <a href="catalog.html" data-i18n="nav_products" class="hover:text-cyan-400 transition-colors py-1">Продукция</a>
+            <a href="solutions.html" data-i18n="nav_solutions" class="text-cyan-400 py-1 border-b-2 border-cyan-400">Решения</a>
+            <a href="production.html" data-i18n="nav_production" class="hover:text-cyan-400 transition-colors py-1">Производство</a>
+            <a href="quality.html" data-i18n="nav_docs" class="hover:text-cyan-400 transition-colors py-1">Качество</a>
+            <a href="export.html" data-i18n="nav_export" class="hover:text-cyan-400 transition-colors py-1">Экспорт</a>
+            <a href="news.html" data-i18n="nav_news" class="hover:text-cyan-400 transition-colors py-1">Новости</a>
+            <a href="contacts.html" data-i18n="nav_contacts" class="hover:text-cyan-400 transition-colors py-1">Контакты</a>
+          </nav>
+
+          <!-- Action Buttons -->
+          <div class="hidden xl:flex items-center space-x-2.5">
+            <button type="button" class="theme-toggle-btn p-2 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-300 hover:text-white transition-all">
+              <svg class="theme-icon-sun w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              <svg class="theme-icon-moon w-4 h-4 text-blue-600 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+            </button>
+
+            <div class="flex items-center p-1 rounded-xl bg-slate-900/90 border border-slate-800 text-[11px] font-bold">
+              <button type="button" data-lang-btn="ru" class="px-2.5 py-1 rounded-lg transition-all">RU</button>
+              <button type="button" data-lang-btn="en" class="px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-white">EN</button>
+              <button type="button" data-lang-btn="uz" class="px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-white">UZ</button>
+              <button type="button" data-lang-btn="kk" class="px-2.5 py-1 rounded-lg transition-all text-slate-400 hover:text-white">KK</button>
+            </div>
+
+            <a href="https://wa.me/992922992000" target="_blank" class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-950/40 border border-emerald-500/30 text-xs font-bold text-emerald-400 hover:text-emerald-300">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span>+992 92 299 2000</span>
+            </a>
+
+            <a href="#industry-inquiry" data-i18n="nav_cta" class="btn-primary-glow px-4 py-2.5 rounded-xl text-xs font-bold text-white">
+              Получить предложение
+            </a>
+          </div>
+
+          <!-- Mobile Toggle -->
+          <div class="flex items-center xl:hidden space-x-2">
+            <button type="button" class="theme-toggle-btn p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">
+              <svg class="theme-icon-sun w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+              <svg class="theme-icon-moon w-4 h-4 text-blue-600 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+            </button>
+            <button type="button" id="mobile-menu-toggle" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-nav-menu" class="hidden xl:hidden py-4 border-t border-slate-800 space-y-3">
+          <div class="grid grid-cols-2 gap-2 text-xs font-bold uppercase tracking-wider text-slate-300 pb-3 border-b border-slate-800/80">
+            <a href="index.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_home">Главная</a>
+            <a href="about.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_about">О компании</a>
+            <a href="catalog.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_products">Продукция</a>
+            <a href="solutions.html" class="p-2 rounded-lg bg-cyan-950/40 text-cyan-400 font-bold" data-i18n="nav_solutions">Решения</a>
+            <a href="production.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_production">Производство</a>
+            <a href="quality.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_docs">Качество</a>
+            <a href="export.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_export">Экспорт</a>
+            <a href="news.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_news">Новости</a>
+            <a href="contacts.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_contacts">Контакты</a>
+          </div>
+          <div class="flex items-center justify-between pt-2">
+            <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-lg text-xs font-bold">
+              <button type="button" data-lang-btn="ru" class="px-2 py-1 rounded">RU</button>
+              <button type="button" data-lang-btn="en" class="px-2 py-1 rounded text-slate-400">EN</button>
+              <button type="button" data-lang-btn="uz" class="px-2 py-1 rounded text-slate-400">UZ</button>
+              <button type="button" data-lang-btn="kk" class="px-2 py-1 rounded text-slate-400">KK</button>
+            </div>
+            <a href="https://wa.me/992922992000" target="_blank" class="text-xs font-bold text-emerald-400">WhatsApp +992 92 299 2000</a>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <section class="py-16 md:py-24 relative border-b border-slate-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 mb-6">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+          Отраслевая экспертиза
+        </span>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight">
+          Решения для вашего бизнеса и автоматических линий фасовки
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+          Мы разрабатываем и производим полимерную тару с учетом специфики конкретных производств: от требований пищевой безопасности и герметичной термозапайки до логистической прочности штабелирования.
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= 7 KEY INDUSTRIES ACCORDING TO TASK.MD ================= -->
+    <section class="py-16 md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+
+        <!-- 1. Dairy Industry -->
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800 flex flex-col lg:flex-row gap-8 items-center">
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-950/80 text-blue-400 border border-blue-500/30">
+              Отрасль 01
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Молочная промышленность</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Упаковка для сметаны, йогуртов, творожных масс, десертов и сливочного масла. Строгое соответствие геометрии ободка стакана (Ø 95 мм, Ø 75 мм) для автоматической подачи в кассеты фасовочно-упаковочных автоматов.
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-cyan-400 font-bold block mb-0.5">Термозапайка</span>
+                <span class="text-slate-400">Гарантия 100% герметичного шва с платинкой из алюминиевой фольги.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-cyan-400 font-bold block mb-0.5">Крышка-нахлобучка</span>
+                <span class="text-slate-400">Прозрачный колпачок PET/PS для гигиеничного повторного закрытия.</span>
+              </div>
+            </div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="catalog.html" class="btn-primary-glow px-4 py-2 rounded-xl text-xs font-bold text-white">Смотреть молочные стаканы</a>
+              <a href="logo-visualizer.html?prod=prod-1" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-slate-200 hover:text-white">2D-предпросмотр бренда</a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 text-center">
+            <img src="assets/images/product-dairy-cup.svg" alt="Молочные стаканы Muosir Plast" class="max-h-64 mx-auto object-contain drop-shadow-2xl">
+            <div class="mt-4 text-xs text-slate-400">Стаканы 250 мл, 400 мл, 500 мл (PP) + нахлобучки Ø 95 мм</div>
+          </div>
+        </div>
+
+        <!-- 2. Egg & Poultry Farms -->
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800 flex flex-col lg:flex-row-reverse gap-8 items-center">
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-950/80 text-amber-400 border border-amber-500/30">
+              Отрасль 02
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Производство яиц и птицефабрики</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Высокопрочные прозрачные контейнеры из пищевого PET для фасовки столовых яиц категорий С0, С1, С2 на 10 и 15 штук. Инженерная конструкция с 4 конусовидными упорами исключает раздавливание яиц при складировании в 6 ярусов.
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-amber-400 font-bold block mb-0.5">Вентиляция свежести</span>
+                <span class="text-slate-400">Специальные отверстия отводят конденсат и предотвращают порчу.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-amber-400 font-bold block mb-0.5">Двойной замок</span>
+                <span class="text-slate-400">Надежная фиксация створок исключает открывание при транспортировке.</span>
+              </div>
+            </div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="catalog.html" class="btn-primary-glow px-4 py-2 rounded-xl text-xs font-bold text-white">Каталог лотков для яиц</a>
+              <a href="logo-visualizer.html?prod=prod-4" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-slate-200 hover:text-white">2D-предпросмотр лотка</a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 text-center">
+            <img src="assets/images/product-egg-10.svg" alt="Контейнеры для яиц Muosir Plast" class="max-h-64 mx-auto object-contain drop-shadow-2xl">
+            <div class="mt-4 text-xs text-slate-400">Лотки для яиц 10 и 15 ячеек из жесткого сверхпрозрачного PET</div>
+          </div>
+        </div>
+
+        <!-- 3. Confectionery -->
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800 flex flex-col lg:flex-row gap-8 items-center">
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-950/80 text-purple-400 border border-purple-500/30">
+              Отрасль 03
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Кондитерские фабрики и пекарни</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Премиальные тортовницы с круглым и квадратным черным дном, кристально прозрачными высокими куполами и коррексы для штучного печенья, зефира и вафель. Идеальная презентация десертов на витрине супермаркета.
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-purple-400 font-bold block mb-0.5">Круговой замок</span>
+                <span class="text-slate-400">Герметичная посадка купола защищает нежный бисквит и крем от заветривания.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-purple-400 font-bold block mb-0.5">Цветовая палитра</span>
+                <span class="text-slate-400">Дно: черный, коричневый, золотистый или прозрачный по выбору.</span>
+              </div>
+            </div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="catalog.html" class="btn-primary-glow px-4 py-2 rounded-xl text-xs font-bold text-white">Смотреть кондитерскую тару</a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 text-center">
+            <img src="assets/images/product-cake-round.svg" alt="Кондитерская тара Muosir Plast" class="max-h-64 mx-auto object-contain drop-shadow-2xl">
+            <div class="mt-4 text-xs text-slate-400">Тортовницы Ø 190–240 мм и коррексы для фасовки в флоу-пак</div>
+          </div>
+        </div>
+
+        <!-- 4. Food Processing & Culinary -->
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800 flex flex-col lg:flex-row-reverse gap-8 items-center">
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
+              Отрасль 04
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Пищевые производства и кулинария</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Герметичные пищевые контейнеры для салатов, заливных блюд, мясных деликатесов, паштетов и полуфабрикатов. Материал устойчив к воздействию пищевых кислот, жиров и растительных масел.
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-emerald-400 font-bold block mb-0.5">Влаго- и жиростойкость</span>
+                <span class="text-slate-400">Полная гидроизоляция и отсутствие взаимодействия с продуктом.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-emerald-400 font-bold block mb-0.5">Термостойкость PP</span>
+                <span class="text-slate-400">Рабочий диапазон от -20°C (заморозка) до +120°C (разогрев в СВЧ).</span>
+              </div>
+            </div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="catalog.html" class="btn-primary-glow px-4 py-2 rounded-xl text-xs font-bold text-white">Выбрать контейнеры</a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 text-center">
+            <img src="assets/images/product-container-500.svg" alt="Пищевые контейнеры Muosir Plast" class="max-h-64 mx-auto object-contain drop-shadow-2xl">
+            <div class="mt-4 text-xs text-slate-400">Прямоугольные и круглые контейнеры 250, 500, 750, 1000 мл</div>
+          </div>
+        </div>
+
+        <!-- 5. HoReCa & Food Delivery -->
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800 flex flex-col lg:flex-row gap-8 items-center">
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-950/80 text-rose-400 border border-rose-500/30">
+              Отрасль 05
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">HoReCa, доставка еды и кейтеринг</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Двух- и трехсекционные ланч-боксы для доставки горячих бизнес-ланчей, одноразовые стаканы 500 мл под прохладительные напитки, смузи и коктейли с купольными крышками под соломку.
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-rose-400 font-bold block mb-0.5">Секционная подача</span>
+                <span class="text-slate-400">Раздельное хранение горячего блюда, соуса и гарнира без перемешивания.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-rose-400 font-bold block mb-0.5">Брендирование</span>
+                <span class="text-slate-400">Нанесение фирменного логотипа ресторанной сети или службы доставки.</span>
+              </div>
+            </div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="catalog.html" class="btn-primary-glow px-4 py-2 rounded-xl text-xs font-bold text-white">Посуда для ресторанов и доставок</a>
+              <a href="logo-visualizer.html?prod=prod-10" class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-slate-200 hover:text-white">Примерить логотип на стакан</a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 text-center">
+            <img src="assets/images/product-lunch-box.svg" alt="HoReCa посуда Muosir Plast" class="max-h-64 mx-auto object-contain drop-shadow-2xl">
+            <div class="mt-4 text-xs text-slate-400">Секционные ланч-боксы и коктейльные стаканы 500 мл</div>
+          </div>
+        </div>
+
+        <!-- 6. Co-packing & Automated Packaging Lines -->
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800 flex flex-col lg:flex-row-reverse gap-8 items-center">
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-cyan-950/80 text-cyan-400 border border-cyan-500/30">
+              Отрасль 06
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Фасовочные предприятия и контрактное производство</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Высокая точность геометрических допусков (±0.05 мм) гарантирует бесперебойную работу скоростных автоматических фасовочных линий FFS (Form-Fill-Seal). Тара не застревает в кассетах подачи и не вызывает аварийных остановок конвейера.
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-cyan-400 font-bold block mb-0.5">Стабильность толщины</span>
+                <span class="text-slate-400">Равномерный калибр стенок и дна благодаря многозонному сервоконтролю.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-cyan-400 font-bold block mb-0.5">Стерильная упаковка</span>
+                <span class="text-slate-400">Упаковка стопок в полиэтиленовые термоусадочные рукава на выходе из формы.</span>
+              </div>
+            </div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="production.html" class="btn-primary-glow px-4 py-2 rounded-xl text-xs font-bold text-white">Технологии производства</a>
+              <a href="assets/docs/certificate-conformity.pdf" download class="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs font-bold text-slate-200 hover:text-white">Скачать сертификаты ГОСТ</a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 text-center">
+            <img src="assets/images/production-lines.svg" alt="Автоматические линии Muosir Plast" class="max-h-64 mx-auto object-contain drop-shadow-2xl">
+            <div class="mt-4 text-xs text-slate-400">Высокоточная калибровка для автоматических линий упаковки</div>
+          </div>
+        </div>
+
+        <!-- 7. B2B Wholesalers & Regional Distributors -->
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-slate-800 flex flex-col lg:flex-row gap-8 items-center">
+          <div class="w-full lg:w-1/2 space-y-4">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-950/80 text-indigo-400 border border-indigo-500/30">
+              Отрасль 07
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Оптовые дистрибьюторы и импортёры</h2>
+            <p class="text-sm text-slate-400 leading-relaxed">
+              Эксклюзивные дилерские условия для крупных оптовых компаний в регионах Узбекистана, Казахстана, Кыргызстана и РФ. Комплектация сборных еврофур, контрактная фиксация цен и полное документальное сопровождение (СТ-1, CMR, СЭЗ).
+            </p>
+            <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-indigo-400 font-bold block mb-0.5">Сертификат СТ-1</span>
+                <span class="text-slate-400">0% таможенная пошлина при ввозе в страны Таможенного союза и СНГ.</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                <span class="text-indigo-400 font-bold block mb-0.5">Буферный склад</span>
+                <span class="text-slate-400">Хранение неснижаемого остатка на складе завода для быстрой отгрузки за 48 часов.</span>
+              </div>
+            </div>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="export.html" class="btn-primary-glow px-4 py-2 rounded-xl text-xs font-bold text-white">Условия экспорта и логистики</a>
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 bg-slate-900/50 rounded-2xl p-6 border border-slate-800 text-center">
+            <img src="assets/images/production-shipping.svg" alt="Экспортные поставки Muosir Plast" class="max-h-64 mx-auto object-contain drop-shadow-2xl">
+            <div class="mt-4 text-xs text-slate-400">Паллетная загрузка еврофур до 96 м³ с таможенным опломбированием</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= INQUIRY CTA FORM ================= -->
+    <section id="industry-inquiry" class="py-16 md:py-24 relative border-t border-slate-800">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl">
+          <div class="text-center space-y-3 mb-8">
+            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-cyan-950/60 text-cyan-400 border border-cyan-500/30">
+              Индивидуальный расчет
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Запросить упаковочное решение для вашей отрасли</h2>
+            <p class="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
+              Инженеры и технологи завода Муосир пласт подберут оптимальную тару или разработают индивидуальную пресс-форму под ваше техзадание.
+            </p>
+          </div>
+
+          <form id="solution-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Ваше имя *</label>
+                <input type="text" name="name" required placeholder="Контактное лицо" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Ваша отрасль *</label>
+                <select name="industry" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+                  <option value="dairy">Молочная промышленность</option>
+                  <option value="eggs">Производство яиц / птицефабрика</option>
+                  <option value="confectionery">Кондитерское производство</option>
+                  <option value="food">Пищевое производство / Кулинария</option>
+                  <option value="horeca">HoReCa / Доставка еды</option>
+                  <option value="distributor">Оптовая дистрибьюция</option>
+                  <option value="other">Другое производство</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Телефон / WhatsApp *</label>
+                <input type="tel" name="phone" required placeholder="+992 / +998 / +7 ..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1.5">E-mail *</label>
+                <input type="email" name="email" required placeholder="name@company.com" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Опишите ваши требования или фасуемый продукт</label>
+              <textarea name="comment" rows="3" placeholder="Объём тары, температура фасовки, требования к запайке, ориентировочный тираж..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500"></textarea>
+            </div>
+
+            <button type="submit" class="w-full btn-primary-glow py-4 rounded-xl text-sm font-bold text-white shadow-xl shadow-blue-500/25">
+              Получить расчет отраслевого решения
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-slate-950 border-t border-slate-800 pt-16 pb-12 relative z-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="space-y-4">
+            <a href="index.html" class="inline-flex">
+              <img src="assets/images/logo.png" alt="Муосир пласт" class="h-11 sm:h-12 w-auto object-contain">
+            </a>
+            <p class="text-xs text-slate-400 leading-relaxed" data-i18n="footer_about_desc">
+              Муосир пласт — прямой завод-производитель жесткой пластиковой упаковки в Таджикистане. Беспошлинный экспорт в страны СНГ по форме СТ-1.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="footer_nav_title">Разделы сайта</h4>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li><a href="about.html" class="hover:text-white transition-colors" data-i18n="nav_about">О компании</a></li>
+              <li><a href="catalog.html" class="hover:text-white transition-colors" data-i18n="nav_products">Продукция</a></li>
+              <li><a href="solutions.html" class="text-cyan-400 font-bold" data-i18n="nav_solutions">Решения для бизнеса</a></li>
+              <li><a href="production.html" class="hover:text-white transition-colors" data-i18n="nav_production">Производство</a></li>
+              <li><a href="quality.html" class="hover:text-white transition-colors" data-i18n="nav_docs">Качество и ГОСТ</a></li>
+              <li><a href="export.html" class="hover:text-white transition-colors" data-i18n="nav_export">Экспорт</a></li>
+              <li><a href="news.html" class="hover:text-white transition-colors" data-i18n="nav_news">Новости</a></li>
+              <li><a href="contacts.html" class="hover:text-white transition-colors" data-i18n="nav_contacts">Контакты</a></li>
+              <li><a href="admin.html" class="text-blue-400 hover:text-blue-300 font-semibold" data-i18n="nav_admin">Admin Console</a></li>
+            </ul>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="contacts_title">Контакты отдела экспорта</h4>
+            <div class="space-y-2 text-xs text-slate-400">
+              <div>
+                <span class="block text-slate-500" data-i18n="contacts_phone_label">Телефон:</span>
+                <a href="tel:992922992000" class="text-white font-bold hover:text-cyan-400">+992 92 299 2000</a>
+              </div>
+              <div>
+                <span class="block text-slate-500">WhatsApp:</span>
+                <a href="https://wa.me/992922992000" target="_blank" class="text-emerald-400 font-bold hover:text-emerald-300">+992 92 299 2000</a>
+              </div>
+              <div>
+                <span class="block text-slate-500" data-i18n="contacts_email_label">Email:</span>
+                <a href="mailto:export@muosirplast.tj" class="text-slate-200 hover:text-cyan-400">export@muosirplast.tj</a>
+              </div>
+              <div>
+                <span class="block text-slate-500" data-i18n="contacts_address_label">Адрес:</span>
+                <span class="text-slate-300">г. Худжанд, Республика Таджикистан</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="footer_materials_title">Материалы</h4>
+            <a href="assets/docs/muosir-plast-export-catalog.pdf" download class="w-full py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span data-i18n="contacts_download_catalog">PDF-каталог продукции 2026</span>
+            </a>
+            <div class="text-[11px] text-slate-500 leading-relaxed" data-i18n="footer_export_note">
+              Прямые экспортные поставки в Узбекистан, Казахстан, Россию, Кыргызстан и страны СНГ.
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+          <div>© 2026 Муосир пласт (Muosir Plast). <span data-i18n="footer_rights">Все права защищены. B2B Экспортные поставки полимерной упаковки.</span></div>
+          <div class="flex items-center space-x-4">
+            <a href="admin.html" class="hover:text-blue-400" data-i18n="footer_employee_login">Вход для сотрудников</a>
+            <span>·</span>
+            <span data-i18n="footer_city_country">Таджикистан, Худжанд</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- WhatsApp Widget -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <a href="https://wa.me/992922992000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BF%D1%80%D0%BE%D0%B4%D1%83%D0%BA%D1%86%D0%B8%D1%8F%20%D0%9C%D1%83%D0%BE%D1%81%D0%B8%D1%80%20%D0%BF%D0%BB%D0%B0%D1%81%D1%82." target="_blank" class="w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-105 active:scale-95 transition-transform" title="WhatsApp (+992 92 299 2000)" aria-label="WhatsApp Chat">
+      <svg class="w-9 h-9 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  </div>
+
+  <script src="src/shared/data/store.js"></script>
+  <script src="src/features/localization/i18n.js"></script>
+  <script src="src/features/analytics/analytics.js"></script>
+  <script src="src/features/site/shared-ui.js"></script>
+  <script src="src/features/motion/scroll-motion.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Theme switcher
+      const btns = document.querySelectorAll('.theme-toggle-btn');
+      function applyTheme(t) {
+        if (t === 'light') {
+          document.documentElement.classList.add('theme-light');
+          document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+          document.documentElement.classList.remove('theme-light');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        btns.forEach(b => {
+          const sun = b.querySelector('.theme-icon-sun');
+          const moon = b.querySelector('.theme-icon-moon');
+          if (sun && moon) {
+            if (t === 'light') { sun.classList.add('hidden'); moon.classList.remove('hidden'); }
+            else { sun.classList.remove('hidden'); moon.classList.add('hidden'); }
+          }
+        });
+      }
+      applyTheme(localStorage.getItem('muosir_theme') || 'dark');
+      btns.forEach(b => b.addEventListener('click', () => {
+        const curr = document.documentElement.classList.contains('theme-light') ? 'light' : 'dark';
+        const next = curr === 'light' ? 'dark' : 'light';
+        localStorage.setItem('muosir_theme', next);
+        applyTheme(next);
+      }));
+
+      // Language switcher
+      document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const lang = e.currentTarget.getAttribute('data-lang-btn');
+          window.muosirI18n.setLang(lang);
+        });
+      });
+
+      // Mobile Menu
+      const toggle = document.getElementById('mobile-menu-toggle');
+      const menu = document.getElementById('mobile-nav-menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => menu.classList.toggle('hidden'));
+      }
+
+      // Form submit
+      const form = document.getElementById('solution-form');
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          alert('Спасибо за запрос! Технолог отдела отраслевых решений подготовит расчет в течение дня.');
+          form.reset();
+        });
+      }
+    });
+  </script>
+</body>
+</html>
