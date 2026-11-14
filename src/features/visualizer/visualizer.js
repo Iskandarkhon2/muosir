@@ -5,22 +5,26 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
     'cup-500': {
       labelKey: 'viz_prod_cup_500',
       image: 'assets/images/cup_3d_base.jpg',
-      zone: { x: 0.34, y: 0.43, width: 0.32, height: 0.25 }
+      zone: { x: 0.34, y: 0.43, width: 0.32, height: 0.25 },
+      movement: { x: 0.27, y: 0.2 }
     },
     container: {
       labelKey: 'viz_prod_container',
       image: 'assets/images/container_3d_base.jpg',
-      zone: { x: 0.29, y: 0.39, width: 0.42, height: 0.2 }
+      zone: { x: 0.29, y: 0.39, width: 0.42, height: 0.2 },
+      movement: { x: 0.26, y: 0.17 }
     },
     'dairy-cup': {
       labelKey: 'viz_prod_dairy_cup',
       image: 'assets/images/dairy_cup_3d_base.jpg',
-      zone: { x: 0.28, y: 0.31, width: 0.44, height: 0.3 }
+      zone: { x: 0.28, y: 0.31, width: 0.44, height: 0.3 },
+      movement: { x: 0.27, y: 0.22 }
     },
     'egg-tray': {
       labelKey: 'viz_prod_egg_tray',
       image: 'assets/images/egg_tray_3d_base.jpg',
-      zone: { x: 0.27, y: 0.4, width: 0.46, height: 0.2 }
+      zone: { x: 0.27, y: 0.4, width: 0.46, height: 0.2 },
+      movement: { x: 0.3, y: 0.14 }
     }
   };
 
@@ -38,8 +42,15 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
   const quoteProductName = document.getElementById('quote-product-name');
   const sizeInput = document.getElementById('logo-size');
   const opacityInput = document.getElementById('logo-opacity');
+  const rotationInput = document.getElementById('logo-rotation');
+  const positionXInput = document.getElementById('logo-position-x');
+  const positionYInput = document.getElementById('logo-position-y');
   const sizeOutput = document.getElementById('logo-size-output');
   const opacityOutput = document.getElementById('logo-opacity-output');
+  const rotationOutput = document.getElementById('logo-rotation-output');
+  const positionXOutput = document.getElementById('logo-position-x-output');
+  const positionYOutput = document.getElementById('logo-position-y-output');
+  const dragHint = document.getElementById('preview-drag-hint');
   const downloadButton = document.getElementById('download-preview');
   const quoteDialog = document.getElementById('quote-dialog');
   const quoteForm = document.getElementById('quote-form');
@@ -56,6 +67,14 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
 
   function getProductName(product) {
     return window.muosirI18n?.translate(product.labelKey) || product.labelKey;
+  }
+
+  function updateControlOutputs() {
+    sizeOutput.value = `${sizeInput.value}%`;
+    opacityOutput.value = `${opacityInput.value}%`;
+    rotationOutput.value = `${rotationInput.value}°`;
+    positionXOutput.value = `${positionXInput.value}%`;
+    positionYOutput.value = `${positionYInput.value}%`;
   }
 
   function loadProduct(id) {
@@ -111,8 +130,11 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
     context.clearRect(0, 0, bounds.width, bounds.width);
     context.drawImage(productImage, 0, 0, bounds.width, bounds.width);
 
-    if (!logoImage?.complete || !logoImage.naturalWidth) {
-      emptyState.hidden = false;
+    const hasLogo = Boolean(logoImage?.complete && logoImage.naturalWidth);
+    emptyState.hidden = hasLogo;
+    dragHint.hidden = !hasLogo;
+    previewStage.classList.toggle('has-logo', hasLogo);
+    if (!hasLogo) {
       downloadButton.disabled = true;
       return;
     }
@@ -120,9 +142,12 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
     const geometry = getLogoGeometry(bounds.width);
     if (!geometry) return;
 
+    context.save();
     context.globalAlpha = Number(opacityInput.value) / 100;
-    context.drawImage(logoImage, geometry.x, geometry.y, geometry.width, geometry.height);
-    context.globalAlpha = 1;
+    context.translate(geometry.centerX, geometry.centerY);
+    context.rotate(geometry.rotation);
+    context.drawImage(logoImage, -geometry.width / 2, -geometry.height / 2, geometry.width, geometry.height);
+    context.restore();
     emptyState.hidden = true;
     downloadButton.disabled = false;
   }
@@ -139,19 +164,27 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
       zoneWidth / logoImage.naturalWidth, zoneHeight / logoImage.naturalHeight);
     const logoWidth = logoImage.naturalWidth * scale;
     const logoHeight = logoImage.naturalHeight * scale;
-    const zoneX = width * zone.x;
-    const zoneY = width * zone.y;
-    const xPosition = Number(document.getElementById('logo-position-x').value);
-    const yPosition = Number(document.getElementById('logo-position-y').value);
+    const movement = products[selectedId].movement;
+    const movementCenterX = width * (zone.x + zone.width / 2);
+    const movementCenterY = width * (zone.y + zone.height / 2);
+    const movementRangeX = width * movement.x;
+    const movementRangeY = width * movement.y;
+    const centerX = Math.max(logoWidth / 2, Math.min(width - logoWidth / 2,
+      movementCenterX + movementRangeX * (Number(positionXInput.value) / 50 - 1)));
+    const centerY = Math.max(logoHeight / 2, Math.min(width - logoHeight / 2,
+      movementCenterY + movementRangeY * (Number(positionYInput.value) / 50 - 1)));
     return {
-      x: zoneX + (zoneWidth - logoWidth) * xPosition / 100,
-      y: zoneY + (zoneHeight - logoHeight) * yPosition / 100,
+      x: centerX - logoWidth / 2,
+      y: centerY - logoHeight / 2,
       width: logoWidth,
       height: logoHeight,
-      zoneX,
-      zoneY,
-      zoneWidth,
-      zoneHeight
+      centerX,
+      centerY,
+      rotation: Number(rotationInput.value) * Math.PI / 180,
+      movementCenterX,
+      movementCenterY,
+      movementRangeX,
+      movementRangeY
     };
   }
 
@@ -177,9 +210,11 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
     const nextLogo = new Image();
     nextLogo.onload = () => {
       logoImage = nextLogo;
-      document.getElementById('logo-position-x').value = '50';
-      document.getElementById('logo-position-y').value = '50';
+      positionXInput.value = '50';
+      positionYInput.value = '50';
+      rotationInput.value = '0';
       uploadTitle.textContent = file.name;
+      updateControlOutputs();
       renderPreview();
     };
     nextLogo.onerror = () => {
@@ -193,6 +228,9 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
 
   function setupUpload() {
     fileInput.addEventListener('change', () => loadLogo(fileInput.files[0]));
+    document.querySelectorAll('[data-upload-trigger]').forEach(button => {
+      button.addEventListener('click', () => fileInput.click());
+    });
     ['dragenter', 'dragover'].forEach(eventName => {
       uploadZone.addEventListener(eventName, event => {
         event.preventDefault();
@@ -227,14 +265,16 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
       button.addEventListener('click', () => loadProduct(button.dataset.product));
     });
 
-    [sizeInput, opacityInput, document.getElementById('logo-position-x'), document.getElementById('logo-position-y')]
+    [sizeInput, opacityInput, rotationInput, positionXInput, positionYInput]
       .forEach(input => input.addEventListener('input', () => {
-        sizeOutput.value = `${sizeInput.value}%`;
-        opacityOutput.value = `${opacityInput.value}%`;
+        updateControlOutputs();
         renderPreview();
       }));
+    updateControlOutputs();
 
     let activePointer = null;
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
     canvas.style.touchAction = 'none';
     canvas.addEventListener('pointerdown', event => {
       if (!logoImage) return;
@@ -243,9 +283,16 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
       if (!geometry || !bounds.width || !bounds.height) return;
       const x = event.clientX - bounds.left;
       const y = event.clientY - bounds.top;
-      if (x < geometry.x || x > geometry.x + geometry.width
-        || y < geometry.y || y > geometry.y + geometry.height) return;
+      const offsetX = x - geometry.centerX;
+      const offsetY = y - geometry.centerY;
+      const cos = Math.cos(geometry.rotation);
+      const sin = Math.sin(geometry.rotation);
+      const localX = offsetX * cos + offsetY * sin;
+      const localY = -offsetX * sin + offsetY * cos;
+      if (Math.abs(localX) > geometry.width / 2 || Math.abs(localY) > geometry.height / 2) return;
       activePointer = event.pointerId;
+      dragOffsetX = offsetX;
+      dragOffsetY = offsetY;
       canvas.setPointerCapture(activePointer);
       event.preventDefault();
     });
@@ -256,14 +303,13 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
       if (!geometry || !bounds.width || !bounds.height) return;
       const x = event.clientX - bounds.left;
       const y = event.clientY - bounds.top;
-      const maxX = Math.max(0, geometry.zoneWidth - geometry.width);
-      const maxY = Math.max(0, geometry.zoneHeight - geometry.height);
-      document.getElementById('logo-position-x').value = String(Math.round(maxX
-        ? Math.max(0, Math.min(1, (x - geometry.zoneX - geometry.width / 2) / maxX)) * 100
-        : 50));
-      document.getElementById('logo-position-y').value = String(Math.round(maxY
-        ? Math.max(0, Math.min(1, (y - geometry.zoneY - geometry.height / 2) / maxY)) * 100
-        : 50));
+      const centerX = x - dragOffsetX;
+      const centerY = y - dragOffsetY;
+      positionXInput.value = String(Math.round(Math.max(0, Math.min(100,
+        (centerX - geometry.movementCenterX + geometry.movementRangeX) / (geometry.movementRangeX * 2) * 100))));
+      positionYInput.value = String(Math.round(Math.max(0, Math.min(100,
+        (centerY - geometry.movementCenterY + geometry.movementRangeY) / (geometry.movementRangeY * 2) * 100))));
+      updateControlOutputs();
       renderPreview();
     });
     const releasePointer = event => {
@@ -273,8 +319,10 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
     canvas.addEventListener('pointercancel', releasePointer);
 
     document.getElementById('reset-logo-position').addEventListener('click', () => {
-      document.getElementById('logo-position-x').value = '50';
-      document.getElementById('logo-position-y').value = '50';
+      positionXInput.value = '50';
+      positionYInput.value = '50';
+      rotationInput.value = '0';
+      updateControlOutputs();
       renderPreview();
     });
 
@@ -361,11 +409,13 @@ import { addLeadHoneypot, setLeadFeedback, submitLead } from '../forms/lead-api.
     window.addEventListener('muosir_lang_changed', () => {
       productName.textContent = getProductName(products[selectedId]);
       quoteProductName.textContent = productName.textContent;
+      if (!logoImage) uploadTitle.textContent = translate('viz_choose_file');
     });
   }
 
   function initialize() {
     window.muosirI18n?.applyTranslations();
+    uploadTitle.textContent = translate('viz_choose_file');
     setupUpload();
     setupControls();
     const requestedProduct = new URLSearchParams(window.location.search).get('prod');

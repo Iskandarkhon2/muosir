@@ -2,9 +2,10 @@
   const labels = {
     ru: {
       search: 'Поиск по каталогу',
-      placeholder: 'Название, артикул, категория или материал',
+      placeholder: 'Название или характеристики товара',
       close: 'Закрыть',
       noResults: 'Ничего не найдено',
+      catalogError: 'Не удалось загрузить каталог. Обновите страницу и попробуйте снова.',
       sku: 'Артикул',
       material: 'Материал',
       volume: 'Объём / назначение',
@@ -22,9 +23,10 @@
     },
     en: {
       search: 'Search the catalog',
-      placeholder: 'Name, SKU, category, or material',
+      placeholder: 'Product name or specifications',
       close: 'Close',
       noResults: 'No matching products',
+      catalogError: 'The catalog could not be loaded. Refresh the page and try again.',
       sku: 'SKU',
       material: 'Material',
       volume: 'Volume / use',
@@ -42,9 +44,10 @@
     },
     uz: {
       search: 'Katalogdan qidirish',
-      placeholder: 'Nomi, SKU, toifasi yoki materiali',
+      placeholder: 'Mahsulot nomi yoki xususiyatlari',
       close: 'Yopish',
       noResults: 'Mos mahsulot topilmadi',
+      catalogError: 'Katalogni yuklab bo‘lmadi. Sahifani yangilab, qayta urinib ko‘ring.',
       sku: 'Artikul',
       material: 'Material',
       volume: 'Hajm / foydalanish',
@@ -62,9 +65,10 @@
     },
     kk: {
       search: 'Каталогтан іздеу',
-      placeholder: 'Атауы, SKU, санат немесе материалы',
+      placeholder: 'Өнім атауы немесе сипаттамалары',
       close: 'Жабу',
       noResults: 'Сәйкес өнім табылмады',
+      catalogError: 'Каталогты жүктеу мүмкін болмады. Бетті жаңартып, қайталап көріңіз.',
       sku: 'Артикул',
       material: 'Материал',
       volume: 'Көлемі / қолданылуы',
@@ -92,9 +96,45 @@
     })[character]);
   }
 
-  function initialize() {
+  async function initialize() {
     const store = window.muosirStore;
     if (!store || !document.querySelector('.site-content')) return;
+
+    let catalogProducts = [];
+    let catalogLoadError = false;
+    try {
+      const response = await fetch('src/features/catalog/catalog-products.json');
+      if (!response.ok) throw new Error(`Catalog manifest request failed: ${response.status}`);
+      const filenames = await response.json();
+      if (!Array.isArray(filenames) || filenames.some(filename => typeof filename !== 'string' || /[\\/]/.test(filename))) {
+        throw new TypeError('Catalog manifest must contain image filenames only.');
+      }
+      catalogProducts = [...new Set(filenames)].map(filename => {
+        const specificationText = filename.replace(/\.[^.]+$/, '');
+        const [rawName] = specificationText.split('_');
+        const material = specificationText.split('_')
+          .find(specification => specification.startsWith('Материал-'))
+          ?.slice('Материал-'.length)
+          .replace(/-/g, ' ') || '';
+        const searchSpecifications = specificationText.split('_').slice(1)
+          .map(specification => specification
+            .replace(/-/g, ' ')
+            .replace(/(\d)(?=(?:шт|см|мл)\b)/gi, '$1 '))
+          .join(' · ');
+        const name = rawName.replace(/-/g, ' ');
+        return {
+          filename,
+          title: name.charAt(0).toLocaleUpperCase('ru') + name.slice(1),
+          material,
+          searchSpecifications,
+          specificationText,
+          image: `catalog/${filename}`
+        };
+      });
+    } catch (error) {
+      console.error('Unable to load catalog products for search.', error);
+      catalogLoadError = true;
+    }
 
     const locale = () => labels[window.muosirI18n?.getLang() || 'ru'] || labels.ru;
     const translateProduct = (product, field) => {
@@ -132,28 +172,44 @@
     let activeProduct = null;
     let searchSelection = -1;
 
+    function normalizeSearchText(value) {
+      return String(value || '')
+        .normalize('NFKC')
+        .toLocaleLowerCase()
+        .replace(/([a-zа-яё])(?=\d)/gi, '$1 ')
+        .replace(/(\d)(?=[a-zа-яё])/gi, '$1 ')
+        .replace(/[-_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
     function renderSearchResults() {
-      const query = searchInput.value.trim().toLocaleLowerCase();
-      const products = store.getProducts('all').filter(product => {
-        const fields = [
-          translateProduct(product, 'title'),
-          product.sku,
-          categoryName(product),
-          product.material
-        ];
-        return !query || fields.some(value => String(value || '').toLocaleLowerCase().includes(query));
+      const query = normalizeSearchText(searchInput.value);
+      const products = catalogProducts.filter(product => {
+        const searchText = normalizeSearchText(`${product.title} ${product.specificationText} ${product.material}`);
+        return !query || searchText.includes(query);
       }).slice(0, 12);
 
       searchSelection = -1;
-      searchResults.innerHTML = products.length
+      searchResults.innerHTML = catalogLoadError
+        ? `<p class="site-search-dialog__empty color-muted">${escapeHtml(locale().catalogError)}</p>`
+        : products.length
         ? products.map(product => `
             <button type="button" class="site-search-result" role="option" aria-selected="false"
-              data-product-sku="${escapeHtml(product.sku)}">
-              <span class="site-search-result__name">${escapeHtml(translateProduct(product, 'title'))}</span>
-              <span class="site-search-result__meta">${escapeHtml(product.sku)} · ${escapeHtml(product.material || '')}</span>
+              data-catalog-filename="${escapeHtml(product.filename)}">
+              <img class="site-search-result__image" src="${escapeHtml(product.image)}" alt="" loading="lazy">
+              <span class="site-search-result__name">${escapeHtml(product.title)}</span>
+              <span class="site-search-result__meta">${escapeHtml(product.searchSpecifications || product.material || product.specificationText.replace(/[-_]/g, ' '))}</span>
             </button>
           `).join('')
         : `<p class="site-search-dialog__empty color-muted">${escapeHtml(locale().noResults)}</p>`;
+    }
+
+    function openCatalogProduct(filename) {
+      searchDialog.close();
+      const destination = new URL('catalog.html', window.location.href);
+      destination.searchParams.set('product', filename);
+      window.location.assign(destination.href);
     }
 
     function getProduct(identifier) {
@@ -169,6 +225,7 @@
     function openProduct(identifier, updateAddress = true) {
       const product = getProduct(identifier);
       if (!product) return false;
+      const shouldTrackView = !productDialog.open || activeProduct?.sku !== product.sku;
       activeProduct = product;
 
       const title = translateProduct(product, 'title');
@@ -276,6 +333,7 @@
         }
       }
       if (!productDialog.open) productDialog.showModal();
+      if (shouldTrackView) window.muosirAnalytics?.trackViewProduct?.(product);
       return true;
     }
 
@@ -309,7 +367,7 @@
     });
     searchInput.addEventListener('input', renderSearchResults);
     searchInput.addEventListener('keydown', event => {
-      const options = [...searchResults.querySelectorAll('[data-product-sku]')];
+      const options = [...searchResults.querySelectorAll('[data-catalog-filename]')];
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault();
         if (!options.length) return;
@@ -319,15 +377,13 @@
         });
       } else if (event.key === 'Enter' && options.length) {
         event.preventDefault();
-        openProduct(options[Math.max(searchSelection, 0)].dataset.productSku);
-        searchDialog.close();
+        openCatalogProduct(options[Math.max(searchSelection, 0)].dataset.catalogFilename);
       }
     });
     searchResults.addEventListener('click', event => {
-      const result = event.target.closest('[data-product-sku]');
+      const result = event.target.closest('[data-catalog-filename]');
       if (!result) return;
-      searchDialog.close();
-      openProduct(result.dataset.productSku);
+      openCatalogProduct(result.dataset.catalogFilename);
     });
     productDialog.addEventListener('click', event => {
       if (event.target === productDialog) productDialog.close();
@@ -375,8 +431,10 @@
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize, { once: true });
+    document.addEventListener('DOMContentLoaded', () => {
+      initialize().catch(error => console.error('Unable to initialize catalog search.', error));
+    }, { once: true });
   } else {
-    initialize();
+    initialize().catch(error => console.error('Unable to initialize catalog search.', error));
   }
 })();

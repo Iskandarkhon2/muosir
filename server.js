@@ -396,6 +396,9 @@ function safePublicPath(requestPath) {
     return null;
   }
   if (relativePath.startsWith('src/shared/vendor/')) return null;
+  if (/^catalog\/[^/]+\.(?:avif|gif|jpe?g|png|webp)$/i.test(relativePath)) {
+    return path.resolve(ROOT, relativePath);
+  }
   if (firstSegment === 'src' || firstSegment === 'assets' || firstSegment === 'media') {
     return path.resolve(ROOT, relativePath);
   }

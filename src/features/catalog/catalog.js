@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const store = window.muosirStore;
   const i18n = window.muosirI18n;
   const grid = document.getElementById('catalog-products-grid');
@@ -8,10 +8,57 @@ document.addEventListener('DOMContentLoaded', () => {
   const reset = document.getElementById('catalog-reset-filter');
   const quoteProduct = document.getElementById('quote-product-field');
   const industryFilters = document.getElementById('catalog-industry-filters');
+  const detailsDialog = document.getElementById('catalog-product-dialog');
 
-  if (!store || !i18n || !grid) return;
+  if (!i18n || !grid) return;
 
-  const products = store.getProducts('all');
+  let filenames;
+  try {
+    const response = await fetch('src/features/catalog/catalog-products.json');
+    if (!response.ok) throw new Error(`Catalog manifest request failed: ${response.status}`);
+    filenames = await response.json();
+    if (!Array.isArray(filenames) || filenames.some(filename => typeof filename !== 'string' || /[\\/]/.test(filename))) {
+      throw new TypeError('Catalog manifest must contain image filenames only.');
+    }
+  } catch (error) {
+    console.error('Unable to load catalog product images.', error);
+    if (emptyState) {
+      emptyState.classList.remove('hidden');
+      emptyState.querySelector('h3').textContent = 'Не удалось загрузить каталог продукции';
+      emptyState.querySelector('p').textContent = 'Обновите страницу или попробуйте позже.';
+    }
+    return;
+  }
+
+  const products = [...new Set(filenames)].map(filename => {
+    const fileStem = filename.replace(/\.[^.]+$/, '');
+    const [name, ...specifications] = fileStem.split('_');
+    const categoryId = name.startsWith('Контейнер-для-яиц')
+      ? 'eggs'
+      : name.startsWith('Контейнер-для-торта') || name.startsWith('Контейнер-для-пончиков')
+        ? 'confectionery'
+        : name.startsWith('Стакан-для-сметаны')
+          ? 'dairy'
+          : name.startsWith('Стакан-')
+            ? 'cups'
+            : 'containers';
+    const details = specifications.map(parseSpecification).filter(Boolean);
+    const material = details.find(detail => detail.label === 'Материал')?.value || '';
+
+    return {
+      id: filename,
+      filename,
+      image: `catalog/${filename}`,
+      title: formatProductName(name),
+      categoryId,
+      material,
+      specifications,
+      details,
+      specificationText: fileStem,
+      desc: details.map(detail => `${detail.label}: ${detail.value}`).join(' · ')
+    };
+  });
+
   const industries = [
     { id: 'dairy', categories: ['dairy'], labels: ['Молочная промышленность', 'Dairy industry', 'Sut sanoati', 'Сүт өнеркәсібі'] },
     { id: 'eggs', categories: ['eggs'], labels: ['Птицеводство и фасовка яиц', 'Poultry and egg packing', 'Parrandachilik va tuxum qadoqlash', 'Құс шаруашылығы және жұмыртқа'] },
@@ -33,6 +80,56 @@ document.addEventListener('DOMContentLoaded', () => {
       '"': '&quot;',
       "'": '&#39;'
     })[character]);
+  }
+
+  function formatProductName(value) {
+    const name = value.replace(/-/g, ' ');
+    return name.charAt(0).toLocaleUpperCase('ru') + name.slice(1);
+  }
+
+  function formatSpecificationValue(value) {
+    return value
+      .replace(/крышка-и-дно/g, 'крышка и дно')
+      .replace(/(\d)x(?=\d)/gi, '$1 × ')
+      .replace(/(\d)(см|мл|шт)/gi, '$1 $2')
+      .replace(/(PET|PP|PS)\(/gi, '$1 (')
+      .replace(/(\d)-(?=\d)/g, '$1–')
+      .replace(/-/g, ' ');
+  }
+
+  function parseSpecification(specification) {
+    if (specification === 'Брендированный') {
+      return { label: 'Брендирование', value: 'С нанесением логотипа' };
+    }
+
+    if (specification.startsWith('Размеры-коробок-')) {
+      const boxSizes = specification.slice('Размеры-коробок-'.length);
+      const match = boxSizes.match(/^дно-(.+?)-крышка-(.+)$/);
+      const value = match
+        ? `Дно: ${formatSpecificationValue(match[1])} · Крышка: ${formatSpecificationValue(match[2])}`
+        : formatSpecificationValue(boxSizes.replace(/-/g, ' '));
+      return { label: 'Размеры коробок', value };
+    }
+
+    const fields = [
+      ['Диаметр-', 'Диаметр'],
+      ['Высота-', 'Высота'],
+      ['Объем-', 'Объём'],
+      ['Материал-', 'Материал'],
+      ['Количество-', 'Количество в изделии'],
+      ['Цвет-', 'Цвет'],
+      ['Размеры-коробки-', 'Размер коробки'],
+      ['Размер-коробки-', 'Размер коробки'],
+      ['Коробка-', 'Размер коробки'],
+      ['Размер-', 'Размер изделия'],
+      ['В-коробке-', 'Количество в коробке'],
+      ['В-пачке-', 'Количество в пачке']
+    ];
+    const field = fields.find(([prefix]) => specification.startsWith(prefix));
+    if (!field) return null;
+
+    const value = formatSpecificationValue(specification.slice(field[0].length));
+    return { label: field[1], value };
   }
 
   function productText(product, key) {
@@ -64,8 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fields = [
       productText(product, 'title'),
       productText(product, 'desc'),
-      product.sku,
-      product.article,
+      product.specificationText,
       product.categoryId,
       product.material,
       product.volume
@@ -79,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const visibleProducts = products.filter(product => {
       if (activeCategory !== 'all' && product.categoryId !== activeCategory) return false;
       if (industry && !industry.categories.includes(product.categoryId)) return false;
-      if (activeMaterial !== 'all' && !(product.material || '').toUpperCase().includes(activeMaterial)) return false;
+      if (activeMaterial !== 'all' && !product.specificationText.toUpperCase().includes(activeMaterial)) return false;
       return matchesSearch(product, query);
     });
 
@@ -88,32 +184,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     grid.innerHTML = visibleProducts.map(product => {
       const title = productText(product, 'title');
-      const description = productText(product, 'desc');
-      const image = product.photo || product.image;
-      const material = escapeHtml(product.material || 'Полимер');
+      const material = escapeHtml(product.material);
       const productId = escapeHtml(product.id);
 
       return `
-        <article class="product-card glass-card rounded-2xl p-5 flex flex-col">
+        <article class="product-card glass-card rounded-2xl p-5 flex flex-col" data-product-card="${productId}" tabindex="0" aria-label="Открыть описание: ${escapeHtml(title)}">
           <div class="product-card__image">
-            <img src="${escapeHtml(image)}" alt="${escapeHtml(title)}" width="640" height="480" loading="lazy">
-            <span class="product-card__material">${material.split(/[ /(]/)[0]}</span>
+            <img src="${escapeHtml(product.image)}" alt="${escapeHtml(title)}" width="640" height="480" loading="lazy">
+            ${material ? `<span class="product-card__material">${material.split(/[ /(]/)[0]}</span>` : ''}
           </div>
           <div class="product-card__body">
-            <p class="product-card__spec">${material}</p>
+            ${material ? `<p class="product-card__spec">${material}</p>` : ''}
             <h3>${escapeHtml(title)}</h3>
-            <p class="product-card__sku">${escapeHtml(product.sku || '')}</p>
-            <p class="product-card__description">${escapeHtml(description)}</p>
+            <dl class="catalog-product-specs catalog-product-specs--compact">
+              ${product.details.map(detail => `
+                <div><dt>${escapeHtml(detail.label)}</dt><dd>${escapeHtml(detail.value)}</dd></div>
+              `).join('')}
+            </dl>
           </div>
           <div class="product-card__actions">
             <button type="button" class="button-secondary" data-product-details="${productId}">
-              Технический паспорт
+              Подробнее о товаре
             </button>
-            ${product.customizable ? `
-              <button type="button" class="button-secondary" data-customize-product="${productId}">
-                Посмотреть со своим логотипом
-              </button>
-            ` : ''}
             <button type="button" class="button-primary" data-quote-product="${productId}">
               Запросить предложение
             </button>
@@ -121,6 +213,33 @@ document.addEventListener('DOMContentLoaded', () => {
         </article>
       `;
     }).join('');
+  }
+
+  function openProductDetails(product) {
+    if (!detailsDialog || !product) return;
+    detailsDialog.innerHTML = `
+      <div class="product-quickview__header">
+        <div>
+          <p class="product-quickview__eyebrow">Характеристики товара</p>
+          <h2 class="color-primary">${escapeHtml(product.title)}</h2>
+        </div>
+        <button type="button" class="product-quickview__close" data-close-product-details aria-label="Закрыть">×</button>
+      </div>
+      <div class="product-quickview__content">
+        <div class="product-quickview__main-image">
+          <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.title)}">
+        </div>
+        <div class="product-quickview__details">
+          <dl class="catalog-product-specs">
+            ${product.details.map(detail => `
+              <div><dt>${escapeHtml(detail.label)}</dt><dd>${escapeHtml(detail.value)}</dd></div>
+            `).join('')}
+          </dl>
+        </div>
+      </div>
+    `;
+    detailsDialog.querySelector('[data-close-product-details]').addEventListener('click', () => detailsDialog.close());
+    if (!detailsDialog.open) detailsDialog.showModal();
   }
 
   industryFilters?.addEventListener('click', event => {
@@ -132,19 +251,31 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   grid.addEventListener('click', event => {
+    const card = event.target.closest('[data-product-card]');
+    if (card && !event.target.closest('button, a, input')) {
+      openProductDetails(products.find(item => item.id === card.dataset.productCard));
+      return;
+    }
+
     const detailsButton = event.target.closest('[data-product-details]');
     if (detailsButton) {
-      const product = products.find(item => item.id === detailsButton.dataset.productDetails);
-      if (product) window.muosirProductExplorer?.open(product.sku);
+      openProductDetails(products.find(item => item.id === detailsButton.dataset.productDetails));
       return;
     }
 
     const button = event.target.closest('[data-quote-product]');
     if (!button || !quoteProduct) return;
     const product = products.find(item => item.id === button.dataset.quoteProduct);
-    quoteProduct.value = product ? `${productText(product, 'title')} (${product.sku})` : '';
+    quoteProduct.value = product ? `${product.title} — ${product.specificationText}` : '';
     document.getElementById('quick-quote-section')?.scrollIntoView({ behavior: 'smooth' });
     quoteProduct.focus();
+  });
+
+  grid.addEventListener('keydown', event => {
+    const card = event.target.closest('[data-product-card]');
+    if (!card || event.target !== card || !['Enter', ' '].includes(event.key)) return;
+    event.preventDefault();
+    openProductDetails(products.find(item => item.id === card.dataset.productCard));
   });
 
   document.querySelectorAll('#catalog-category-tabs [data-cat]').forEach(button => {
@@ -202,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const requestedSku = new URLSearchParams(window.location.search).get('quoteSku');
-  if (requestedSku && quoteProduct) {
+  if (requestedSku && quoteProduct && store) {
     const product = store.getProductBySku(requestedSku);
     if (product) quoteProduct.value = `${productText(product, 'title')} (${product.sku})`;
   }
@@ -213,4 +344,9 @@ document.addEventListener('DOMContentLoaded', () => {
     button.setAttribute('aria-pressed', String(selected));
   });
   renderProducts();
+
+  const requestedProductId = new URLSearchParams(window.location.search).get('product');
+  if (requestedProductId) {
+    openProductDetails(products.find(product => product.id === requestedProductId));
+  }
 });

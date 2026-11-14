@@ -59,7 +59,7 @@ class AnalyticsTracker {
     setTimeout(() => {
       if (window.muosirStore) {
         const comp = window.muosirStore.getData().company;
-        if (comp.metaPixelId && !window._metaPixelInjected) {
+        if (comp.metaPixelId && !window._metaPixelInjected && typeof window.fbq !== 'function') {
           this.injectMetaPixelScript(comp.metaPixelId);
         }
         if (comp.ga4MeasurementId && !window._ga4Injected) {
@@ -84,6 +84,9 @@ class AnalyticsTracker {
     if (typeof window.fbq === 'function') {
       window.fbq('init', pixelId);
       window.fbq('track', 'PageView');
+      window._fbqEvents.splice(0).forEach(({ eventName, data, custom }) => {
+        window.fbq(custom ? 'trackCustom' : 'track', eventName, data);
+      });
     }
   }
 
@@ -103,7 +106,6 @@ class AnalyticsTracker {
 
   // Dispatch Meta Pixel Event
   trackMeta(eventName, data = {}) {
-    console.log(`[Meta Pixel Event] ${eventName}:`, data);
     if (typeof window.fbq === 'function') {
       window.fbq('track', eventName, data);
     } else {
@@ -111,9 +113,16 @@ class AnalyticsTracker {
     }
   }
 
+  trackMetaCustom(eventName, data = {}) {
+    if (typeof window.fbq === 'function') {
+      window.fbq('trackCustom', eventName, data);
+    } else {
+      window._fbqEvents.push({ eventName, data, custom: true, time: Date.now() });
+    }
+  }
+
   // Dispatch GA4 Event
   trackGA4(eventName, params = {}) {
-    console.log(`[GA4 Event] ${eventName}:`, params);
     if (typeof window.gtag === 'function') {
       window.gtag('event', eventName, params);
     } else {
@@ -133,13 +142,12 @@ class AnalyticsTracker {
 
   // 2. Просмотр продукции (ViewContent)
   trackViewProduct(product) {
+    if (!product) return;
     const payload = {
-      content_name: product.title,
-      content_category: product.categoryId,
-      content_ids: [product.id],
-      content_type: 'product',
-      value: 100.0,
-      currency: 'USD'
+      content_name: product.name || product.title,
+      content_category: product.category || product.categoryId,
+      content_ids: [product.sku || product.id],
+      content_type: 'product'
     };
     this.trackMeta('ViewContent', payload);
     this.trackGA4('view_item', {
@@ -164,14 +172,9 @@ class AnalyticsTracker {
   // 5. Отправка формы (Lead)
   trackLead(leadData) {
     const payload = {
-      value: 1.0,
+      content_name: 'B2B Quotation Request',
+      value: 0.00,
       currency: 'USD',
-      lead_type: 'B2B Export Inquiry',
-      country: leadData.country || 'Unknown',
-      product: leadData.product || 'General',
-      utm_source: leadData.utmSource,
-      utm_campaign: leadData.utmCampaign,
-      utm_content: leadData.utmContent
     };
     this.trackMeta('Lead', payload);
     this.trackGA4('generate_lead', {
@@ -183,13 +186,13 @@ class AnalyticsTracker {
   }
 
   // 6. Нажатие WhatsApp (Contact)
-  trackWhatsAppClick(context = 'General', productName = '') {
+  trackWhatsAppClick(context = 'General', productName = '', sku = 'general') {
     const payload = {
       channel: 'WhatsApp',
       context: context,
       product: productName
     };
-    this.trackMeta('Contact', payload);
+    this.trackMetaCustom('WhatsAppContact', { sku: sku || 'general' });
     this.trackGA4('contact_whatsapp', payload);
   }
 

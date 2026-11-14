@@ -31,7 +31,6 @@ const DEFAULT_DATA = {
     addressEn: "Republic of Tajikistan, Sughd Region, B. Gafurov District, 15 Vahdat Street",
     addressUz: "Tojikiston Respublikasi, Sug'd viloyati, B. G'afurov tumani, Vahdat ko'chasi, 15",
     addressKk: "Тәжікстан Республикасы, Соғды облысы, Б. Ғафуров ауданы, Вахдат көшесі, 15",
-    warehouseAddress: "Республика Таджикистан, г. Душанбе, ул. Джаббора Расулова, 10",
     website: "https://muosirplast.tj",
     instagram: "https://instagram.com/muosirplast",
     facebook: "https://facebook.com/muosirplast",
@@ -42,7 +41,7 @@ const DEFAULT_DATA = {
     crmWebhookUrl: ""
   },
   stats: [
-    { id: "lines", number: "3+", label: "автоматизированные линии", labelEn: "automated production lines", labelUz: "avtomatlashtirilgan liniyalar", labelKk: "автоматтандырылған желілер" },
+    { id: "lines", number: "14+", label: "автоматизированные линии", labelEn: "automated production lines", labelUz: "avtomatlashtirilgan liniyalar", labelKk: "автоматтандырылған желілер" },
     { id: "capacity", number: "20–60 млн", label: "единиц в год", labelEn: "units per year", labelUz: "dona yiliga", labelKk: "дана жылына" },
     { id: "molds", number: "50+", label: "видов пресс-форм", labelEn: "mold types", labelUz: "qolip turlari", labelKk: "қалып түрлері" },
     { id: "processes", number: "3", label: "основные технологии", labelEn: "core technologies", labelUz: "asosiy texnologiyalar", labelKk: "негізгі технологиялар" }
@@ -69,7 +68,7 @@ const DEFAULT_DATA = {
       color: "Белый / Прозрачный / С печатью",
       boxQty: "1 000 шт.",
       minOrder: "50 000 шт.",
-      image: "assets/images/product-dairy-cup.svg",
+      image: "assets/images/products/dairy-cup-400.png",
       photo: "assets/images/products/dairy-cup-400.png",
       customizable: true,
       desc: "Герметичный стакан под запайку платинкой из фольги или нахлобучку. Подходит для автоматических линий фасовки.",
@@ -90,7 +89,7 @@ const DEFAULT_DATA = {
       color: "Белый / Индивидуальный цвет",
       boxQty: "1 200 шт.",
       minOrder: "50 000 шт.",
-      image: "assets/images/product-dairy-250.svg",
+      image: "assets/images/products/dairy-cup-250.png",
       photo: "assets/images/products/dairy-cup-250.png",
       desc: "Устойчив к глубокой заморозке и температурным перепадам. Прочный ободок под стандартную запайку.",
       descEn: "Resistant to deep freezing. Rigid rim for standard heat sealing.",
@@ -110,8 +109,8 @@ const DEFAULT_DATA = {
       color: "Кристально прозрачный",
       boxQty: "2 000 шт.",
       minOrder: "50 000 шт.",
-      image: "assets/images/product-lid-95.svg",
-      photo: "assets/images/products/snap-lid-95.png",
+      image: "assets/images/products/DSC04876.png",
+      photo: "assets/images/products/DSC04876.png",
       desc: "Идеальная фиксация на стаканах 95 мм. Защищает продукт после снятия фольги.",
       descEn: "Perfect snap-fit on 95mm cups. Protects the product after foil seal is removed.",
       descUz: "95 mm stakanlarga aniq o'tiradi. Folga ochilgandan so'ng mahsulotni toza saqlaydi.",
@@ -130,8 +129,8 @@ const DEFAULT_DATA = {
       color: "Прозрачный",
       boxQty: "600 шт.",
       minOrder: "30 000 шт.",
-      image: "assets/images/product-egg-10.svg",
-      photo: "assets/images/products/egg-box-10.png",
+      image: "assets/images/products/DSC04876.png",
+      photo: "assets/images/products/DSC04876.png",
       desc: "Усиленные ребра жесткости, надежный двойной замок. Безопасное штабелирование при транспортировке.",
       descEn: "Reinforced stiffening ribs, reliable dual snap locks. Safe stacking during transport.",
       descUz: "Qovurg'alari kuchaytirilgan, mustahkam ikkitalik qulf. Tashishda ustma-ust xavfsiz taxlanadi.",
@@ -150,8 +149,8 @@ const DEFAULT_DATA = {
       color: "Прозрачный глянцевый",
       boxQty: "450 шт.",
       minOrder: "30 000 шт.",
-      image: "assets/images/product-egg-15.svg",
-      photo: "assets/images/products/egg-box-15.png",
+      image: "assets/images/products/DSC04957.png",
+      photo: "assets/images/products/DSC04957.png",
       desc: "Эргономичная форма с вентиляционными отверстиями для продления свежести продукции на полке ритейла.",
       descEn: "Ergonomic shape with ventilation holes to prolong shelf life in retail stores.",
       descUz: "Do'kon peshtaxtalarida tuxum uzoq vaqt yangi turishi uchun shamollatish teshiklariga ega.",
@@ -170,8 +169,8 @@ const DEFAULT_DATA = {
       color: "Черное дно + прозрачный купол",
       boxQty: "200 шт.",
       minOrder: "20 000 шт.",
-      image: "assets/images/product-cake-round.svg",
-      photo: "assets/images/products/cake-round.png",
+      image: "assets/images/products/DSC04876.png",
+      photo: "assets/images/products/DSC04876.png",
       desc: "Премиальная презентация кондитерских изделий. Надежная круговая фиксация купола исключает случайное открытие.",
       descEn: "Premium presentation of confectionery. Secure perimeter locking prevents accidental opening.",
       descUz: "Tortlar va pishiriqlar uchun yuqori sifatli ko'rinish. Aylanma mustahkam qulflar tasodifiy ochilib ketishni oldini oladi.",
@@ -190,8 +189,8 @@ const DEFAULT_DATA = {
       color: "Коричневый / Прозрачный / Золотой",
       boxQty: "1 500 шт.",
       minOrder: "40 000 шт.",
-      image: "assets/images/product-correx.svg",
-      photo: "assets/images/products/correx-tray.png",
+      image: "assets/images/products/box-black.png",
+      photo: "assets/images/products/box-black.png",
       desc: "Защищает хрупкую выпечку от ломки при транспортировке. Подходит для автоматических флоу-пак линий.",
       descEn: "Protects delicate bakery items from breaking during transport. Suitable for automated flow-pack lines.",
       descUz: "Tashish paytida mo'rt pishiriqlarni sinishdan saqlaydi. Avtomatik flow-pack qadoqlashga mos.",
@@ -210,8 +209,8 @@ const DEFAULT_DATA = {
       color: "Прозрачный / Черный",
       boxQty: "500 шт.",
       minOrder: "30 000 шт.",
-      image: "assets/images/product-container-500.svg",
-      photo: "assets/images/products/container-500.png",
+      image: "assets/images/products/DSC04953.png",
+      photo: "assets/images/products/DSC04953.png",
       customizable: true,
       desc: "Подходит для горячих и холодных блюд, разогрева в СВЧ. Герметичный замок по всему периметру.",
       descEn: "Suitable for hot and cold dishes, microwave-safe. Leak-proof perimeter seal.",
@@ -231,8 +230,8 @@ const DEFAULT_DATA = {
       color: "Прозрачный",
       boxQty: "400 шт.",
       minOrder: "30 000 шт.",
-      image: "assets/images/product-salad-750.svg",
-      photo: "assets/images/products/salad-bowl.png",
+      image: "assets/images/products/DSC04876.png",
+      photo: "assets/images/products/DSC04876.png",
       desc: "Идеален для готовых салатов, полуфабрикатов и кулинарии. Отличный глянец и жесткость стенок.",
       descEn: "Ideal for ready-to-eat salads, deli and food service. Superb clarity and wall stiffness.",
       descUz: "Tayyor salatlar va yarim tayyor taomlar uchun ideal. Ajoyib shaffoflik va qattiq devorlar.",
@@ -251,8 +250,8 @@ const DEFAULT_DATA = {
       color: "Прозрачный",
       boxQty: "1 000 шт.",
       minOrder: "50 000 шт.",
-      image: "assets/images/product-cup-500.svg",
-      photo: "assets/images/products/cup-500.png",
+      image: "assets/images/products/DSC05040.png",
+      photo: "assets/images/products/DSC05040.png",
       customizable: true,
       desc: "Эластичный, не трескается при сжатии. Возможность нанесения многоцветного логотипа бренда.",
       descEn: "Elastic and shatter-proof. Multi-color custom printing available.",
@@ -272,8 +271,8 @@ const DEFAULT_DATA = {
       color: "Прозрачный",
       boxQty: "1 000 шт.",
       minOrder: "50 000 шт.",
-      image: "assets/images/product-dome-lid.svg",
-      photo: "assets/images/products/dome-lid.png",
+      image: "assets/images/products/DSC05020.png",
+      photo: "assets/images/products/DSC05020.png",
       desc: "Купол под коктейльные трубочки, десерты со взбитыми сливками и смузи. Плотно защелкивается.",
       descEn: "Dome for cocktail straws and whipped desserts. Snaps on tightly.",
       descUz: "Kokteyl naychalari, smuzi va desertlar uchun gumbaz qopqoq. Qattiq qisiladi.",
@@ -292,8 +291,8 @@ const DEFAULT_DATA = {
       color: "Черный корпус + прозрачная крышка",
       boxQty: "300 шт.",
       minOrder: "25 000 шт.",
-      image: "assets/images/product-lunch-box.svg",
-      photo: "assets/images/products/lunch-box.png",
+      image: "assets/images/products/box-black.png",
+      photo: "assets/images/products/box-black.png",
       customizable: true,
       desc: "Раздельное хранение основного блюда и гарнира. Прочный замок, выдерживает доставку горячих обедов.",
       descEn: "Separate compartments for main dish and side. Sturdy lock, ideal for hot meal delivery.",
@@ -358,8 +357,8 @@ const DEFAULT_DATA = {
       titleEn: "Custom Engineering",
       titleUz: "Yakka yondashuv",
       titleKk: "Жеке көзқарас",
-      desc: "Парк предприятия включает более 50 видов высокоточных пресс-форм для производственных задач.",
-      descEn: "The facility's tooling park includes more than 50 types of precision molds.",
+      desc: "Парк предприятия включает 50+ видов высокоточных пресс-форм для производственных задач.",
+      descEn: "The facility's tooling park includes at least 50 types of precision molds.",
       descUz: "Korxonada 50 dan ortiq yuqori aniqlikdagi press-qoliplar mavjud.",
       descKk: "Кәсіпорында 50-ден астам жоғары дәлдіктегі пресс-қалып бар."
     },
@@ -397,8 +396,8 @@ const DEFAULT_DATA = {
       titleEn: "Automated Thermoforming Lines",
       titleUz: "Avtomatlashtirilgan termoformirovka liniyalari",
       titleKk: "Автоматтандырылған термоформалау желілері",
-      desc: "На предприятии работают 3+ современные автоматизированные линии для производства упаковки.",
-      descEn: "The facility operates 3+ modern automated packaging production lines.",
+      desc: "На предприятии действует 14+ современных автоматизированных линий для производства упаковки.",
+      descEn: "The facility operates 14+ modern automated packaging production lines.",
     },
     {
       id: "process",
@@ -430,16 +429,6 @@ const DEFAULT_DATA = {
       desc: "Производство ведётся с соблюдением международных санитарно-гигиенических норм и требований пищевой безопасности.",
       descEn: "Production follows international sanitary, hygiene, and food-safety requirements.",
     },
-    {
-      id: "shipping",
-      category: "shipping",
-      title: "Складской комплекс в Душанбе",
-      titleEn: "Dushanbe Warehouse",
-      titleUz: "Dushanbedagi ombor majmuasi",
-      titleKk: "Душанбедегі қойма кешені",
-      desc: "Филиал и складской комплекс: Республика Таджикистан, г. Душанбе, ул. Джаббора Расулова, 10.",
-      descEn: "Branch and warehouse: 10 Jabbora Rasulova Street, Dushanbe, Republic of Tajikistan.",
-    }
   ],
   documents: [
     {
@@ -515,14 +504,27 @@ const RELATED_PRODUCT_IDS = {
 };
 const PRODUCT_GALLERIES = {
   "prod-9": [
-    "media/photo/PNG/DSC04874.png",
-    "media/photo/PNG/DSC04876.png",
-    "media/photo/PNG/DSC04896.png"
+    "assets/images/products/DSC04876.png",
+    "assets/images/products/DSC04874.png"
   ],
   "prod-10": [
-    "media/photo/PNG/DSC05020.png",
-    "media/photo/PNG/DSC05091.png"
+    "assets/images/products/DSC05040.png",
+    "assets/images/products/DSC05046.png"
   ]
+};
+const LEGACY_PRODUCT_IMAGES = {
+  "prod-1": ["assets/images/product-dairy-cup.svg"],
+  "prod-2": ["assets/images/product-dairy-250.svg"],
+  "prod-3": ["assets/images/product-lid-95.svg", "assets/images/products/snap-lid-95.png", "media/photo/PNG/DSC04876.png"],
+  "prod-4": ["assets/images/product-egg-10.svg", "assets/images/products/egg-box-10.png", "media/photo/PNG/DSC04876.png"],
+  "prod-5": ["assets/images/product-egg-15.svg", "assets/images/products/egg-box-15.png", "media/photo/PNG/DSC04957.png"],
+  "prod-6": ["assets/images/product-cake-round.svg", "assets/images/products/cake-round.png", "media/photo/PNG/DSC04876.png"],
+  "prod-7": ["assets/images/product-correx.svg", "assets/images/products/correx-tray.png", "media/photo/PNG/DSC04953.png"],
+  "prod-8": ["assets/images/product-container-500.svg", "assets/images/products/container-500.png", "media/photo/PNG/DSC04953.png"],
+  "prod-9": ["assets/images/product-salad-750.svg", "assets/images/products/salad-bowl.png", "media/photo/PNG/DSC04876.png"],
+  "prod-10": ["assets/images/product-cup-500.svg", "assets/images/products/cup-500.png", "media/photo/PNG/DSC05091.png", "media/photo/PNG/DSC05040.png"],
+  "prod-11": ["assets/images/product-dome-lid.svg", "assets/images/products/dome-lid.png", "media/photo/PNG/DSC05020.png"],
+  "prod-12": ["assets/images/product-lunch-box.svg", "assets/images/products/lunch-box.png"]
 };
 
 function createProductSku(product) {
@@ -577,22 +579,37 @@ class Store {
         .find(Boolean);
       if (stored) {
         const parsed = JSON.parse(stored);
+        const storedCompany = { ...(parsed.company || {}) };
+        delete storedCompany.warehouseAddress;
         const products = (parsed.products || DEFAULT_DATA.products).map(product => {
           const defaults = DEFAULT_DATA.products.find(item => item.id === product.id);
+          const legacyImages = LEGACY_PRODUCT_IMAGES[product.id] || [];
+          const hasLegacyPhoto = legacyImages.includes(product.photo);
+          const hasLegacyImage = legacyImages.includes(product.image);
           return enrichProduct({
             ...defaults,
             ...product,
-            photo: product.photo || defaults?.photo,
+            image: hasLegacyImage ? defaults?.image : product.image || defaults?.image,
+            photo: hasLegacyPhoto ? defaults?.photo : product.photo || defaults?.photo,
+            gallery: hasLegacyPhoto || hasLegacyImage ? undefined : product.gallery,
             customizable: product.customizable ?? defaults?.customizable ?? false
           });
         });
         const isLegacyData = !currentStored;
+        const linesShowcaseDefaults = DEFAULT_DATA.productionShowcase.find(item => item.id === "lines");
+        const productionShowcase = (
+          isLegacyData ? DEFAULT_DATA.productionShowcase : (parsed.productionShowcase || DEFAULT_DATA.productionShowcase)
+        ).filter(item => item.id !== "shipping").map(item => item.id === "lines" && linesShowcaseDefaults
+          ? { ...item, desc: linesShowcaseDefaults.desc, descEn: linesShowcaseDefaults.descEn }
+          : item);
+        const stats = (isLegacyData ? DEFAULT_DATA.stats : (parsed.stats || DEFAULT_DATA.stats))
+          .map(item => item.id === "lines" ? { ...item, number: "14+" } : item);
         const data = {
           ...DEFAULT_DATA,
           ...parsed,
           company: {
             ...DEFAULT_DATA.company,
-            ...(parsed.company || {}),
+            ...storedCompany,
             phone: DEFAULT_DATA.company.phone,
             phoneClean: DEFAULT_DATA.company.phoneClean,
             salesPhones: DEFAULT_DATA.company.salesPhones,
@@ -603,12 +620,11 @@ class Store {
             addressEn: DEFAULT_DATA.company.addressEn,
             addressUz: DEFAULT_DATA.company.addressUz,
             addressKk: DEFAULT_DATA.company.addressKk,
-            warehouseAddress: DEFAULT_DATA.company.warehouseAddress
           },
           products,
-          stats: isLegacyData ? DEFAULT_DATA.stats : (parsed.stats || DEFAULT_DATA.stats),
+          stats,
           advantages: isLegacyData ? DEFAULT_DATA.advantages : (parsed.advantages || DEFAULT_DATA.advantages),
-          productionShowcase: isLegacyData ? DEFAULT_DATA.productionShowcase : (parsed.productionShowcase || DEFAULT_DATA.productionShowcase),
+          productionShowcase,
           documents: isLegacyData ? DEFAULT_DATA.documents : (parsed.documents || DEFAULT_DATA.documents)
         };
         if (isLegacyData) localStorage.setItem(STORAGE_KEY, JSON.stringify(data));

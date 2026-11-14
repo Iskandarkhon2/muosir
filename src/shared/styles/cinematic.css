@@ -413,7 +413,7 @@
   border: 1px solid var(--border-default);
   background: var(--surface-1);
   box-shadow: var(--shadow-card);
-  transition: opacity var(--duration-normal) ease, transform var(--duration-normal) var(--ease-out);
+  transition: opacity var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
 }
 
 .scroll-progress {

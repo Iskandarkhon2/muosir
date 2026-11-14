@@ -58,7 +58,7 @@ const TRANSLATIONS = {
     about_section_badge: "ПРОИЗВОДИТЕЛЬ, А НЕ ПОСРЕДНИК",
     about_title: "Муосир пласт — производитель жесткой пластиковой упаковки",
     about_p1: "«Муосир Пласт» — первое специализированное предприятие Таджикистана по производству жёсткой пластиковой упаковки для пищевой промышленности. Производство расположено в Согдийской области.",
-    about_p2: "На предприятии работают 3+ автоматизированные линии: термоформование, литьё под давлением и декорирование IML. Парк включает более 50 видов высокоточных пресс-форм.",
+    about_p2: "На предприятии работают 14+ автоматизированных линий: термоформование, литьё под давлением и декорирование IML. Парк включает 50+ видов высокоточных пресс-форм.",
     about_p3: "Производственная мощность составляет от 20 до 60 миллионов единиц готовой упаковки в год. Продукция производится с соблюдением международных санитарно-гигиенических норм и требований пищевой безопасности.",
     about_btn_download: "Запросить экспортный каталог (PDF)",
 
@@ -108,6 +108,8 @@ const TRANSLATIONS = {
     viz_drag_text: "Перетащите файл или нажмите",
     viz_logo_size: "Размер логотипа",
     viz_logo_opacity: "Прозрачность",
+    viz_rotation: "Поворот логотипа",
+    viz_reset_transform: "Сбросить положение и поворот",
     viz_position_x: "Положение по горизонтали",
     viz_position_y: "Положение по вертикали",
     viz_bg_zone: "Фон зоны нанесения",
@@ -117,6 +119,8 @@ const TRANSLATIONS = {
     viz_view_2d: "2D Наложение",
     viz_loading: "Подготовка предпросмотра…",
     viz_no_logo: "Загрузите логотип, чтобы увидеть его на упаковке",
+    viz_upload_action: "Добавить логотип",
+    viz_drag_logo: "Перетащите логотип, чтобы изменить положение",
     viz_disclaimer: "Визуализация является предварительной и не заменяет финальный дизайн-макет, техническую проверку и согласование перед производством.",
     viz_preview_region: "Предварительный просмотр упаковки",
     viz_mockup_region: "Упаковка с вашим логотипом",
@@ -267,7 +271,7 @@ const TRANSLATIONS = {
     about_section_badge: "DIRECT MANUFACTURER, NOT A BROKER",
     about_title: "Muosir Plast — Manufacturer of Rigid Plastic Packaging",
     about_p1: "Muosir Plast is Tajikistan's first specialized manufacturer of rigid plastic packaging for the food industry. The production site is located in Sughd Region.",
-    about_p2: "The facility operates 3+ automated lines for thermoforming, injection molding, and in-mold labelling (IML), supported by more than 50 precision mold types.",
+    about_p2: "The facility operates 14+ automated lines for thermoforming, injection molding, and in-mold labelling (IML), supported by 50+ precision mold types.",
     about_p3: "Annual production capacity ranges from 20 to 60 million finished packaging units. Production follows international sanitary and food-safety requirements.",
     about_btn_download: "Request Export Catalog (PDF)",
 
@@ -317,6 +321,8 @@ const TRANSLATIONS = {
     viz_drag_text: "Drag & drop file or click",
     viz_logo_size: "Logo Size",
     viz_logo_opacity: "Opacity",
+    viz_rotation: "Logo rotation",
+    viz_reset_transform: "Reset position & rotation",
     viz_position_x: "Horizontal position",
     viz_position_y: "Vertical position",
     viz_bg_zone: "Print Zone Background",
@@ -326,6 +332,8 @@ const TRANSLATIONS = {
     viz_view_2d: "2D Overlay",
     viz_loading: "Preparing preview…",
     viz_no_logo: "Upload your logo to preview it on the packaging",
+    viz_upload_action: "Add logo",
+    viz_drag_logo: "Drag the logo to change its position",
     viz_disclaimer: "This visualization is preliminary and does not replace final production mockups, technical verification, and pre-production approval.",
     viz_preview_region: "Packaging preview",
     viz_mockup_region: "Packaging with your logo",
@@ -476,7 +484,7 @@ const TRANSLATIONS = {
     about_section_badge: "VOSITACHI EMAS, ASL ISHLAB CHIQARUVCHI",
     about_title: "Muosir plast — qattiq plastik qadoqlash ishlab chiqaruvchisi",
     about_p1: "«Muosir Plast» — Tojikistonda oziq-ovqat sanoati uchun qattiq plastik qadoq ishlab chiqarishga ixtisoslashgan birinchi korxona. Ishlab chiqarish Sug'd viloyatida joylashgan.",
-    about_p2: "Korxonada termoformlash, bosim ostida quyish va IML bezaklash uchun 3+ avtomatlashtirilgan liniya hamda 50 dan ortiq aniq press-qolip mavjud.",
+    about_p2: "Korxonada termoformlash, bosim ostida quyish va IML bezaklash uchun 14+ avtomatlashtirilgan liniya hamda 50 dan ortiq aniq press-qolip mavjud.",
     about_p3: "Yillik ishlab chiqarish quvvati 20–60 million dona tayyor qadoqni tashkil etadi. Mahsulotlar xalqaro sanitariya-gigiyena va oziq-ovqat xavfsizligi talablariga muvofiq ishlab chiqariladi.",
     about_btn_download: "Eksport katalogini yuklab olish (PDF)",
 
@@ -526,6 +534,8 @@ const TRANSLATIONS = {
     viz_drag_text: "Faylni tortib olib keling yoki bosing",
     viz_logo_size: "Logotip o'lchami",
     viz_logo_opacity: "Shaffoflik",
+    viz_rotation: "Logotipni aylantirish",
+    viz_reset_transform: "Joylashuv va burilishni tiklash",
     viz_position_x: "Gorizontal joylashuv",
     viz_position_y: "Vertikal joylashuv",
     viz_bg_zone: "Bosish maydoni foni",
@@ -535,6 +545,8 @@ const TRANSLATIONS = {
     viz_view_2d: "2D Qoplama",
     viz_loading: "Ko'rinish tayyorlanmoqda…",
     viz_no_logo: "Qadoqni oldindan ko'rish uchun logotipingizni yuklang",
+    viz_upload_action: "Logotip qo'shish",
+    viz_drag_logo: "Joyini o'zgartirish uchun logotipni suring",
     viz_disclaimer: "Vizualizatsiya dastlabki hisoblanadi va ishlab chiqarishdan oldingi yakuniy dizayn-maket va tasdiqlashning o'rnini bosmaydi.",
     viz_preview_region: "Qadoqni oldindan ko'rish",
     viz_mockup_region: "Logotipingiz tushirilgan qadoq",
@@ -685,7 +697,7 @@ const TRANSLATIONS = {
     about_section_badge: "ДЕЛДАЛ ЕМЕС, НАҚТЫ ӨНДІРУШІ",
     about_title: "Муосир пласт — қатты пластикалық қаптама өндірушісі",
     about_p1: "«Муосир Пласт» — Тәжікстанда тамақ өнеркәсібіне арналған қатты пластик қаптама өндіруге маманданған алғашқы кәсіпорын. Өндіріс Соғды облысында орналасқан.",
-    about_p2: "Кәсіпорында термоформалау, қысыммен құю және IML безендіруге арналған 3+ автоматтандырылған желі мен 50-ден астам дәл пресс-қалып бар.",
+    about_p2: "Кәсіпорында термоформалау, қысыммен құю және IML безендіруге арналған 14+ автоматтандырылған желі мен 50-ден астам дәл пресс-қалып бар.",
     about_p3: "Жылдық өндірістік қуаты 20–60 миллион дайын қаптама бірлігін құрайды. Өнімдер халықаралық санитарлық-гигиеналық және азық-түлік қауіпсіздігі талаптарына сай өндіріледі.",
     about_btn_download: "Экспорттық каталогты жүктеу (PDF)",
 
@@ -735,6 +747,8 @@ const TRANSLATIONS = {
     viz_drag_text: "Файлды сүйреңіз немесе басыңыз",
     viz_logo_size: "Логотип өлшемі",
     viz_logo_opacity: "Мөлдірлік",
+    viz_rotation: "Логотипті бұру",
+    viz_reset_transform: "Орны мен бұрылуын қалпына келтіру",
     viz_position_x: "Көлденең орналасуы",
     viz_position_y: "Тік орналасуы",
     viz_bg_zone: "Басып шығару аймағының фоны",
@@ -744,6 +758,8 @@ const TRANSLATIONS = {
     viz_view_2d: "2D Қабаттастыру",
     viz_loading: "Көрініс дайындалуда…",
     viz_no_logo: "Қаптаманы алдын ала көру үшін логотипіңізді жүктеңіз",
+    viz_upload_action: "Логотип қосу",
+    viz_drag_logo: "Орнын өзгерту үшін логотипті сүйреңіз",
     viz_disclaimer: "Бұл визуализация алдын ала жасалған және өндіріс алдындағы соңғы дизайн-макетті, техникалық тексеру мен мақұлдауды алмастырмайды.",
     viz_preview_region: "Қаптаманы алдын ала көру",
     viz_mockup_region: "Логотипіңіз бар қаптама",
@@ -916,13 +932,8 @@ class I18nEngine {
   updateActiveButtons() {
     document.querySelectorAll('[data-lang-btn]').forEach(btn => {
       const bLang = btn.getAttribute('data-lang-btn');
-      if (bLang === this.currentLang) {
-        btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
-        btn.classList.remove('text-slate-400', 'hover:text-white');
-      } else {
-        btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
-        btn.classList.add('text-slate-400', 'hover:text-white');
-      }
+      btn.classList.toggle('is-active', bLang === this.currentLang);
+      btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'text-slate-400', 'hover:text-white');
     });
   }
 }

@@ -1,3 +1,5 @@
+import { addLeadHoneypot } from '../forms/lead-api.js';
+
 (() => {
   const allowedTypes = new Set(['image/png', 'image/jpeg', 'image/svg+xml']);
   const maximumFileSize = 5 * 1024 * 1024;

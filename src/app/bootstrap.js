@@ -99,12 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (lang === 'kk') lbl = s.labelKk || lbl;
 
       return `
-        <div class="glass-card p-6 rounded-2xl text-center interactive-card border border-slate-800/80 hover:border-cyan-500/50 transition-all">
+        <div class="glass-card p-4 sm:p-6 rounded-2xl text-center interactive-card border border-slate-800/80 hover:border-cyan-500/50 transition-all">
           <div class="card-shine"></div>
-          <div class="text-3xl lg:text-4xl font-extrabold font-mono-numbers text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-200 to-cyan-400 tracking-tight">
+          <div class="text-3xl lg:text-4xl font-extrabold stat-value text-blue-400 tracking-tight">
             ${s.number}
           </div>
-          <div class="text-[11px] uppercase font-bold text-slate-300 mt-2.5 tracking-wider">
+          <div class="stat-label text-xs sm:text-sm font-normal sm:font-semibold text-slate-300 mt-2.5">
             ${lbl}
           </div>
         </div>
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
               href="${waUrl}" 
               target="_blank" 
               rel="noopener noreferrer"
-              onclick="window.muosirAnalytics.trackWhatsAppClick('Catalog Card', '${p.title.replace(/'/g, "\\'")}')"
+              onclick="window.muosirAnalytics.trackWhatsAppClick('Catalog Card', '${p.title.replace(/'/g, "\\'")}', '${p.sku || 'general'}')"
               class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-emerald-300 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/40 hover:border-emerald-500/60 transition-all flex items-center justify-center gap-1.5"
             >
               <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.588 1.777.896 2.796.896 3.183 0 5.768-2.587 5.769-5.766.001-3.182-2.585-5.769-5.769-5.769zm3.36 8.163c-.144.405-.837.774-1.17.822-.312.043-.687.05-1.111-.087-.275-.088-.63-.207-1.077-.4-1.895-.82-3.125-2.735-3.22-2.862-.095-.127-.775-1.029-.775-1.963 0-.934.489-1.393.663-1.584.174-.191.38-.239.507-.239.127 0 .254.001.365.006.119.006.278-.045.435.333.16.385.547 1.332.595 1.428.048.095.079.206.016.333-.064.127-.095.206-.19.317-.095.111-.2.248-.286.333-.095.095-.195.198-.084.389.111.19.493.813 1.057 1.316.726.647 1.339.848 1.53.943.19.095.302.079.413-.048.111-.127.476-.556.603-.746.127-.19.254-.159.428-.095.175.063 1.111.524 1.302.619.19.095.317.143.365.222.048.079.048.46-.096.865z"/></svg>

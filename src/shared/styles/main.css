@@ -31,7 +31,7 @@ body {
   font-size: 0.9375rem;
   line-height: 1.65;
   letter-spacing: -0.01em;
-  transition: background-color var(--duration-normal) ease, color var(--duration-normal) ease;
+  transition: background-color var(--duration-normal) var(--ease-out), color var(--duration-normal) var(--ease-out);
 }
 
 body::before {
@@ -92,6 +92,8 @@ video {
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-weight: 600 !important;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
@@ -105,7 +107,18 @@ video {
 .font-spec {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.stat-value {
+  font-family: var(--font-stats);
+  font-variant-numeric: tabular-nums;
   letter-spacing: -0.025em;
+}
+
+.stat-label {
+  font-family: var(--font-stats);
 }
 
 .site-content .text-white,
@@ -314,7 +327,7 @@ dialog {
   box-shadow: var(--shadow-card);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  transition: border-color var(--duration-normal) ease, box-shadow var(--duration-normal) ease, transform var(--duration-normal) var(--ease-out);
+  transition: border-color var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out);
 }
 
 .site-content .glass-card:hover,
@@ -348,7 +361,7 @@ dialog {
   box-shadow: var(--shadow-accent);
   color: var(--accent-contrast) !important;
   font-weight: 600;
-  transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .site-content .btn-primary-glow:hover {
@@ -365,7 +378,7 @@ dialog {
   border: 1px solid var(--border-default);
   background: var(--surface-1);
   color: var(--text-primary) !important;
-  transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+  transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
 }
 
 .site-content .btn-glass-secondary:hover {
@@ -377,7 +390,7 @@ dialog {
   border: 1px solid var(--border-default);
   background: var(--surface-2) !important;
   color: var(--text-primary) !important;
-  transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  transition: border-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
 
 .site-content .b2b-input::placeholder {
@@ -463,7 +476,7 @@ dialog {
   color: var(--text-muted);
   cursor: pointer;
   font-size: 0.75rem;
-  transition: color var(--duration-fast) ease, border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
+  transition: color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
 }
 
 .industry-filter:hover,
@@ -484,13 +497,22 @@ dialog {
   border: 1px solid var(--border-subtle);
   background: var(--surface-1);
   box-shadow: var(--shadow-card);
-  transition: transform var(--duration-normal) var(--ease-out), border-color var(--duration-normal) ease, box-shadow var(--duration-normal) ease;
+  transition: transform var(--duration-normal) var(--ease-out), border-color var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out);
 }
 
 .product-card:hover {
   transform: translateY(-2px);
   border-color: var(--accent-border);
   box-shadow: var(--shadow-float);
+}
+
+.product-card[tabindex="0"] {
+  cursor: pointer;
+}
+
+.product-card[tabindex="0"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .product-card__image {
@@ -571,7 +593,7 @@ dialog {
     font: 600 0.75rem/1.35 var(--font-sans);
     text-align: center;
     text-decoration: none;
-    transition: transform var(--duration-fast) var(--ease-out), color var(--duration-fast) ease, background-color var(--duration-fast) ease, border-color var(--duration-fast) ease;
+    transition: transform var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
   }
 
   .button-primary {
@@ -761,7 +783,7 @@ dialog {
     border: 1px dashed var(--border-strong);
     border-radius: var(--radius-md);
     background: var(--surface-1);
-    transition: border-color var(--duration-fast) ease, background-color var(--duration-fast) ease;
+    transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out);
   }
 
   .specification-drop[data-dragging="true"] {
@@ -796,6 +818,8 @@ dialog {
   margin: 0.4rem 0 0;
   color: var(--text-muted);
   font: 0.7rem var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.06em;
 }
 
 .site-search-trigger {
@@ -840,10 +864,40 @@ dialog {
   box-shadow: var(--shadow-float);
 }
 
+.site-search-dialog[open],
+.product-quickview-dialog[open] {
+  animation: dialog-enter var(--duration-normal) var(--ease-out) both;
+}
+
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .site-search-dialog::backdrop,
 .product-quickview-dialog::backdrop {
   background: var(--overlay-backdrop);
-  backdrop-filter: blur(6px);
+  animation: backdrop-enter var(--duration-normal) var(--ease-out) both;
+  backdrop-filter: blur(12px);
+}
+
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+
+  to {
+    opacity: 1;
+    backdrop-filter: blur(12px);
+  }
 }
 
 .site-search-dialog__header,
@@ -896,6 +950,8 @@ dialog {
 
 .site-search-result {
   display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  align-items: center;
   gap: 0.25rem;
   padding: 0.8rem 1rem;
   border: 1px solid var(--border-subtle);
@@ -913,7 +969,18 @@ dialog {
 }
 
 .site-search-result__name {
+  grid-column: 2;
   font-weight: 600;
+}
+
+.site-search-result__image {
+  width: 3.5rem;
+  height: 3.5rem;
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  object-fit: contain;
 }
 
 .site-search-result__meta,
@@ -921,6 +988,13 @@ dialog {
   margin: 0;
   color: var(--text-muted);
   font: 0.75rem var(--font-mono);
+}
+
+.site-search-result__meta {
+  grid-column: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .product-quickview-dialog {
@@ -938,6 +1012,55 @@ dialog {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 1.5rem;
+}
+
+.catalog-product-specs {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+}
+
+.catalog-product-specs > div {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 0.75fr) minmax(0, 1.25fr);
+  gap: 0.75rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface-elevated);
+}
+
+.catalog-product-specs dt {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.catalog-product-specs dd {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.catalog-product-specs--compact {
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+}
+
+.catalog-product-specs--compact > div {
+  grid-template-columns: minmax(5.5rem, 0.65fr) minmax(0, 1.35fr);
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  border-radius: 0;
+  background: transparent;
+}
+
+.catalog-product-specs--compact dt,
+.catalog-product-specs--compact dd {
+  font-size: 0.7rem;
 }
 
 .product-quickview__main-image {
@@ -1225,5 +1348,78 @@ dialog {
 
   .production-photo-card--wide {
     grid-column: span 2;
+  }
+}
+
+@media (min-width: 1280px) {
+  .site-content > header .theme-toggle-btn {
+    display: grid;
+    flex: 0 0 2.5rem;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+  }
+
+  .site-content > header nav {
+    gap: 0.25rem !important;
+    font-size: 0.625rem;
+    letter-spacing: 0.04em;
+  }
+
+  .site-content > header nav > :not([hidden]) ~ :not([hidden]) {
+    margin-left: 0 !important;
+  }
+
+  .site-content > header nav a,
+  .site-content > header a[href^="https://wa.me/"],
+  .site-content > header a[data-i18n="nav_cta"] {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+body:not(.visualizer-page) header div:has(> [data-lang-btn]) {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem !important;
+  padding: 0.25rem !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  font-size: 0.72rem;
+  font-weight: 400;
+}
+
+body:not(.visualizer-page) header div:has(> [data-lang-btn]) > [data-lang-btn] {
+  min-width: 2.1rem;
+  padding: 0.48rem 0.55rem;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--text-dim) !important;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1;
+  transition: color 180ms ease, background-color 180ms ease;
+}
+
+body:not(.visualizer-page) header div:has(> [data-lang-btn]) > [data-lang-btn]:hover,
+body:not(.visualizer-page) header div:has(> [data-lang-btn]) > [data-lang-btn].is-active {
+  background: var(--accent-soft) !important;
+  color: var(--cyan-accent) !important;
+}
+
+@media (max-width: 580px) {
+  body:not(.visualizer-page) header div:has(> [data-lang-btn]) {
+    gap: 0 !important;
+  }
+
+  body:not(.visualizer-page) header div:has(> [data-lang-btn]) > [data-lang-btn] {
+    min-width: 1.8rem;
+    padding: 0.42rem 0.35rem;
+    font-size: 0.62rem;
   }
 }

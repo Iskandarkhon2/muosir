@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
   <link rel="stylesheet" href="src/shared/styles/main.css">
   <link rel="stylesheet" href="src/shared/styles/cinematic.css">
-  <link rel="stylesheet" href="src/features/visualizer/visualizer.css">
+  <link rel="stylesheet" href="src/features/visualizer/visualizer.css?v=logo-ux">
   <script type="module" src="src/app/theme.js"></script>
   <script src="src/shared/data/store.js" defer></script>
   <script src="src/features/localization/i18n.js" defer></script>
@@ -55,14 +55,18 @@
             <p class="panel-kicker">LIVE PREVIEW</p>
             <h2 id="preview-product-name">Стакан 500 мл</h2>
           </div>
-          <span class="preview-status"><span></span> BROWSER RENDER</span>
+          <button type="button" class="preview-upload-button preview-upload-button--toolbar" data-upload-trigger data-i18n="viz_upload_action">Добавить логотип</button>
         </div>
         <div class="preview-stage" id="preview-stage">
           <canvas id="mockup-canvas" width="800" height="800" data-i18n-aria-label="viz_mockup_region"></canvas>
           <div class="preview-empty" id="preview-empty">
-            <span class="preview-empty-mark" aria-hidden="true">+</span>
-            <p data-i18n="viz_no_logo">Загрузите логотип, чтобы увидеть его на упаковке</p>
+            <div class="preview-empty-card">
+              <span class="preview-empty-mark" aria-hidden="true">+</span>
+              <p data-i18n="viz_no_logo">Загрузите логотип, чтобы увидеть его на упаковке</p>
+              <button type="button" class="preview-upload-button" data-upload-trigger data-i18n="viz_upload_action">Добавить логотип</button>
+            </div>
           </div>
+          <span class="preview-drag-hint" id="preview-drag-hint" data-i18n="viz_drag_logo" hidden>Перетащите логотип, чтобы изменить положение</span>
           <span class="preview-corner preview-corner-top">MP / STUDIO 01</span>
           <span class="preview-corner preview-corner-bottom">PREVIEW · NOT FOR PRODUCTION</span>
         </div>
@@ -111,7 +115,7 @@
           </div>
           <label class="upload-zone" for="logo-file">
             <span class="upload-icon" aria-hidden="true">↑</span>
-            <span class="upload-copy"><strong id="upload-title" data-i18n="viz_choose_file">Выберите файл или перетащите</strong><small data-i18n="viz_upload_hint">PNG, JPG, WebP, SVG до 5 МБ</small></span>
+            <span class="upload-copy"><strong id="upload-title">Выберите файл или перетащите</strong><small data-i18n="viz_upload_hint">PNG, JPG, WebP, SVG до 5 МБ</small></span>
             <input id="logo-file" type="file" accept="image/png,image/jpeg,image/webp,image/svg+xml">
           </label>
           <p class="upload-error" id="upload-error" role="status" aria-live="polite"></p>
@@ -124,18 +128,22 @@
             <span><span data-i18n="viz_logo_opacity">Непрозрачность</span><output id="logo-opacity-output">100%</output></span>
             <input id="logo-opacity" type="range" min="30" max="100" value="100">
           </label>
+          <label class="slider-control" for="logo-rotation">
+            <span><span data-i18n="viz_rotation">Поворот логотипа</span><output id="logo-rotation-output">0°</output></span>
+            <input id="logo-rotation" type="range" min="-180" max="180" step="1" value="0">
+          </label>
           <label class="slider-control" for="logo-position-x">
-            <span><span data-i18n="viz_position_x">Положение по горизонтали</span><output aria-hidden="true">↔</output></span>
+            <span><span data-i18n="viz_position_x">Положение по горизонтали</span><output id="logo-position-x-output" for="logo-position-x">50%</output></span>
             <input id="logo-position-x" type="range" min="0" max="100" value="50">
           </label>
           <label class="slider-control" for="logo-position-y">
-            <span><span data-i18n="viz_position_y">Положение по вертикали</span><output aria-hidden="true">↕</output></span>
+            <span><span data-i18n="viz_position_y">Положение по вертикали</span><output id="logo-position-y-output" for="logo-position-y">50%</output></span>
             <input id="logo-position-y" type="range" min="0" max="100" value="50">
           </label>
         </section>
 
         <div class="visualizer-actions">
-          <button type="button" class="text-action" id="reset-logo-position">Сбросить положение</button>
+          <button type="button" class="text-action" id="reset-logo-position" data-i18n="viz_reset_transform">Сбросить положение и поворот</button>
           <button type="button" class="visualizer-quote" id="open-quote" data-i18n="viz_btn_get_quote">Запросить предложение</button>
           <p data-i18n="viz_local_privacy">Исходный логотип обрабатывается в браузере. В заявке сохраняется только PNG-превью.</p>
         </div>

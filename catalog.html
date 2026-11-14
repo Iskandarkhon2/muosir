@@ -11,8 +11,25 @@
   <link rel="stylesheet" href="src/shared/styles/main.css">
   <link rel="stylesheet" href="src/shared/styles/cinematic.css">
   <script type="module" src="src/app/theme.js"></script>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1658581575615563');
+  fbq('track', 'PageView');
+  </script>
+  <!-- End Meta Pixel Code -->
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1658581575615563&ev=PageView&noscript=1"
+    /></noscript>
   <div class="site-content relative z-10">
 
     <!-- ================= HEADER ================= -->
@@ -157,7 +174,7 @@
             <button type="button" data-mat="PS" class="mat-filter px-3 py-1 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 font-semibold">PS (Полистирол)</button>
           </div>
           <div class="text-slate-400">
-            Показано изделий: <span id="product-count" class="font-bold text-white">12</span>
+            Показано изделий: <span id="product-count" class="font-bold text-white">41</span>
           </div>
         </div>
 
@@ -172,6 +189,9 @@
           <h3 class="text-lg font-bold text-white">По вашему запросу ничего не найдено</h3>
           <p class="text-sm text-slate-400 mt-1">Попробуйте изменить поисковый запрос или сбросить фильтры.</p>
         </div>
+
+        <dialog id="catalog-product-dialog" class="product-quickview-dialog" aria-label="Информация о товаре">
+        </dialog>
 
       </div>
     </section>
@@ -355,7 +375,7 @@
   <script src="src/features/site/shared-ui.js"></script>
   <script src="src/features/motion/scroll-motion.js"></script>
   <script src="src/features/catalog/catalog.js"></script>
-  <script src="src/features/catalog/customizer.js"></script>
+  <script type="module" src="src/features/catalog/customizer.js"></script>
   <script type="module" src="src/features/forms/forms.js"></script>
 </body>
 </html>
