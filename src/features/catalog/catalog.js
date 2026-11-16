@@ -1,4 +1,4 @@
-import { loadCatalogProducts } from './catalog-data.js';
+import { loadCatalogProducts, matchesCatalogSearch } from './catalog-data.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   const store = window.muosirStore;
@@ -6,10 +6,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const grid = document.getElementById('catalog-products-grid');
   const count = document.getElementById('product-count');
   const emptyState = document.getElementById('no-products-msg');
+  const searchForm = document.getElementById('catalog-search-form');
   const search = document.getElementById('catalog-search-input');
   const reset = document.getElementById('catalog-reset-filter');
   const quoteProduct = document.getElementById('quote-product-field');
   const industryFilters = document.getElementById('catalog-industry-filters');
+  const categoryFilters = document.getElementById('catalog-category-filters');
+  const materialFilters = document.getElementById('catalog-material-filters');
+  const boxQuantityFilters = document.getElementById('catalog-box-quantity-filters');
+  const filterDialog = document.getElementById('catalog-filter-dialog');
+  const filterOpen = document.getElementById('catalog-filter-open');
+  const activeFilterCount = document.getElementById('catalog-filter-active-count');
   const detailsDialog = document.getElementById('catalog-product-dialog');
 
   if (!i18n || !grid) return;
@@ -35,10 +42,40 @@ document.addEventListener('DOMContentLoaded', async () => {
     { id: 'horeca', categories: ['cups', 'containers'], labels: ['HoReCa и Fast Food', 'HoReCa and fast food', 'HoReCa va tezkor ovqatlanish', 'HoReCa және жылдам тамақтану'] }
   ];
 
-  let activeCategory = 'all';
-  let activeMaterial = 'all';
-  let activeIndustry = new URLSearchParams(window.location.search).get('industry') || 'all';
+  const categories = [
+    { id: 'dairy', label: 'Молочная упаковка' },
+    { id: 'eggs', label: 'Упаковка для яиц' },
+    { id: 'confectionery', label: 'Кондитерская тара' },
+    { id: 'containers', label: 'Контейнеры и ланч-боксы' },
+    { id: 'cups', label: 'Стаканы и крышки' },
+    { id: 'polymer-tape', label: 'Полимерные ленты' }
+  ];
+  const materials = [
+    { id: 'PP', label: 'PP (Полипропилен)' },
+    { id: 'PET', label: 'PET (ПЭТ)' },
+    { id: 'PS', label: 'PS (Полистирол)' }
+  ];
+  const boxQuantityRanges = [
+    { id: 'up-to-100', label: 'До 100 шт.', min: 1, max: 100 },
+    { id: '101-300', label: '101–300 шт.', min: 101, max: 300 },
+    { id: '301-500', label: '301–500 шт.', min: 301, max: 500 },
+    { id: '501-1000', label: '501–1000 шт.', min: 501, max: 1000 },
+    { id: 'over-1000', label: 'Более 1000 шт.', min: 1001, max: Infinity },
+    { id: 'not-specified', label: 'Не указано' }
+  ];
+  const requestedIndustry = new URLSearchParams(window.location.search).get('industry');
+  let activeCategories = new Set();
+  let activeMaterials = new Set();
+  let activeIndustries = new Set(industries.some(industry => industry.id === requestedIndustry) ? [requestedIndustry] : []);
+  let activeBoxQuantities = new Set();
   let searchQuery = '';
+
+  const selectionsByGroup = {
+    industry: activeIndustries,
+    category: activeCategories,
+    material: activeMaterials,
+    'box-quantity': activeBoxQuantities
+  };
 
   function escapeHtml(value) {
     return String(value ?? '').replace(/[&<>"']/g, character => ({
@@ -57,43 +94,157 @@ document.addEventListener('DOMContentLoaded', async () => {
     return product[`${key}${suffix}`] || product[key] || '';
   }
 
-  function renderIndustryFilters() {
-    if (!industryFilters) return;
-    const languageIndex = { ru: 0, en: 1, uz: 2, kk: 3 }[i18n.getLang()] || 0;
-    const options = [{ id: 'all', label: ['Все отрасли', 'All industries', 'Barcha sohalar', 'Барлық салалар'][languageIndex] }]
-      .concat(industries.map(industry => ({
-        id: industry.id,
-        label: industry.labels[languageIndex]
-      })));
+  function getBoxQuantity(product) {
+    const detail = product.details.find(item => item.label === 'Количество в коробке');
+    const match = detail?.value.match(/[\d\s]+/);
+    return match ? Number(match[0].replace(/\s/g, '')) : null;
+  }
 
-    industryFilters.innerHTML = options.map(option => `
-      <button type="button" class="industry-filter${activeIndustry === option.id ? ' is-active' : ''}"
-        data-industry="${option.id}" aria-pressed="${activeIndustry === option.id}">
-        ${escapeHtml(option.label)}
-      </button>
-    `).join('');
+  function matchesFilterOption(product, group, id) {
+    if (id === 'all') return true;
+    if (group === 'industry') {
+      return industries.find(industry => industry.id === id)?.categories.includes(product.categoryId) || false;
+    }
+    if (group === 'category') return product.categoryId === id;
+    if (group === 'material') return product.specificationText.toUpperCase().includes(id);
+    if (group === 'box-quantity') {
+      const quantity = getBoxQuantity(product);
+      if (id === 'not-specified') return quantity === null;
+      const range = boxQuantityRanges.find(option => option.id === id);
+      return quantity !== null && Boolean(range) && quantity >= range.min && quantity <= range.max;
+    }
+    return true;
+  }
+
+  function matchesActiveFilters(product, excludedGroup) {
+    if (excludedGroup !== 'category' && activeCategories.size && ![...activeCategories].some(id => matchesFilterOption(product, 'category', id))) return false;
+    if (excludedGroup !== 'industry' && activeIndustries.size && ![...activeIndustries].some(id => matchesFilterOption(product, 'industry', id))) return false;
+    if (excludedGroup !== 'material' && activeMaterials.size && ![...activeMaterials].some(id => matchesFilterOption(product, 'material', id))) return false;
+    if (excludedGroup !== 'box-quantity' && activeBoxQuantities.size && ![...activeBoxQuantities].some(id => matchesFilterOption(product, 'box-quantity', id))) return false;
+    return matchesSearch(product, searchQuery.trim().toLocaleLowerCase());
+  }
+
+  function countFilterOption(group, id) {
+    return products.filter(product =>
+      matchesActiveFilters(product, group) && matchesFilterOption(product, group, id)
+    ).length;
+  }
+
+  function renderFilterOptions(container, group, allLabel, options, selectedValues, getCount) {
+    if (!container) return;
+    const allSelected = selectedValues.size === 0;
+    const optionMarkup = [{ id: 'all', label: allLabel }, ...options].map(option => {
+      const selected = option.id === 'all' ? allSelected : selectedValues.has(option.id);
+      const optionCount = getCount(option.id);
+      const disabled = option.id !== 'all' && !selected && optionCount === 0;
+      return `
+        <label class="catalog-filter-option${disabled ? ' is-disabled' : ''}">
+          <input type="checkbox" data-catalog-filter="${group}" value="${escapeHtml(option.id)}"${selected ? ' checked' : ''}${disabled ? ' disabled' : ''}>
+          <span class="catalog-filter-option__label">${escapeHtml(option.label)}</span>
+          <span class="catalog-filter-option__count">${optionCount}</span>
+        </label>
+      `;
+    });
+    container.innerHTML = optionMarkup.join('');
+  }
+
+  function renderFilterDialog() {
+    const languageIndex = { ru: 0, en: 1, uz: 2, kk: 3 }[i18n.getLang()] || 0;
+    const openGroups = new Set(
+      [...(filterDialog?.querySelectorAll('details[open]') || [])].map(group => group.dataset.filterDetails)
+    );
+    renderFilterOptions(
+      industryFilters,
+      'industry',
+      ['Все отрасли', 'All industries', 'Barcha sohalar', 'Барлық салалар'][languageIndex],
+      industries.map(industry => ({ id: industry.id, label: industry.labels[languageIndex] })),
+      activeIndustries,
+      id => countFilterOption('industry', id)
+    );
+    renderFilterOptions(
+      categoryFilters,
+      'category',
+      'Все категории',
+      categories,
+      activeCategories,
+      id => countFilterOption('category', id)
+    );
+    renderFilterOptions(
+      materialFilters,
+      'material',
+      'Все материалы',
+      materials,
+      activeMaterials,
+      id => countFilterOption('material', id)
+    );
+    renderFilterOptions(
+      boxQuantityFilters,
+      'box-quantity',
+      'Любое количество',
+      boxQuantityRanges,
+      activeBoxQuantities,
+      id => countFilterOption('box-quantity', id)
+    );
+    filterDialog?.querySelectorAll('details[data-filter-details]').forEach(group => {
+      group.open = openGroups.has(group.dataset.filterDetails);
+    });
+    updateFilterAvailability();
+    updateFilterTrigger();
+  }
+
+  function updateFilterAvailability() {
+    filterDialog?.querySelectorAll('input[data-catalog-filter]').forEach(input => {
+      const group = input.dataset.catalogFilter;
+      const selections = selectionsByGroup[group];
+      if (!selections) return;
+      const selected = input.value === 'all' ? selections.size === 0 : selections.has(input.value);
+      const optionCount = countFilterOption(group, input.value);
+      const disabled = input.value !== 'all' && !selected && optionCount === 0;
+      const label = input.closest('.catalog-filter-option');
+      const count = label?.querySelector('.catalog-filter-option__count');
+
+      input.checked = selected;
+      input.disabled = disabled;
+      label?.classList.toggle('is-disabled', disabled);
+      if (count) count.textContent = String(optionCount);
+    });
+  }
+
+  function updateFilterTrigger() {
+    const selectedCount = activeCategories.size + activeMaterials.size + activeIndustries.size + activeBoxQuantities.size;
+    if (activeFilterCount) {
+      activeFilterCount.textContent = String(selectedCount);
+      activeFilterCount.hidden = selectedCount === 0;
+    }
+    if (filterOpen) {
+      filterOpen.setAttribute('aria-label', selectedCount
+        ? `Фильтры каталога, активно: ${selectedCount}`
+        : 'Фильтры каталога');
+    }
+    Object.entries(selectionsByGroup).forEach(([group, selections]) => {
+      const counter = filterDialog?.querySelector(`[data-filter-selected-count="${group}"]`);
+      if (!counter) return;
+      counter.textContent = String(selections.size);
+      counter.hidden = selections.size === 0;
+    });
   }
 
   function matchesSearch(product, query) {
-    if (!query) return true;
-    const fields = [
-      productText(product, 'title'),
-      ...product.details.map(detail => detail.value),
-      product.specificationText,
-      product.categoryId,
-      product.material,
-      product.volume
-    ];
-    return fields.some(field => String(field || '').toLocaleLowerCase().includes(query));
+    return matchesCatalogSearch({
+      ...product,
+      title: productText(product, 'title')
+    }, query);
   }
 
   function renderProducts() {
     const query = searchQuery.trim().toLocaleLowerCase();
-    const industry = industries.find(item => item.id === activeIndustry);
     const visibleProducts = products.filter(product => {
-      if (activeCategory !== 'all' && product.categoryId !== activeCategory) return false;
-      if (industry && !industry.categories.includes(product.categoryId)) return false;
-      if (activeMaterial !== 'all' && !product.specificationText.toUpperCase().includes(activeMaterial)) return false;
+      if (activeCategories.size && !activeCategories.has(product.categoryId)) return false;
+      if (activeIndustries.size && !industries.some(industry =>
+        activeIndustries.has(industry.id) && industry.categories.includes(product.categoryId)
+      )) return false;
+      if (activeMaterials.size && ![...activeMaterials].some(material => product.specificationText.toUpperCase().includes(material))) return false;
+      if (activeBoxQuantities.size && ![...activeBoxQuantities].some(quantity => matchesFilterOption(product, 'box-quantity', quantity))) return false;
       return matchesSearch(product, query);
     });
 
@@ -160,12 +311,48 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!detailsDialog.open) detailsDialog.showModal();
   }
 
-  industryFilters?.addEventListener('click', event => {
-    const button = event.target.closest('[data-industry]');
-    if (!button) return;
-    activeIndustry = button.dataset.industry;
-    renderIndustryFilters();
+  filterDialog?.addEventListener('change', event => {
+    const input = event.target.closest('input[data-catalog-filter]');
+    if (!input) return;
+
+    const selections = {
+      industry: activeIndustries,
+      category: activeCategories,
+      material: activeMaterials,
+      'box-quantity': activeBoxQuantities
+    }[input.dataset.catalogFilter];
+    if (!selections) return;
+
+    if (input.value === 'all') {
+      selections.clear();
+      input.closest('.catalog-filter-options').querySelectorAll('input:not([value="all"])').forEach(option => {
+        option.checked = false;
+      });
+    } else if (input.checked) {
+      selections.add(input.value);
+    } else {
+      selections.delete(input.value);
+    }
+
+    const allOption = input.closest('.catalog-filter-options').querySelector('input[value="all"]');
+    if (allOption) allOption.checked = selections.size === 0;
+    updateFilterAvailability();
+    updateFilterTrigger();
     renderProducts();
+  });
+
+  filterOpen?.addEventListener('click', () => {
+    if (!filterDialog?.open) {
+      filterDialog?.showModal();
+      filterOpen.setAttribute('aria-expanded', 'true');
+    }
+  });
+  filterDialog?.addEventListener('close', () => filterOpen?.setAttribute('aria-expanded', 'false'));
+  filterDialog?.addEventListener('click', event => {
+    if (event.target === filterDialog) filterDialog.close();
+  });
+  filterDialog?.querySelectorAll('[data-close-catalog-filters]').forEach(button => {
+    button.addEventListener('click', () => filterDialog.close());
   });
 
   grid.addEventListener('click', event => {
@@ -196,57 +383,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     openProductDetails(products.find(item => item.id === card.dataset.productCard));
   });
 
-  document.querySelectorAll('#catalog-category-tabs [data-cat]').forEach(button => {
-    button.addEventListener('click', () => {
-      activeCategory = button.dataset.cat || 'all';
-      document.querySelectorAll('#catalog-category-tabs [data-cat]').forEach(tab => {
-        const selected = tab === button;
-        tab.classList.toggle('is-active', selected);
-        tab.setAttribute('aria-pressed', String(selected));
-      });
-      renderProducts();
-    });
-  });
-
-  document.querySelectorAll('.mat-filter').forEach(button => {
-    button.addEventListener('click', () => {
-      activeMaterial = button.dataset.mat || 'all';
-      document.querySelectorAll('.mat-filter').forEach(filter => {
-        const selected = filter === button;
-        filter.classList.toggle('is-active', selected);
-        filter.setAttribute('aria-pressed', String(selected));
-      });
-      renderProducts();
-    });
-  });
-
-  search?.addEventListener('input', () => {
-    searchQuery = search.value;
+  const applySearch = () => {
+    searchQuery = search?.value || '';
+    updateFilterAvailability();
     renderProducts();
+  };
+  search?.addEventListener('input', applySearch);
+  searchForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    applySearch();
+    search?.focus();
   });
 
   reset?.addEventListener('click', () => {
     searchQuery = '';
-    activeCategory = 'all';
-    activeMaterial = 'all';
-    activeIndustry = 'all';
+    activeCategories.clear();
+    activeMaterials.clear();
+    activeIndustries.clear();
+    activeBoxQuantities.clear();
     if (search) search.value = '';
-    document.querySelectorAll('#catalog-category-tabs [data-cat]').forEach(button => {
-      const selected = button.dataset.cat === 'all';
-      button.classList.toggle('is-active', selected);
-      button.setAttribute('aria-pressed', String(selected));
-    });
-    document.querySelectorAll('.mat-filter').forEach(button => {
-      const selected = button.dataset.mat === 'all';
-      button.classList.toggle('is-active', selected);
-      button.setAttribute('aria-pressed', String(selected));
-    });
-    renderIndustryFilters();
+    renderFilterDialog();
     renderProducts();
   });
 
   window.addEventListener('muosir_lang_changed', () => {
-    renderIndustryFilters();
+    renderFilterDialog();
     renderProducts();
   });
 
@@ -256,11 +417,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (product) quoteProduct.value = `${productText(product, 'title')} (${product.sku})`;
   }
 
-  renderIndustryFilters();
-  document.querySelectorAll('#catalog-category-tabs [data-cat]').forEach(button => {
-    const selected = button.dataset.cat === activeCategory;
-    button.setAttribute('aria-pressed', String(selected));
-  });
+  renderFilterDialog();
   renderProducts();
 
   const requestedProductId = new URLSearchParams(window.location.search).get('product');

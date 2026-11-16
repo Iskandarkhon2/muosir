@@ -1,15 +1,36 @@
 const PRODUCT_OVERRIDES = {
+  'Полимерная-лента-PET_Ширина-400-860мм_Толщина-15-150мкм.png': {
+    title: 'Полимерная лента PET (ПЭТ)',
+    categoryId: 'polymer-tape',
+    details: [
+      { label: 'Материал', value: 'PET (ПЭТ)' },
+      { label: 'Ширина', value: '400–860 мм' },
+      { label: 'Толщина', value: '15–150 мкм' }
+    ],
+    specificationText: 'Материал: PET (ПЭТ); Ширина: 400–860 мм; Толщина: 15–150 мкм'
+  },
+  'Полимерная-лента-PP(ПП)_Ширина-400-800мм_Толщина-25-280мкм.png': {
+    title: 'Полимерная лента PP (ПП)',
+    categoryId: 'polymer-tape',
+    details: [
+      { label: 'Материал', value: 'PP (ПП)' },
+      { label: 'Ширина', value: '400–800 мм' },
+      { label: 'Толщина', value: '25–280 мкм' }
+    ],
+    specificationText: 'Материал: PP (ПП); Ширина: 400–800 мм; Толщина: 25–280 мкм'
+  },
   'Контейнер-для-торта_Диаметр-28см_Высота-12см_Материал-PET(крышка-и-дно)_Размер-коробки-65x32x40см_В-коробке-100шт.png': {
-    title: 'Контейнер для Торта Ø 28',
+    title: 'Контейнер для торта Ø 28 см — тёмное дно',
     categoryId: 'confectionery',
     details: [
       { label: 'Диаметр', value: 'Ø 28,00 см' },
       { label: 'Высота', value: 'h 12,00 см' },
       { label: 'Материал', value: 'PET (крышка и дно)' },
+      { label: 'Цвет дна', value: 'Тёмный' },
       { label: 'Размер коробки', value: '65 × 32 × 40 см' },
       { label: 'Количество в коробке', value: '100 шт.' }
     ],
-    specificationText: 'Диаметр: Ø 28,00 см; Высота: h 12,00 см; Материал: PET (крышка и дно); Размер коробки: 65 × 32 × 40 см; Количество в коробке: 100 шт.'
+    specificationText: 'Диаметр: Ø 28,00 см; Высота: h 12,00 см; Материал: PET (крышка и дно); Цвет дна: тёмный; Размер коробки: 65 × 32 × 40 см; Количество в коробке: 100 шт.'
   },
   'Контейнер-для-торта_Диаметр-32см_Высота-12см_Материал-PET(крышка-и-дно)_Размер-коробки-60x32x35см_В-коробке-100шт.jpg': {
     title: 'Контейнер для Торта Ø 32',
@@ -28,7 +49,7 @@ const PRODUCT_OVERRIDES = {
 const ADDITIONAL_PRODUCTS = [
   {
     id: 'deli-big',
-    image: 'assets/images/контейнер-пищевой-прямоугольный-прозрачный-с-крышкой-изображение-037.jpg',
+    image: 'assets/images/deli-big-catalog.png',
     title: 'Дели Большой',
     categoryId: 'containers',
     details: [
@@ -39,7 +60,7 @@ const ADDITIONAL_PRODUCTS = [
   },
   {
     id: 'deli-small',
-    image: 'assets/images/контейнер-пищевой-прямоугольный-прозрачный-с-защелкивающейся-крышкой-изображение-033.jpg',
+    image: 'assets/images/deli-small-catalog.png',
     title: 'Дели Маленький',
     categoryId: 'containers',
     details: [
@@ -60,8 +81,36 @@ const ADDITIONAL_PRODUCTS = [
     ]
   },
   {
+    id: 'cake-container-32cm-10cm-dark-base',
+    image: 'assets/images/cake-container-32cm-10cm-dark-base.png',
+    title: 'Контейнер для торта Ø 32 см, h 10 см — тёмное дно',
+    categoryId: 'confectionery',
+    details: [
+      { label: 'Диаметр', value: 'Ø 32 см' },
+      { label: 'Высота', value: 'h 10 см' },
+      { label: 'Материал', value: 'PET (крышка и дно)' },
+      { label: 'Цвет дна', value: 'Тёмный' },
+      { label: 'Размер коробки', value: '65 × 32 × 40 см' },
+      { label: 'Количество в коробке', value: '100 шт.' }
+    ]
+  },
+  {
+    id: 'cake-container-32cm-12cm-dark-base',
+    image: 'assets/images/cake-container-32cm-12cm-dark-base.png',
+    title: 'Контейнер для торта Ø 32 см, h 12 см — тёмное дно',
+    categoryId: 'confectionery',
+    details: [
+      { label: 'Диаметр', value: 'Ø 32 см' },
+      { label: 'Высота', value: 'h 12 см' },
+      { label: 'Материал', value: 'PET (крышка и дно)' },
+      { label: 'Цвет дна', value: 'Тёмный' },
+      { label: 'Размер коробки', value: '60 × 32 × 35 см' },
+      { label: 'Количество в коробке', value: '100 шт.' }
+    ]
+  },
+  {
     id: 'baking-low-lid',
-    image: 'assets/images/контейнер-кондитерский-прямоугольный-прозрачный-с-откидной-крышкой-изображение-036.jpg',
+    image: 'assets/images/baking-low-lid-cutout.png',
     title: 'Упаковка для выпечки с низкой крышкой',
     categoryId: 'confectionery',
     details: [
@@ -72,7 +121,7 @@ const ADDITIONAL_PRODUCTS = [
   },
   {
     id: 'baking-high-lid',
-    image: 'assets/images/контейнер-для-пончиков-и-выпечки-прозрачный-с-откидной-крышкой-изображение-048.jpg',
+    image: 'assets/images/baking-high-lid-cutout.png',
     title: 'Упаковка для выпечки с высокой крышкой',
     categoryId: 'confectionery',
     details: [
@@ -82,6 +131,46 @@ const ADDITIONAL_PRODUCTS = [
     ]
   }
 ];
+
+const SEARCH_SYNONYMS = new Map([
+  ['яйца', 'яиц'],
+  ['яйцо', 'яиц'],
+  ['яйцами', 'яиц'],
+  ['яйцам', 'яиц'],
+  ['яйцах', 'яиц'],
+  ['яйцом', 'яиц']
+]);
+
+export function matchesCatalogSearch(product, query) {
+  const queryTerms = normalizeCatalogSearchText(query)
+    .split(' ')
+    .filter(Boolean)
+    .map(term => SEARCH_SYNONYMS.get(term) || term);
+  if (!queryTerms.length) return true;
+
+  const searchableText = [
+    product.title,
+    product.specificationText,
+    product.material,
+    product.volume,
+    ...(product.details || []).map(detail => detail.value)
+  ].join(' ');
+  const productTerms = normalizeCatalogSearchText(searchableText).split(' ');
+
+  return queryTerms.every(term => productTerms.some(productTerm => productTerm.includes(term)));
+}
+
+function normalizeCatalogSearchText(value) {
+  return String(value || '')
+    .normalize('NFKC')
+    .toLocaleLowerCase()
+    .replace(/ё/g, 'е')
+    .replace(/([a-zа-я])(?=\d)/gi, '$1 ')
+    .replace(/(\d)(?=[a-zа-я])/gi, '$1 ')
+    .replace(/[-_]+/g, ' ')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+}
 
 export async function loadCatalogProducts() {
   const response = await fetch('src/features/catalog/catalog-products.json');

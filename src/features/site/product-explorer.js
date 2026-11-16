@@ -1,4 +1,4 @@
-import { loadCatalogProducts } from '../catalog/catalog-data.js';
+import { loadCatalogProducts, matchesCatalogSearch } from '../catalog/catalog-data.js';
 
 (() => {
   const labels = {
@@ -20,8 +20,7 @@ import { loadCatalogProducts } from '../catalog/catalog-data.js';
       related: 'Сопутствующие товары',
       quote: 'Запросить коммерческое предложение',
       customize: 'Примерить логотип',
-      image: 'Изображение изделия',
-      searchLabel: 'Открыть поиск по каталогу'
+      image: 'Изображение изделия'
     },
     en: {
       search: 'Search the catalog',
@@ -41,8 +40,7 @@ import { loadCatalogProducts } from '../catalog/catalog-data.js';
       related: 'Related products',
       quote: 'Request a quotation',
       customize: 'Preview with a logo',
-      image: 'Product image',
-      searchLabel: 'Open catalog search'
+      image: 'Product image'
     },
     uz: {
       search: 'Katalogdan qidirish',
@@ -62,8 +60,7 @@ import { loadCatalogProducts } from '../catalog/catalog-data.js';
       related: 'Tegishli mahsulotlar',
       quote: 'Tijorat taklifini so‘rash',
       customize: 'Logotipni sinab ko‘rish',
-      image: 'Mahsulot rasmi',
-      searchLabel: 'Katalog qidiruvini ochish'
+      image: 'Mahsulot rasmi'
     },
     kk: {
       search: 'Каталогтан іздеу',
@@ -83,8 +80,7 @@ import { loadCatalogProducts } from '../catalog/catalog-data.js';
       related: 'Қатысты өнімдер',
       quote: 'Коммерциялық ұсыныс сұрау',
       customize: 'Логотипті көру',
-      image: 'Өнім суреті',
-      searchLabel: 'Каталог іздеуін ашу'
+      image: 'Өнім суреті'
     }
   };
 
@@ -147,23 +143,10 @@ import { loadCatalogProducts } from '../catalog/catalog-data.js';
     let activeProduct = null;
     let searchSelection = -1;
 
-    function normalizeSearchText(value) {
-      return String(value || '')
-        .normalize('NFKC')
-        .toLocaleLowerCase()
-        .replace(/([a-zа-яё])(?=\d)/gi, '$1 ')
-        .replace(/(\d)(?=[a-zа-яё])/gi, '$1 ')
-        .replace(/[-_]+/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-    }
-
     function renderSearchResults() {
-      const query = normalizeSearchText(searchInput.value);
-      const products = catalogProducts.filter(product => {
-        const searchText = normalizeSearchText(`${product.title} ${product.specificationText} ${product.material} ${product.details.map(detail => detail.value).join(' ')}`);
-        return !query || searchText.includes(query);
-      }).slice(0, 12);
+      const products = catalogProducts
+        .filter(product => matchesCatalogSearch(product, searchInput.value))
+        .slice(0, 12);
 
       searchSelection = -1;
       searchResults.innerHTML = catalogLoadError
@@ -319,22 +302,6 @@ import { loadCatalogProducts } from '../catalog/catalog-data.js';
       searchInput.select();
     }
 
-    function addSearchTrigger(container) {
-      if (!container || container.querySelector('[data-open-site-search]')) return;
-      const trigger = document.createElement('button');
-      trigger.type = 'button';
-      trigger.className = 'site-search-trigger';
-      trigger.dataset.openSiteSearch = '';
-      trigger.setAttribute('aria-label', locale().searchLabel);
-      trigger.title = locale().searchLabel;
-      trigger.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 4 4"></path></svg>';
-      trigger.addEventListener('click', openSearch);
-      container.append(trigger);
-    }
-
-    addSearchTrigger(document.querySelector('.site-content header nav'));
-    addSearchTrigger(document.getElementById('mobile-nav-menu'));
-
     searchDialog.querySelector('.site-search-dialog__close').addEventListener('click', () => searchDialog.close());
     searchDialog.addEventListener('click', event => {
       if (event.target === searchDialog) searchDialog.close();
@@ -385,10 +352,6 @@ import { loadCatalogProducts } from '../catalog/catalog-data.js';
       searchInput.placeholder = locale().placeholder;
       searchDialog.querySelector('.site-search-dialog__field span').textContent = locale().placeholder;
       searchDialog.querySelector('.site-search-dialog__close').setAttribute('aria-label', locale().close);
-      document.querySelectorAll('[data-open-site-search]').forEach(button => {
-        button.setAttribute('aria-label', locale().searchLabel);
-        button.title = locale().searchLabel;
-      });
       renderSearchResults();
       if (productDialog.open && activeProduct) openProduct(activeProduct.sku, false);
     });

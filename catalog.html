@@ -8,8 +8,8 @@
   <link rel="icon" type="image/png" href="assets/images/logo.png">
   <script src="src/app/theme-init.js"></script>
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
-  <link rel="stylesheet" href="src/shared/styles/main.css">
-  <link rel="stylesheet" href="src/shared/styles/cinematic.css">
+  <link rel="stylesheet" href="src/shared/styles/main.css?v=catalog-search-button">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=catalog-compact-hero">
   <script type="module" src="src/app/theme.js"></script>
   <!-- Meta Pixel Code -->
   <script>
@@ -120,64 +120,87 @@
     </header>
 
     <!-- ================= HERO ================= -->
-    <section class="catalog-page-hero py-16 md:py-20 relative border-b border-slate-800/80 overflow-hidden">
+    <section class="catalog-page-hero py-6 md:py-8 relative border-b border-slate-800/80 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <span class="catalog-page-hero__badge inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 mb-6">
+        <span class="catalog-page-hero__badge inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 mb-3">
           <span class="w-2 h-2 rounded-full bg-cyan-400" aria-hidden="true"></span>
           <span data-i18n="cat_hero_badge">Каталог B2B жесткой упаковки</span>
         </span>
-        <h1 class="catalog-page-hero__title text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight" data-i18n="cat_hero_title">
+        <h1 class="catalog-page-hero__title text-2xl sm:text-3xl font-bold text-white tracking-tight max-w-4xl mx-auto leading-tight" data-i18n="cat_hero_title">
           Серийная полимерная тара и индивидуальные решения
         </h1>
-        <p class="catalog-page-hero__subtitle mt-4 text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed" data-i18n="cat_hero_subtitle">
+        <p class="catalog-page-hero__subtitle mt-2 text-sm sm:text-base text-slate-400 max-w-3xl mx-auto leading-relaxed" data-i18n="cat_hero_subtitle">
           Прямые поставки от производителя из Таджикистана для молочных, пищевых и кондитерских предприятий, птицефабрик и HoReCa.
         </p>
 
-        <!-- Search Bar and Quick Filters -->
-        <div class="mt-8 max-w-2xl mx-auto flex flex-col sm:flex-row gap-3">
-          <div class="relative flex-1">
-            <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <input type="search" id="catalog-search-input" placeholder="Название или характеристики товара..." aria-label="Поиск по каталогу" class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors">
-          </div>
-          <button type="button" id="catalog-reset-filter" class="px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-300 hover:text-white transition-all whitespace-nowrap">
-            Сбросить фильтры
-          </button>
-        </div>
       </div>
     </section>
 
     <!-- ================= CATALOG MAIN SECTION ================= -->
     <section class="py-12 md:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-8">
-          <h2 class="text-sm font-semibold text-slate-300 mb-3">Решения по отраслям</h2>
-          <div id="catalog-industry-filters" class="industry-filter-list" aria-label="Фильтр по отраслям"></div>
-        </div>
-
-        <!-- Category Filters -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-4 no-scrollbar mb-6" id="catalog-category-tabs">
-          <button type="button" data-cat="all" class="cat-pill active px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/20 whitespace-nowrap">Вся продукция</button>
-          <button type="button" data-cat="dairy" class="cat-pill px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-850 whitespace-nowrap">Молочная упаковка</button>
-          <button type="button" data-cat="eggs" class="cat-pill px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-850 whitespace-nowrap">Упаковка для яиц</button>
-          <button type="button" data-cat="confectionery" class="cat-pill px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-850 whitespace-nowrap">Кондитерская тара</button>
-          <button type="button" data-cat="containers" class="cat-pill px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-850 whitespace-nowrap">Контейнеры и ланч-боксы</button>
-          <button type="button" data-cat="cups" class="cat-pill px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-850 whitespace-nowrap">Стаканы и крышки</button>
-          <button type="button" data-cat="polymer-tape" class="cat-pill px-4 py-2.5 rounded-xl text-xs font-bold transition-all bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-850 whitespace-nowrap">Полимерные ленты</button>
-        </div>
-
-        <!-- Secondary Material Filters & Count -->
-        <div class="flex flex-wrap items-center justify-between gap-4 py-3 border-y border-slate-800/80 mb-8 text-xs">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-slate-500 font-semibold uppercase tracking-wider">Материал:</span>
-            <button type="button" data-mat="all" class="mat-filter px-3 py-1 rounded-lg bg-cyan-950/80 text-cyan-300 font-bold border border-cyan-500/40">Все материалы</button>
-            <button type="button" data-mat="PP" class="mat-filter px-3 py-1 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 font-semibold">PP (Полипропилен)</button>
-            <button type="button" data-mat="PET" class="mat-filter px-3 py-1 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 font-semibold">PET (ПЭТ)</button>
-            <button type="button" data-mat="PS" class="mat-filter px-3 py-1 rounded-lg bg-slate-900 text-slate-400 hover:text-white border border-slate-800 font-semibold">PS (Полистирол)</button>
-          </div>
-          <div class="text-slate-400">
-            Показано изделий: <span id="product-count" class="font-bold text-white">50</span>
+        <div class="catalog-search-sticky">
+          <div class="catalog-toolbar">
+            <form id="catalog-search-form" class="catalog-search-field" role="search">
+              <button type="submit" class="catalog-search-submit" aria-label="Искать по каталогу">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </button>
+              <input type="search" id="catalog-search-input" placeholder="Название или характеристики товара..." aria-label="Поиск по каталогу" class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors">
+            </form>
+            <button type="button" id="catalog-filter-open" class="catalog-filter-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="catalog-filter-dialog">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9M13 4v6M7 14v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <span>Фильтры</span>
+              <span id="catalog-filter-active-count" class="catalog-filter-trigger__count" hidden>0</span>
+            </button>
+            <div class="catalog-result-count">Найдено: <strong id="product-count">—</strong></div>
           </div>
         </div>
+
+        <dialog id="catalog-filter-dialog" class="catalog-filter-dialog" aria-labelledby="catalog-filter-title">
+          <div class="catalog-filter-dialog__panel">
+            <header class="catalog-filter-dialog__header">
+              <div>
+                <p class="catalog-filter-dialog__eyebrow">Настройте выдачу</p>
+                <h2 id="catalog-filter-title">Фильтры каталога</h2>
+              </div>
+              <button type="button" class="catalog-filter-dialog__close" data-close-catalog-filters aria-label="Закрыть фильтры">×</button>
+            </header>
+            <div class="catalog-filter-dialog__groups">
+              <details class="catalog-filter-group" data-filter-details="industry" open>
+                <summary class="catalog-filter-group__summary">
+                  <span>Решения по отраслям</span>
+                  <span class="catalog-filter-group__selected-count" data-filter-selected-count="industry" hidden>0</span>
+                </summary>
+                <div id="catalog-industry-filters" class="catalog-filter-options"></div>
+              </details>
+              <details class="catalog-filter-group" data-filter-details="category">
+                <summary class="catalog-filter-group__summary">
+                  <span>Категория продукции</span>
+                  <span class="catalog-filter-group__selected-count" data-filter-selected-count="category" hidden>0</span>
+                </summary>
+                <div id="catalog-category-filters" class="catalog-filter-options"></div>
+              </details>
+              <details class="catalog-filter-group" data-filter-details="material">
+                <summary class="catalog-filter-group__summary">
+                  <span>Материал</span>
+                  <span class="catalog-filter-group__selected-count" data-filter-selected-count="material" hidden>0</span>
+                </summary>
+                <div id="catalog-material-filters" class="catalog-filter-options"></div>
+              </details>
+              <details class="catalog-filter-group" data-filter-details="box-quantity">
+                <summary class="catalog-filter-group__summary">
+                  <span>Количество в коробке</span>
+                  <span class="catalog-filter-group__selected-count" data-filter-selected-count="box-quantity" hidden>0</span>
+                </summary>
+                <div id="catalog-box-quantity-filters" class="catalog-filter-options"></div>
+              </details>
+            </div>
+            <footer class="catalog-filter-dialog__footer">
+              <button type="button" id="catalog-reset-filter" class="catalog-filter-reset">Сбросить всё</button>
+              <button type="button" class="catalog-filter-done" data-close-catalog-filters>Показать товары</button>
+            </footer>
+          </div>
+        </dialog>
 
         <!-- Products Grid -->
         <div id="catalog-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
