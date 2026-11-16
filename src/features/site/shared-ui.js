@@ -66,7 +66,7 @@
 
     const script = document.createElement('script');
     script.src = 'src/features/site/product-explorer.js';
-    script.defer = true;
+    script.type = 'module';
     document.body.append(script);
   }
 

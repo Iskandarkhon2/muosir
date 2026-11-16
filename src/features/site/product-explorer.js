@@ -1,3 +1,5 @@
+import { loadCatalogProducts } from '../catalog/catalog-data.js';
+
 (() => {
   const labels = {
     ru: {
@@ -103,34 +105,7 @@
     let catalogProducts = [];
     let catalogLoadError = false;
     try {
-      const response = await fetch('src/features/catalog/catalog-products.json');
-      if (!response.ok) throw new Error(`Catalog manifest request failed: ${response.status}`);
-      const filenames = await response.json();
-      if (!Array.isArray(filenames) || filenames.some(filename => typeof filename !== 'string' || /[\\/]/.test(filename))) {
-        throw new TypeError('Catalog manifest must contain image filenames only.');
-      }
-      catalogProducts = [...new Set(filenames)].map(filename => {
-        const specificationText = filename.replace(/\.[^.]+$/, '');
-        const [rawName] = specificationText.split('_');
-        const material = specificationText.split('_')
-          .find(specification => specification.startsWith('Материал-'))
-          ?.slice('Материал-'.length)
-          .replace(/-/g, ' ') || '';
-        const searchSpecifications = specificationText.split('_').slice(1)
-          .map(specification => specification
-            .replace(/-/g, ' ')
-            .replace(/(\d)(?=(?:шт|см|мл)\b)/gi, '$1 '))
-          .join(' · ');
-        const name = rawName.replace(/-/g, ' ');
-        return {
-          filename,
-          title: name.charAt(0).toLocaleUpperCase('ru') + name.slice(1),
-          material,
-          searchSpecifications,
-          specificationText,
-          image: `catalog/${filename}`
-        };
-      });
+      catalogProducts = await loadCatalogProducts();
     } catch (error) {
       console.error('Unable to load catalog products for search.', error);
       catalogLoadError = true;
@@ -186,7 +161,7 @@
     function renderSearchResults() {
       const query = normalizeSearchText(searchInput.value);
       const products = catalogProducts.filter(product => {
-        const searchText = normalizeSearchText(`${product.title} ${product.specificationText} ${product.material}`);
+        const searchText = normalizeSearchText(`${product.title} ${product.specificationText} ${product.material} ${product.details.map(detail => detail.value).join(' ')}`);
         return !query || searchText.includes(query);
       }).slice(0, 12);
 
@@ -196,19 +171,19 @@
         : products.length
         ? products.map(product => `
             <button type="button" class="site-search-result" role="option" aria-selected="false"
-              data-catalog-filename="${escapeHtml(product.filename)}">
+              data-catalog-product="${escapeHtml(product.id)}">
               <img class="site-search-result__image" src="${escapeHtml(product.image)}" alt="" loading="lazy">
               <span class="site-search-result__name">${escapeHtml(product.title)}</span>
-              <span class="site-search-result__meta">${escapeHtml(product.searchSpecifications || product.material || product.specificationText.replace(/[-_]/g, ' '))}</span>
+              <span class="site-search-result__meta">${escapeHtml(product.details.map(detail => detail.value).join(' · ') || product.material || product.specificationText.replace(/[-_]/g, ' '))}</span>
             </button>
           `).join('')
         : `<p class="site-search-dialog__empty color-muted">${escapeHtml(locale().noResults)}</p>`;
     }
 
-    function openCatalogProduct(filename) {
+    function openCatalogProduct(productId) {
       searchDialog.close();
       const destination = new URL('catalog.html', window.location.href);
-      destination.searchParams.set('product', filename);
+      destination.searchParams.set('product', productId);
       window.location.assign(destination.href);
     }
 
@@ -357,8 +332,7 @@
       container.append(trigger);
     }
 
-    const nav = document.querySelector('.site-content header nav');
-    addSearchTrigger(nav);
+    addSearchTrigger(document.querySelector('.site-content header nav'));
     addSearchTrigger(document.getElementById('mobile-nav-menu'));
 
     searchDialog.querySelector('.site-search-dialog__close').addEventListener('click', () => searchDialog.close());
@@ -367,7 +341,7 @@
     });
     searchInput.addEventListener('input', renderSearchResults);
     searchInput.addEventListener('keydown', event => {
-      const options = [...searchResults.querySelectorAll('[data-catalog-filename]')];
+      const options = [...searchResults.querySelectorAll('[data-catalog-product]')];
       if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
         event.preventDefault();
         if (!options.length) return;
@@ -377,13 +351,13 @@
         });
       } else if (event.key === 'Enter' && options.length) {
         event.preventDefault();
-        openCatalogProduct(options[Math.max(searchSelection, 0)].dataset.catalogFilename);
+        openCatalogProduct(options[Math.max(searchSelection, 0)].dataset.catalogProduct);
       }
     });
     searchResults.addEventListener('click', event => {
-      const result = event.target.closest('[data-catalog-filename]');
+      const result = event.target.closest('[data-catalog-product]');
       if (!result) return;
-      openCatalogProduct(result.dataset.catalogFilename);
+      openCatalogProduct(result.dataset.catalogProduct);
     });
     productDialog.addEventListener('click', event => {
       if (event.target === productDialog) productDialog.close();

@@ -1,3 +1,5 @@
+import { loadCatalogProducts } from './catalog-data.js';
+
 document.addEventListener('DOMContentLoaded', async () => {
   const store = window.muosirStore;
   const i18n = window.muosirI18n;
@@ -12,14 +14,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (!i18n || !grid) return;
 
-  let filenames;
+  let products;
   try {
-    const response = await fetch('src/features/catalog/catalog-products.json');
-    if (!response.ok) throw new Error(`Catalog manifest request failed: ${response.status}`);
-    filenames = await response.json();
-    if (!Array.isArray(filenames) || filenames.some(filename => typeof filename !== 'string' || /[\\/]/.test(filename))) {
-      throw new TypeError('Catalog manifest must contain image filenames only.');
-    }
+    products = await loadCatalogProducts();
   } catch (error) {
     console.error('Unable to load catalog product images.', error);
     if (emptyState) {
@@ -29,35 +26,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     return;
   }
-
-  const products = [...new Set(filenames)].map(filename => {
-    const fileStem = filename.replace(/\.[^.]+$/, '');
-    const [name, ...specifications] = fileStem.split('_');
-    const categoryId = name.startsWith('Контейнер-для-яиц')
-      ? 'eggs'
-      : name.startsWith('Контейнер-для-торта') || name.startsWith('Контейнер-для-пончиков')
-        ? 'confectionery'
-        : name.startsWith('Стакан-для-сметаны')
-          ? 'dairy'
-          : name.startsWith('Стакан-')
-            ? 'cups'
-            : 'containers';
-    const details = specifications.map(parseSpecification).filter(Boolean);
-    const material = details.find(detail => detail.label === 'Материал')?.value || '';
-
-    return {
-      id: filename,
-      filename,
-      image: `catalog/${filename}`,
-      title: formatProductName(name),
-      categoryId,
-      material,
-      specifications,
-      details,
-      specificationText: fileStem,
-      desc: details.map(detail => `${detail.label}: ${detail.value}`).join(' · ')
-    };
-  });
 
   const industries = [
     { id: 'dairy', categories: ['dairy'], labels: ['Молочная промышленность', 'Dairy industry', 'Sut sanoati', 'Сүт өнеркәсібі'] },
@@ -80,56 +48,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       '"': '&quot;',
       "'": '&#39;'
     })[character]);
-  }
-
-  function formatProductName(value) {
-    const name = value.replace(/-/g, ' ');
-    return name.charAt(0).toLocaleUpperCase('ru') + name.slice(1);
-  }
-
-  function formatSpecificationValue(value) {
-    return value
-      .replace(/крышка-и-дно/g, 'крышка и дно')
-      .replace(/(\d)x(?=\d)/gi, '$1 × ')
-      .replace(/(\d)(см|мл|шт)/gi, '$1 $2')
-      .replace(/(PET|PP|PS)\(/gi, '$1 (')
-      .replace(/(\d)-(?=\d)/g, '$1–')
-      .replace(/-/g, ' ');
-  }
-
-  function parseSpecification(specification) {
-    if (specification === 'Брендированный') {
-      return { label: 'Брендирование', value: 'С нанесением логотипа' };
-    }
-
-    if (specification.startsWith('Размеры-коробок-')) {
-      const boxSizes = specification.slice('Размеры-коробок-'.length);
-      const match = boxSizes.match(/^дно-(.+?)-крышка-(.+)$/);
-      const value = match
-        ? `Дно: ${formatSpecificationValue(match[1])} · Крышка: ${formatSpecificationValue(match[2])}`
-        : formatSpecificationValue(boxSizes.replace(/-/g, ' '));
-      return { label: 'Размеры коробок', value };
-    }
-
-    const fields = [
-      ['Диаметр-', 'Диаметр'],
-      ['Высота-', 'Высота'],
-      ['Объем-', 'Объём'],
-      ['Материал-', 'Материал'],
-      ['Количество-', 'Количество в изделии'],
-      ['Цвет-', 'Цвет'],
-      ['Размеры-коробки-', 'Размер коробки'],
-      ['Размер-коробки-', 'Размер коробки'],
-      ['Коробка-', 'Размер коробки'],
-      ['Размер-', 'Размер изделия'],
-      ['В-коробке-', 'Количество в коробке'],
-      ['В-пачке-', 'Количество в пачке']
-    ];
-    const field = fields.find(([prefix]) => specification.startsWith(prefix));
-    if (!field) return null;
-
-    const value = formatSpecificationValue(specification.slice(field[0].length));
-    return { label: field[1], value };
   }
 
   function productText(product, key) {
@@ -160,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!query) return true;
     const fields = [
       productText(product, 'title'),
-      productText(product, 'desc'),
+      ...product.details.map(detail => detail.value),
       product.specificationText,
       product.categoryId,
       product.material,

@@ -46,7 +46,7 @@
       "colorEn": "White / Transparent / Printed",
       "boxQty": "1 000 шт.",
       "minOrder": "50 000 шт.",
-      "image": "assets/images/products/dairy-cup-400.png",
+      "image": "assets/images/dairy-cup-400.png",
       "desc": "Герметичный стакан под запайку платинкой из фольги или нахлобучку. Подходит для высокоскоростных фасовочных автоматов.",
       "descEn": "Sealed cup suitable for foil sealing or snap-on lid. Designed for high-speed automated filling lines."
     },
@@ -63,7 +63,7 @@
       "colorEn": "White / Custom color",
       "boxQty": "1 200 шт.",
       "minOrder": "50 000 шт.",
-      "image": "assets/images/products/dairy-cup-250.png",
+      "image": "assets/images/dairy-cup-250.png",
       "desc": "Устойчив к глубокой заморозке и температурным перепадам. Прочный ободок под стандартную запайку.",
       "descEn": "Resistant to deep freezing and temperature fluctuations. Rigid rim for standard heat sealing."
     },
@@ -80,7 +80,7 @@
       "colorEn": "Crystal clear",
       "boxQty": "2 000 шт.",
       "minOrder": "50 000 шт.",
-      "image": "assets/images/products/DSC04876.png",
+      "image": "assets/images/product-DSC04876.png",
       "desc": "Идеальная фиксация на стаканах 95 мм. Защищает продукт после снятия фольги.",
       "descEn": "Perfect snap-fit on 95mm cups. Protects the product after foil seal is removed."
     },
@@ -97,7 +97,7 @@
       "colorEn": "Transparent",
       "boxQty": "600 шт.",
       "minOrder": "30 000 шт.",
-      "image": "assets/images/products/DSC04876.png",
+      "image": "assets/images/product-DSC04876.png",
       "desc": "Усиленные ребра жесткости, надежный двойной замок. Позволяет штабелировать упаковку без повреждения яиц.",
       "descEn": "Reinforced stiffening ribs, reliable dual snap locks. Safe stacking during transport."
     },
@@ -114,7 +114,7 @@
       "colorEn": "Transparent glossy",
       "boxQty": "450 шт.",
       "minOrder": "30 000 шт.",
-      "image": "assets/images/products/DSC04957.png",
+      "image": "assets/images/product-DSC04957.png",
       "desc": "Эргономичная форма с вентиляционными отверстиями для продления свежести продукции на полке ритейла.",
       "descEn": "Ergonomic shape with ventilation holes to prolong shelf life in retail stores."
     },
@@ -131,7 +131,7 @@
       "colorEn": "Black base + crystal clear dome",
       "boxQty": "200 шт.",
       "minOrder": "20 000 шт.",
-      "image": "assets/images/products/DSC04876.png",
+      "image": "assets/images/product-DSC04876.png",
       "desc": "Премиальная презентация кондитерских изделий. Надежная круговая фиксация купола исключает случайное открытие.",
       "descEn": "Premium presentation of confectionery. Secure perimeter locking prevents accidental opening."
     },
@@ -148,7 +148,7 @@
       "colorEn": "Brown / Transparent / Gold",
       "boxQty": "1 500 шт.",
       "minOrder": "40 000 шт.",
-      "image": "assets/images/products/box-black.png",
+      "image": "assets/images/box-black.png",
       "desc": "Защищает хрупкую выпечку от ломки при транспортировке. Подходит для автоматических флоу-пак линий.",
       "descEn": "Protects delicate bakery items from breaking during transport. Suitable for automated flow-pack lines."
     },
@@ -165,7 +165,7 @@
       "colorEn": "Transparent / Black",
       "boxQty": "500 шт.",
       "minOrder": "30 000 шт.",
-      "image": "assets/images/products/DSC04953.png",
+      "image": "assets/images/product-DSC04953.png",
       "desc": "Подходит для горячих и холодных блюд, разогрева в СВЧ. Герметичный замок по всему периметру.",
       "descEn": "Suitable for hot and cold dishes, microwave-safe. Leak-proof perimeter seal."
     },
@@ -182,7 +182,7 @@
       "colorEn": "Clear transparent",
       "boxQty": "400 шт.",
       "minOrder": "30 000 шт.",
-      "image": "assets/images/products/DSC04876.png",
+      "image": "assets/images/product-DSC04876.png",
       "desc": "Идеален для готовых салатов, полуфабрикатов и кулинарии. Отличный глянец и жесткость стенок.",
       "descEn": "Ideal for ready-to-eat salads, deli and food service. Excellent gloss and wall rigidity."
     },
@@ -199,7 +199,7 @@
       "colorEn": "Transparent",
       "boxQty": "1 000 шт.",
       "minOrder": "50 000 шт.",
-      "image": "assets/images/products/DSC05040.png",
+      "image": "assets/images/product-DSC05040.png",
       "desc": "Эластичный, не трескается при сжатии. Возможность нанесения многоцветного логотипа бренда.",
       "descEn": "Elastic and shatter-proof. Multi-color custom brand printing available."
     },
@@ -216,7 +216,7 @@
       "colorEn": "Clear transparent",
       "boxQty": "1 000 шт.",
       "minOrder": "50 000 шт.",
-      "image": "assets/images/products/DSC05020.png",
+      "image": "assets/images/product-DSC05020.png",
       "desc": "Купол под коктейльные трубочки, десерты со взбитыми сливками и смузи. Плотно защелкивается.",
       "descEn": "Dome for cocktail straws, smoothies, and whipped desserts. Snaps on tightly."
     },
@@ -233,7 +233,7 @@
       "colorEn": "Black base + clear lid",
       "boxQty": "300 шт.",
       "minOrder": "25 000 шт.",
-      "image": "assets/images/products/box-black.png",
+      "image": "assets/images/box-black.png",
       "desc": "Раздельное хранение основного блюда и гарнира. Прочный замок, выдерживает доставку горячих обедов.",
       "descEn": "Separate compartments for main dish and side. Sturdy lock, ideal for hot meal delivery."
     }

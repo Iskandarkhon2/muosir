@@ -374,6 +374,33 @@ dialog {
   transform: scale(0.985);
 }
 
+.site-content > header a[data-i18n="nav_cta"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid var(--accent-border);
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong)) !important;
+  box-shadow: var(--shadow-accent);
+  color: var(--accent-contrast) !important;
+}
+
+.site-content > header a[data-i18n="nav_cta"]::after {
+  content: "→";
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.site-content > header a[data-i18n="nav_cta"]:hover {
+  box-shadow: var(--shadow-float);
+}
+
+.site-content > header a[data-i18n="nav_cta"]:hover::after {
+  transform: translateX(2px);
+}
+
 .site-content .btn-glass-secondary {
   border: 1px solid var(--border-default);
   background: var(--surface-1);
