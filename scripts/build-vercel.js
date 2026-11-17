@@ -31,7 +31,14 @@ async function build() {
     await fs.copyFile(path.join(ROOT, file), path.join(OUTPUT, file));
   }
 
+  const rootEntries = await fs.readdir(ROOT, { withFileTypes: true });
+  const rootDirectories = new Set(
+    rootEntries.filter(entry => entry.isDirectory()).map(entry => entry.name)
+  );
+
   for (const directory of PUBLIC_DIRECTORIES) {
+    if (!rootDirectories.has(directory)) continue;
+
     await fs.cp(path.join(ROOT, directory), path.join(OUTPUT, directory), {
       recursive: true,
       filter: sourcePath => {
