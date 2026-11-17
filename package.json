@@ -4,10 +4,22 @@
   "private": true,
   "scripts": {
     "build:css": "tailwindcss --config tailwind.config.js --input src/shared/styles/tailwind.css --output src/shared/styles/utilities.css --minify",
-    "start": "node server.js"
+    "build:client": "esbuild src/features/forms/blob-client.js --bundle --format=esm --outfile=assets/js/vercel-blob-client.js",
+    "build:vercel": "npm run build:css && npm run build:client && node scripts/build-vercel.js",
+    "test": "node --test",
+    "prestart": "npm run build:client",
+    "start": "node scripts/local-server.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.1",
+    "@vercel/blob": "^2.9.0"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "tailwindcss": "3.4.17"
+  },
+  "overrides": {
+    "zod": "4.6.7"
   },
   "engines": {
     "node": ">=20"

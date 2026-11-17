@@ -5,7 +5,7 @@ const fs = require('fs');
 const http = require('http');
 const path = require('path');
 
-const ROOT = __dirname;
+const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const UPLOADS_DIR = path.join(DATA_DIR, 'lead-attachments');

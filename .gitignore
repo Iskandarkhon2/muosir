@@ -3,6 +3,7 @@ node_modules/
 .next/
 dist/
 build/
+/assets/js/vercel-blob-client.js
 .env
 /data/leads.json
 /data/lead-attachments/

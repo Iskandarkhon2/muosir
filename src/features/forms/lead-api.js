@@ -32,7 +32,46 @@ export async function submitLead(lead, attachment, attachmentField = 'attachment
   }
 
   const payload = { ...lead };
-  if (attachment) payload[attachmentField] = await encodeLeadAttachment(attachment);
+  if (attachment) {
+    const hostname = window.location.hostname;
+    const usesLocalFileServer = hostname === 'localhost' || hostname === '127.0.0.1';
+    if (usesLocalFileServer) {
+      payload[attachmentField] = await encodeLeadAttachment(attachment);
+    } else {
+      const extension = attachment.name.split('.').pop()?.toLowerCase() || '';
+      const extensionTypes = {
+        doc: 'application/msword',
+        docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        jpg: 'image/jpeg',
+        jpeg: 'image/jpeg',
+        pdf: 'application/pdf',
+        png: 'image/png',
+        xls: 'application/vnd.ms-excel',
+        xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      };
+      const contentType = extensionTypes[extension];
+      if (!contentType || !extensionTypes[extension]) {
+        throw new Error('Unsupported attachment format.');
+      }
+
+      const { upload } = await import('/assets/js/vercel-blob-client.js');
+      const blob = await upload(
+        `lead-attachments/${crypto.randomUUID()}.${extension}`,
+        attachment,
+        {
+          access: 'private',
+          contentType,
+          handleUploadUrl: '/api/blob-upload',
+          multipart: attachment.size > 5 * 1024 * 1024
+        }
+      );
+      payload[attachmentField] = {
+        name: attachment.name,
+        type: contentType,
+        pathname: blob.pathname
+      };
+    }
+  }
 
   const response = await fetch('/api/leads', {
     method: 'POST',

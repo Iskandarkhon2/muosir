@@ -1,0 +1,33 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build:vercel",
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/api/blob-upload", "destination": "/api/index?route=blob-upload" },
+    { "source": "/api/leads", "destination": "/api/index?route=leads" },
+    { "source": "/api/admin/login", "destination": "/api/index?route=admin-login" },
+    { "source": "/api/admin/session", "destination": "/api/index?route=admin-session" },
+    { "source": "/api/admin/logout", "destination": "/api/index?route=admin-logout" },
+    { "source": "/api/admin/export-csv", "destination": "/api/index?route=admin-export-csv" },
+    {
+      "source": "/api/admin/leads/:id/attachment",
+      "destination": "/api/index?route=admin-lead-attachment&id=:id"
+    },
+    {
+      "source": "/api/admin/leads/:id",
+      "destination": "/api/index?route=admin-delete-lead&id=:id"
+    },
+    { "source": "/api/admin/leads", "destination": "/api/index?route=admin-leads" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    }
+  ]
+}

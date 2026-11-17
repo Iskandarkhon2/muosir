@@ -18,7 +18,7 @@ if ([string]::IsNullOrWhiteSpace($env:ADMIN_USERNAME) -or [string]::IsNullOrWhit
 }
 
 $env:PORT = [string]$Port
-node (Join-Path $PSScriptRoot 'server.js')
+node (Join-Path $PSScriptRoot 'scripts\local-server.js')
 if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
 }
