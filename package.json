@@ -11,6 +11,8 @@
     "start": "node scripts/local-server.js"
   },
   "dependencies": {
+    "@neon/config": "^1.14.1",
+    "@neon/env": "^2.1.4",
     "@neondatabase/serverless": "^1.2.1",
     "@vercel/blob": "^2.9.0"
   },

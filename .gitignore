@@ -8,3 +8,5 @@ build/
 /data/leads.json
 /data/lead-attachments/
 /scratch/
+.neon
+.env.local
