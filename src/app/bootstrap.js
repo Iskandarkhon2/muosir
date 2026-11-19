@@ -156,17 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     container.innerHTML = items.map(item => `
-      <div class="glass-card p-3 sm:p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition-all interactive-card flex flex-col justify-between">
+      <div class="glass-card industry-card p-3 sm:p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/40 transition-all interactive-card flex flex-col justify-between">
         <div class="card-shine"></div>
         <div>
-          <div class="flex items-center justify-between mb-4">
-          <div class="w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center">
+          <div class="industry-card__top flex items-center justify-between mb-4">
+          <div class="industry-card__icon w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center">
               ${item.icon}
             </div>
-          <span class="max-w-[5rem] text-right text-[9px] leading-tight sm:text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-500/30 px-2 py-0.5 rounded-full">
+          <span class="industry-card__badge max-w-[5rem] text-right text-[9px] leading-tight sm:text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-500/30 px-2 py-0.5 rounded-full">
               ${item.badge}
             </span>
           </div>
+        <div class="industry-card__content">
         <h3 class="text-xs sm:text-base font-bold text-white mb-2" data-i18n="${item.titleKey}">
             ${i18n.translate(item.titleKey)}
           </h3>
@@ -174,7 +175,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ${i18n.translate(item.descKey)}
           </p>
         </div>
-      <div class="mt-4 pt-3 border-t border-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-blue-400 flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between">
+      </div>
+      <div class="industry-card__footer mt-4 pt-3 border-t border-slate-800/80 text-[10px] sm:text-[11px] font-semibold text-blue-400 flex flex-col items-start gap-2">
           <span>${item.tag}</span>
           <a href="catalog.html?industry=${item.titleKey === 'ind_dairy' ? 'dairy' : item.titleKey === 'ind_eggs' ? 'eggs' : item.titleKey === 'ind_confect' ? 'confectionery' : item.titleKey === 'ind_food' ? 'food' : 'horeca'}" class="hover:text-cyan-300 transition-colors">В каталог →</a>
         </div>

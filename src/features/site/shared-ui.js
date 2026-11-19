@@ -55,6 +55,8 @@
       buttons.forEach(button => {
         const isNext = nextStage && button.dataset.homepageStageToggle === nextStage.id;
         const buttonStage = stages.find(stage => stage.id === button.dataset.homepageStageToggle);
+        const control = button.closest('[data-homepage-stage-control]');
+        control?.classList.toggle('hidden', !isNext);
         button.classList.toggle('hidden', !isNext);
         button.setAttribute('aria-expanded', String(Boolean(buttonStage && !buttonStage.classList.contains('hidden'))));
       });

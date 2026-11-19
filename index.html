@@ -459,15 +459,20 @@
       </div>
     </section>
 
-    <div class="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
+    <div class="homepage-stage-control hidden mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8" data-homepage-stage-control>
+      <span class="homepage-stage-control__progress" aria-hidden="true">02 <span>/ 03</span></span>
       <button
         type="button"
-        class="hidden rounded-xl border border-slate-700 bg-slate-900 px-6 py-3 text-sm font-bold text-cyan-300 transition-colors hover:border-cyan-500/50 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+        class="homepage-stage-control__button hidden"
         data-homepage-stage-toggle="homepage-stage-2"
-        data-i18n="page_show_stage_2"
         aria-controls="homepage-stage-2"
         aria-expanded="false"
-      >Подробнее о производстве и экспорте</button>
+      >
+        <span data-i18n="page_show_stage_2">Подробнее о производстве и экспорте</span>
+        <span class="homepage-stage-control__icon" aria-hidden="true">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m7-7-7 7-7-7"/></svg>
+        </span>
+      </button>
     </div>
     <div id="homepage-stage-2" class="hidden" data-homepage-stage>
     <!-- ================= BLOCK 8: EXPORT CATALOG (Раздел 8 ТЗ) ================= -->
@@ -724,15 +729,20 @@
 
     <!-- ================= BLOCK 13: QUALITY & CERTIFICATES (Раздел 13 ТЗ) ================= -->
     </div>
-    <div class="mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8">
+    <div class="homepage-stage-control hidden mx-auto max-w-7xl px-4 py-8 text-center sm:px-6 lg:px-8" data-homepage-stage-control>
+      <span class="homepage-stage-control__progress" aria-hidden="true">03 <span>/ 03</span></span>
       <button
         type="button"
-        class="hidden rounded-xl border border-slate-700 bg-slate-900 px-6 py-3 text-sm font-bold text-cyan-300 transition-colors hover:border-cyan-500/50 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400"
+        class="homepage-stage-control__button hidden"
         data-homepage-stage-toggle="homepage-stage-3"
-        data-i18n="page_show_stage_3"
         aria-controls="homepage-stage-3"
         aria-expanded="false"
-      >Показать больше о качестве и сотрудничестве</button>
+      >
+        <span data-i18n="page_show_stage_3">Показать больше о качестве и сотрудничестве</span>
+        <span class="homepage-stage-control__icon" aria-hidden="true">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m7-7-7 7-7-7"/></svg>
+        </span>
+      </button>
     </div>
     <div id="homepage-stage-3" class="hidden" data-homepage-stage>
     <section id="documents" class="motion-section py-24 bg-slate-900/30 border-y border-slate-800/80">
