@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
   <!-- Shared Styles & Cinematic Motion -->
   <link rel="stylesheet" href="src/shared/styles/main.css">
-  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=8">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=cards-route-4">
   <script type="module" src="src/app/theme.js"></script>
 
   <!-- Schema.org Microdata for Manufacturer & Catalog (Section 20 of ТЗ) -->
@@ -785,66 +785,61 @@
     </section>
 
     <!-- ================= BLOCK 14: HOW TO COOPERATE (Раздел 14 ТЗ - 5 шагов) ================= -->
-    <section class="motion-section py-24">
+    <section class="workflow-section motion-section" aria-labelledby="workflow-title">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         <div class="text-center max-w-3xl mx-auto space-y-4">
           <span class="text-xs font-black tracking-widest text-cyan-400 uppercase bg-cyan-950/40 px-3 py-1 rounded-full border border-cyan-500/30" data-i18n="workflow_badge">
             ПРОЗРАЧНЫЙ ПРОЦЕСС
           </span>
-          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight" data-i18n="workflow_title">
+          <h2 id="workflow-title" class="text-3xl sm:text-4xl font-black text-white tracking-tight" data-i18n="workflow_title">
             Как начать сотрудничество: 5 простых шагов
           </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <ol class="workflow-track">
           
-          <div class="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col justify-between interactive-card">
-            <div class="card-shine"></div>
-            <div>
-              <div class="text-2xl font-black text-blue-500 font-mono mb-3">01</div>
-              <h3 class="text-sm font-bold text-white mb-2" data-i18n="wf_step1_t">Отправьте запрос</h3>
-              <p class="text-xs text-slate-400" data-i18n="wf_step1_d">Выберите продукцию из каталога или отправьте свою спецификацию.</p>
+          <li class="workflow-step">
+            <span class="workflow-step__marker" aria-hidden="true">01</span>
+            <div class="workflow-step__body">
+              <h3 data-i18n="wf_step1_t">Отправьте запрос</h3>
+              <p data-i18n="wf_step1_d">Выберите продукцию из каталога или отправьте свою спецификацию.</p>
             </div>
-          </div>
+          </li>
 
-          <div class="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col justify-between interactive-card">
-            <div class="card-shine"></div>
-            <div>
-              <div class="text-2xl font-black text-cyan-500 font-mono mb-3">02</div>
-              <h3 class="text-sm font-bold text-white mb-2" data-i18n="wf_step2_t">Получите предложение</h3>
-              <p class="text-xs text-slate-400" data-i18n="wf_step2_d">Экспорт-менеджер завода уточняет объём, требования и рассчитывает цену.</p>
+          <li class="workflow-step">
+            <span class="workflow-step__marker" aria-hidden="true">02</span>
+            <div class="workflow-step__body">
+              <h3 data-i18n="wf_step2_t">Получите предложение</h3>
+              <p data-i18n="wf_step2_d">Экспорт-менеджер завода уточняет объём, требования и рассчитывает цену.</p>
             </div>
-          </div>
+          </li>
 
-          <div class="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col justify-between interactive-card">
-            <div class="card-shine"></div>
-            <div>
-              <div class="text-2xl font-black text-emerald-500 font-mono mb-3">03</div>
-              <h3 class="text-sm font-bold text-white mb-2" data-i18n="wf_step3_t">Согласуйте условия</h3>
-              <p class="text-xs text-slate-400" data-i18n="wf_step3_d">Согласовываем цену, объём, сроки, валюту оплаты и условия логистики.</p>
+          <li class="workflow-step">
+            <span class="workflow-step__marker" aria-hidden="true">03</span>
+            <div class="workflow-step__body">
+              <h3 data-i18n="wf_step3_t">Согласуйте условия</h3>
+              <p data-i18n="wf_step3_d">Согласовываем цену, объём, сроки, валюту оплаты и условия логистики.</p>
             </div>
-          </div>
+          </li>
 
-          <div class="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col justify-between interactive-card">
-            <div class="card-shine"></div>
-            <div>
-              <div class="text-2xl font-black text-blue-500 font-mono mb-3">04</div>
-              <h3 class="text-sm font-bold text-white mb-2" data-i18n="wf_step4_t">Производство и подготовка</h3>
-              <p class="text-xs text-slate-400" data-i18n="wf_step4_d">Заказ производится на линиях и подготавливается к отправке на европаллетах.</p>
+          <li class="workflow-step">
+            <span class="workflow-step__marker" aria-hidden="true">04</span>
+            <div class="workflow-step__body">
+              <h3 data-i18n="wf_step4_t">Производство и подготовка</h3>
+              <p data-i18n="wf_step4_d">Заказ производится на линиях и подготавливается к отправке на европаллетах.</p>
             </div>
-          </div>
+          </li>
 
-          <div class="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col justify-between interactive-card">
-            <div class="card-shine"></div>
-            <div>
-              <div class="text-2xl font-black text-indigo-500 font-mono mb-3">05</div>
-              <h3 class="text-sm font-bold text-white mb-2" data-i18n="wf_step5_t">Согласование поставки</h3>
-              <p class="text-xs text-slate-400" data-i18n="wf_step5_d">Условия отгрузки и применимые документы согласуются с отделом продаж для выбранного направления.</p>
+          <li class="workflow-step">
+            <span class="workflow-step__marker" aria-hidden="true">05</span>
+            <div class="workflow-step__body">
+              <h3 data-i18n="wf_step5_t">Согласование поставки</h3>
+              <p data-i18n="wf_step5_d">Условия отгрузки и применимые документы согласуются с отделом продаж для выбранного направления.</p>
             </div>
-          </div>
+          </li>
 
-        </div>
+        </ol>
 
       </div>
     </section>

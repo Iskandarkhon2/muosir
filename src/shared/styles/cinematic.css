@@ -204,6 +204,31 @@
   color: var(--text-muted) !important;
 }
 
+.site-content .glass-card {
+  border-color: var(--accent-border) !important;
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 58%),
+    linear-gradient(145deg, var(--surface-1), var(--surface-2)) !important;
+}
+
+.site-content .glass-card p {
+  color: var(--text-muted) !important;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.site-content .glass-card h3 {
+  font-size: clamp(1.0625rem, 0.35vw + 1rem, 1.25rem);
+  line-height: 1.3;
+  font-weight: 700 !important;
+}
+
+.site-content .glass-card:hover {
+  border-color: var(--accent) !important;
+  box-shadow: var(--shadow-float);
+}
+
 .site-content[data-page="home"] .motion-section:not(.site-hero) {
   padding-block: clamp(52px, 5vw, 72px);
 }
@@ -251,8 +276,8 @@
   border-radius: var(--radius-xl);
   background: linear-gradient(145deg, var(--surface-1), var(--surface-2) 58%, var(--accent-soft)) !important;
   background:
-    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 54%),
-    linear-gradient(145deg, var(--surface-1), var(--surface-2) 58%, var(--accent-soft)) !important;
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 58%),
+    linear-gradient(145deg, var(--surface-1), var(--surface-2)) !important;
   box-shadow: var(--shadow-card);
   user-select: none;
 }
@@ -363,9 +388,11 @@
   overflow: hidden;
   justify-content: flex-start;
   padding: clamp(14px, 1.2vw, 20px);
-  border: 1px solid var(--border-subtle) !important;
+  border: 1px solid var(--accent-border) !important;
   border-radius: var(--radius-xl);
-  background: linear-gradient(145deg, var(--surface-1), var(--surface-2)) !important;
+  background:
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 58%),
+    linear-gradient(145deg, var(--surface-1), var(--surface-2)) !important;
   box-shadow: var(--shadow-card);
   transition: transform var(--duration-normal) var(--ease-out), border-color var(--duration-normal) ease, box-shadow var(--duration-normal) ease;
 }
@@ -399,7 +426,7 @@
 
 #industries-grid .industry-card:hover {
   transform: translateY(-4px);
-  border-color: var(--accent-border) !important;
+  border-color: var(--accent) !important;
   box-shadow: var(--shadow-float) !important;
 }
 
@@ -527,6 +554,155 @@
   background: var(--accent-soft);
   font-size: 0.8125rem;
   white-space: nowrap;
+}
+
+.workflow-track {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.workflow-track::before {
+  position: absolute;
+  top: 24px;
+  right: 10%;
+  left: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-border), var(--accent), var(--accent-border));
+  box-shadow: 0 0 14px var(--accent-glow);
+  content: "";
+  transform-origin: left center;
+}
+
+.workflow-section.is-visible .workflow-track::before {
+  animation: workflow-route-draw-x 1.1s var(--ease-out) 120ms both;
+}
+
+.workflow-step {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.workflow-step__marker {
+  display: grid;
+  position: relative;
+  z-index: 1;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid var(--accent-border);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 20%, var(--accent-soft), transparent 72%),
+    linear-gradient(145deg, var(--surface-1), var(--surface-2));
+  box-shadow: var(--shadow-card);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+
+.workflow-section.is-visible .workflow-step__marker {
+  animation: workflow-marker-appear 420ms var(--ease-out) both;
+}
+
+.workflow-section.is-visible .workflow-step:nth-child(2) .workflow-step__marker { animation-delay: 180ms; }
+.workflow-section.is-visible .workflow-step:nth-child(3) .workflow-step__marker { animation-delay: 260ms; }
+.workflow-section.is-visible .workflow-step:nth-child(4) .workflow-step__marker { animation-delay: 340ms; }
+.workflow-section.is-visible .workflow-step:nth-child(5) .workflow-step__marker { animation-delay: 420ms; }
+
+.workflow-step__body {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.workflow-step__body h3 {
+  margin: 0 0 6px;
+  color: var(--text-primary);
+  font-size: clamp(1rem, 0.35vw + 0.94rem, 1.125rem);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.workflow-step__body p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+@media (min-width: 1024px) {
+  .workflow-track {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(12px, 1.5vw, 22px);
+  }
+
+  .workflow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .workflow-step__body {
+    width: 100%;
+    max-width: 220px;
+    padding-top: 0;
+  }
+}
+
+@keyframes workflow-route-draw-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes workflow-route-draw-y {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@media (max-width: 1023px) {
+  .workflow-track::before {
+    display: none;
+  }
+
+  .workflow-step:not(:last-child)::after {
+    position: absolute;
+    top: 48px;
+    left: 23px;
+    width: 2px;
+    height: calc(100% - 2px);
+    background: linear-gradient(180deg, var(--accent-border), var(--accent));
+    box-shadow: 0 0 10px var(--accent-glow);
+    content: "";
+    transform-origin: center top;
+  }
+
+  .workflow-section.is-visible .workflow-step:not(:last-child)::after {
+    animation: workflow-route-draw-y 460ms var(--ease-out) both;
+  }
+
+  .workflow-section.is-visible .workflow-step:nth-child(2)::after { animation-delay: 180ms; }
+  .workflow-section.is-visible .workflow-step:nth-child(3)::after { animation-delay: 260ms; }
+  .workflow-section.is-visible .workflow-step:nth-child(4)::after { animation-delay: 340ms; }
+}
+
+@keyframes workflow-marker-appear {
+  from { opacity: 0.6; transform: scale(0.82); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .homepage-stage-control {
@@ -699,10 +875,10 @@
   justify-content: flex-start;
   gap: 18px;
   padding: clamp(16px, 1.5vw, 24px);
-  border: 1px solid var(--border-default) !important;
+  border: 1px solid var(--accent-border) !important;
   border-radius: var(--radius-xl);
   background:
-    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 56%),
+    radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 58%),
     linear-gradient(145deg, var(--surface-1), var(--surface-2)) !important;
 }
 
@@ -755,7 +931,7 @@
   place-items: center;
   margin-bottom: 8px;
   color: var(--text-primary);
-  font-size: clamp(1.125rem, 0.5vw + 1rem, 1.375rem);
+  font-size: clamp(1.0625rem, 0.35vw + 1rem, 1.25rem);
   font-weight: 700;
   line-height: 1.3;
   overflow-wrap: anywhere;
@@ -766,7 +942,7 @@
 
 #production-gallery-container .production-card__description {
   color: var(--text-muted);
-  font-size: clamp(0.9375rem, 0.28vw + 0.86rem, 1.0625rem);
+  font-size: 0.9375rem;
   line-height: 1.6;
   overflow-wrap: anywhere;
   hyphens: auto;
@@ -1070,6 +1246,10 @@
 }
 
 @media (max-width: 767px) {
+  .site-content .glass-card {
+    border-radius: 16px;
+  }
+
   .site-hero {
     min-height: auto;
     padding-block: 48px 64px;
@@ -1134,6 +1314,7 @@
   #advantages-grid > .advantage-card {
     flex-basis: calc((100% - 16px) / 2);
     min-height: 250px;
+    border-radius: 16px;
   }
 
   .back-to-top-btn {
@@ -1230,6 +1411,7 @@
     min-height: 230px;
     gap: 14px;
     padding: 14px;
+    border-radius: 16px;
   }
 
   .production-card__main {
@@ -1251,11 +1433,10 @@
 
   #production-gallery-container .production-card__title {
     margin-bottom: 6px;
-    font-size: 1rem;
   }
 
   #production-gallery-container .production-card__description {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
   }
 
   #production-gallery-container .production-card__meta {
@@ -1304,7 +1485,10 @@
   .motion-reveal,
   .page-transition-curtain,
   [data-homepage-stage]:not(.hidden),
-  #advantages-grid {
+  #advantages-grid,
+  .workflow-track::before,
+  .workflow-step::after,
+  .workflow-step__marker {
     opacity: 1;
     transform: none;
     animation: none;
