@@ -9,7 +9,7 @@
   <script src="src/app/theme-init.js"></script>
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
   <link rel="stylesheet" href="src/shared/styles/main.css">
-  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=cards-route-4">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=news-editorial-1">
   <script type="module" src="src/app/theme.js"></script>
   <!-- Meta Pixel Code -->
   <script>
@@ -123,13 +123,13 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
         <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 mb-6">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          Пресс-центр и события предприятия
+          Новости и материалы компании
         </span>
         <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight">
-          Новости завода Муосир пласт
+          Муосир пласт: факты и решения
         </h1>
         <p class="mt-4 text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
-          Здесь публикуется проверенная информация о предприятии. Актуальные сведения о продукции и условиях поставки можно уточнить у компании.
+          Рассказываем о производственных возможностях, технологиях и требованиях к упаковке на основе подтверждённой информации предприятия.
         </p>
       </div>
     </section>
@@ -138,77 +138,70 @@
     <section class="py-16 md:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
-          <!-- News 1 -->
-          <article class="glass-card rounded-2xl overflow-hidden border border-slate-800 flex flex-col justify-between group hover:border-cyan-500/50 transition-all">
-            <div>
-              <div class="h-48 bg-slate-900/90 relative overflow-hidden flex items-center justify-center p-4">
-                <img src="assets/images/egg-box-10.png" width="800" height="800" alt="Контейнер для яиц на 10 штук" class="max-h-36 object-contain group-hover:scale-105 transition-transform duration-300">
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-blue-600/80 text-white">Производство</span>
+        <div class="news-editorial-grid">
+          <article class="news-editorial-card glass-card rounded-2xl border border-slate-800 group">
+            <div class="news-editorial-card__visual news-editorial-card__visual--capacity">
+              <span class="news-editorial-card__eyebrow">ПРОИЗВОДСТВО</span>
+              <span class="news-editorial-card__index" aria-hidden="true">01</span>
+              <div class="news-editorial-card__stat">
+                <strong>14<span>+</span></strong>
+                <span>автоматизированных<br>производственных линий</span>
               </div>
-              <div class="p-6 space-y-2">
-                <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
-                  Производственные мощности
-                </h3>
-                <p class="text-sm text-slate-300 leading-relaxed">
-                  Производственная мощность составляет от 20 до 60 миллионов единиц готовой упаковки в год. На предприятии работает 14+ автоматизированных линий.
-                </p>
+              <div class="news-editorial-card__capacity">
+                <span>Мощность в год</span>
+                <strong>20–60 млн единиц</strong>
               </div>
             </div>
-            <div class="px-6 pb-6 pt-2">
-              <span class="text-xs font-bold text-cyan-400 group-hover:text-cyan-300 inline-flex items-center gap-1">
-                <a href="production.html">Подробнее о производстве</a> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </span>
-            </div>
-          </article>
-
-          <!-- News 2 -->
-          <article class="glass-card rounded-2xl overflow-hidden border border-slate-800 flex flex-col justify-between group hover:border-cyan-500/50 transition-all">
-            <div>
-              <div class="h-48 bg-slate-900/90 relative overflow-hidden flex items-center justify-center p-4">
-                <img src="assets/images/cup-500.png" width="800" height="800" alt="Стакан 500 мл из пищевого пластика" class="max-h-36 object-contain group-hover:scale-105 transition-transform duration-300">
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-emerald-600/80 text-white">Технологии</span>
-              </div>
-              <div class="p-6 space-y-2">
-                <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
-                  Технологии производства
-                </h3>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                  Производство использует термоформование, литьё пластмасс под давлением и IML-декорирование. Парк включает 50+ видов высокоточных пресс-форм.
-                </p>
-              </div>
-            </div>
-            <div class="px-6 pb-6 pt-2">
-              <span class="text-xs font-bold text-cyan-400 group-hover:text-cyan-300 inline-flex items-center gap-1">
-                <a href="production.html">Технологии предприятия</a> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </span>
+            <div class="news-editorial-card__body">
+              <h2>Производственные возможности</h2>
+              <p>Масштаб выпуска зависит от ассортимента и конфигурации заказа. Предприятие производит жёсткую пластиковую упаковку на автоматизированных линиях.</p>
+              <a href="production.html" class="news-editorial-card__link">
+                О производстве
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
             </div>
           </article>
 
-          <!-- News 3 -->
-          <article class="glass-card rounded-2xl overflow-hidden border border-slate-800 flex flex-col justify-between group hover:border-cyan-500/50 transition-all">
-            <div>
-              <div class="h-48 bg-slate-900/90 relative overflow-hidden flex items-center justify-center p-4">
-                <img src="assets/images/product-dairy-cup.svg" alt="Упаковка для пищевой промышленности" class="max-h-36 object-contain group-hover:scale-105 transition-transform duration-300">
-                <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-amber-600/80 text-white">Безопасность</span>
+          <article class="news-editorial-card glass-card rounded-2xl border border-slate-800 group">
+            <div class="news-editorial-card__visual news-editorial-card__visual--technology">
+              <span class="news-editorial-card__eyebrow">ТЕХНОЛОГИИ</span>
+              <span class="news-editorial-card__index" aria-hidden="true">02</span>
+              <div class="news-editorial-card__process">
+                <span><b>01</b> Термоформование</span>
+                <span><b>02</b> Литьё под давлением</span>
+                <span><b>03</b> Декорирование IML</span>
               </div>
-              <div class="p-6 space-y-2">
-                <h3 class="text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
-                  Требования пищевой безопасности
-                </h3>
-                <p class="text-xs text-slate-400 leading-relaxed">
-                  Производство соответствует международным санитарно-гигиеническим нормам и требованиям пищевой безопасности. Документы для конкретного изделия можно запросить у отдела продаж.
-                </p>
-              </div>
+              <div class="news-editorial-card__molds"><strong>50+</strong><span>видов пресс-форм</span></div>
             </div>
-            <div class="px-6 pb-6 pt-2">
-              <span class="text-xs font-bold text-cyan-400 group-hover:text-cyan-300 inline-flex items-center gap-1">
-                <a href="quality.html">О пищевой безопасности</a> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-              </span>
+            <div class="news-editorial-card__body">
+              <h2>Технологии для разных форматов</h2>
+              <p>Термоформование, литьё пластмасс под давлением и IML-декорирование позволяют выпускать упаковку разных типов и назначений.</p>
+              <a href="production.html" class="news-editorial-card__link">
+                Технологии предприятия
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
             </div>
           </article>
 
+          <article class="news-editorial-card glass-card rounded-2xl border border-slate-800 group">
+            <div class="news-editorial-card__visual news-editorial-card__visual--quality">
+              <span class="news-editorial-card__eyebrow">КАЧЕСТВО</span>
+              <span class="news-editorial-card__index" aria-hidden="true">03</span>
+              <div class="news-editorial-card__quality-mark" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none"><path d="M32 5 53 13v16c0 14-9 24-21 30C20 53 11 43 11 29V13L32 5Z" stroke="currentColor" stroke-width="2"/><path d="m22 31 7 7 14-15" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Для пищевой упаковки</span>
+              </div>
+              <div class="news-editorial-card__quality-note">Требования пищевой безопасности</div>
+            </div>
+            <div class="news-editorial-card__body">
+              <h2>Пищевая безопасность</h2>
+              <p>Производство ведётся с соблюдением санитарно-гигиенических требований. Техническую информацию и документы по конкретному изделию можно запросить у отдела продаж.</p>
+              <a href="quality.html" class="news-editorial-card__link">
+                Информация о качестве
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </article>
         </div>
 
       </div>
