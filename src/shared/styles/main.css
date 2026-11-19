@@ -355,7 +355,8 @@ dialog {
   -webkit-text-fill-color: currentColor;
 }
 
-.site-content .btn-primary-glow {
+.site-content .btn-primary-glow,
+.site-content .form-submit-button {
   border: 1px solid var(--accent-border);
   background: var(--accent) !important;
   box-shadow: var(--shadow-accent);
@@ -364,14 +365,34 @@ dialog {
   transition: transform var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), box-shadow var(--duration-fast) var(--ease-out);
 }
 
-.site-content .btn-primary-glow:hover {
+.site-content .btn-primary-glow:hover,
+.site-content .form-submit-button:hover {
   background: var(--accent-strong) !important;
   box-shadow: var(--shadow-accent);
 }
 
-.site-content .btn-primary-glow:active {
+.site-content .btn-primary-glow:active,
+.site-content .form-submit-button:active {
   background: var(--accent-pressed) !important;
   transform: scale(0.985);
+}
+
+.site-content .form-submit-button {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.5rem;
+  border-radius: var(--radius-md);
+  color: var(--accent-contrast) !important;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.site-content .form-submit-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .site-content > header a[data-i18n="nav_cta"] {
