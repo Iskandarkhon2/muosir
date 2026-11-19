@@ -96,6 +96,8 @@
 
     const render = () => {
       const company = store.getData().company;
+      const domesticPhone = String(company.phoneClean || '992925505050').replace(/\D/g, '') || '992925505050';
+      const domesticDisplayPhone = company.phone || `+${domesticPhone}`;
       document.querySelectorAll('.dynamic-phone-link').forEach(link => {
         link.href = `tel:${company.phoneClean}`;
         link.textContent = company.phone;
@@ -106,6 +108,42 @@
       });
       document.querySelectorAll('[data-dynamic-whatsapp]').forEach(link => {
         link.href = `https://wa.me/${company.whatsappClean || '992922992000'}`;
+      });
+      const exportPage = /(?:^|\/)export\.html$/i.test(window.location.pathname);
+      document.querySelectorAll('a[href^="https://wa.me/"]').forEach(link => {
+        const isHeaderLink = Boolean(link.closest('header'));
+        const isExportLink = link.hasAttribute('data-export-whatsapp')
+          || link.dataset.whatsappDestination === 'export';
+        if (!isHeaderLink && (exportPage || isExportLink)) return;
+
+        const url = new URL(link.href);
+        url.pathname = `/${domesticPhone}`;
+        if (isHeaderLink || link.hasAttribute('data-domestic-whatsapp')) url.search = '';
+        link.href = url.href;
+
+        if (isHeaderLink) {
+          const numberLabel = link.querySelector('span:last-child');
+          if (numberLabel) {
+            numberLabel.textContent = domesticDisplayPhone;
+          } else {
+            link.textContent = `WhatsApp ${domesticDisplayPhone}`;
+          }
+        } else {
+          link.childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+              node.textContent = node.textContent.replace(/\+?992[\s()-]*92[\s-]*299[\s-]*2000/g, domesticDisplayPhone);
+            }
+          });
+        }
+      });
+      const floatingPhone = exportPage
+        ? String(company.whatsappClean || '992922992000').replace(/\D/g, '') || '992922992000'
+        : domesticPhone;
+      const floatingDisplayPhone = exportPage
+        ? company.whatsapp || `+${floatingPhone}`
+        : domesticDisplayPhone;
+      document.querySelectorAll('a[aria-label="WhatsApp Chat"]').forEach(link => {
+        link.title = `WhatsApp (${floatingDisplayPhone})`;
       });
     };
 

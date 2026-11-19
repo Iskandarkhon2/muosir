@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const waText = encodeURIComponent(
         `Здравствуйте, завод Muosir Plast. Интересует оптовая партия продукции: ${p.title} (${p.id}), объем: по запросу. Направьте коммерческое предложение.`
       );
-      const waUrl = `https://wa.me/${data.company.whatsappClean || '992922992000'}?text=${waText}`;
+      const waUrl = `https://wa.me/${data.company.phoneClean || '992925505050'}?text=${waText}`;
 
       return `
         <div class="glass-card rounded-2xl p-5 flex flex-col justify-between interactive-card border border-slate-800/80 hover:border-cyan-500/40 transition-all duration-300 group">
@@ -902,11 +902,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const data = store.getData();
     // Prepare personal WhatsApp link with lead info
     const waText = encodeURIComponent(
-      `Здравствуйте. Меня интересует продукция Муосир пласт: ${lead.product}. Я оставил заявку: ${lead.name} (${lead.company}, ${lead.country}). Хотел бы получить информацию по экспортным поставкам.`
+      `Здравствуйте. Меня интересует продукция Муосир пласт: ${lead.product}. Я оставил заявку: ${lead.name} (${lead.company}, ${lead.country}). Хотел бы получить информацию по поставкам в Таджикистане.`
     );
     const waBtn = document.getElementById('thank-you-wa-btn');
     if (waBtn) {
-      waBtn.href = `https://wa.me/${data.company.whatsappClean || '992922992000'}?text=${waText}`;
+      waBtn.href = `https://wa.me/${data.company.phoneClean || '992925505050'}?text=${waText}`;
     }
 
     modal.classList.remove('hidden');
@@ -918,40 +918,78 @@ document.addEventListener('DOMContentLoaded', () => {
     const waTrigger = document.getElementById('whatsapp-widget-btn');
     const waBox = document.getElementById('whatsapp-widget-popup');
     const waClose = document.getElementById('whatsapp-widget-close');
-    const waSendBtn = document.getElementById('whatsapp-widget-send');
     const waInput = document.getElementById('whatsapp-widget-input');
+    const waRoutes = Array.from(waBox?.querySelectorAll('[data-whatsapp-destination]') || []);
 
     if (!waTrigger || !waBox) return;
 
+    const closePopup = (restoreFocus = false) => {
+      waBox.classList.add('hidden');
+      waTrigger.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) waTrigger.focus();
+    };
+
+    const updateRoutes = () => {
+      const company = store.getData().company;
+      waRoutes.forEach(link => {
+        const isDomestic = link.dataset.whatsappDestination === 'domestic';
+        const number = String(isDomestic
+          ? company.phoneClean || '992925505050'
+          : company.whatsappClean || '992922992000').replace(/\D/g, '');
+        const fallback = isDomestic ? '992925505050' : '992922992000';
+        const phone = number || fallback;
+        const displayPhone = isDomestic
+          ? company.phone || `+${phone}`
+          : company.whatsapp || `+${phone}`;
+
+        link.href = `https://wa.me/${phone}`;
+        const numberLabel = link.querySelector('[data-whatsapp-number]');
+        if (numberLabel) numberLabel.textContent = displayPhone;
+      });
+    };
+
+    updateRoutes();
+    window.addEventListener('muosir_store_updated', updateRoutes);
+
     waTrigger.addEventListener('click', () => {
-      waBox.classList.toggle('hidden');
-      if (!waBox.classList.contains('hidden') && waInput) {
-        waInput.focus();
-      }
+      const isOpening = waBox.classList.contains('hidden');
+      waBox.classList.toggle('hidden', !isOpening);
+      waTrigger.setAttribute('aria-expanded', String(isOpening));
+      if (isOpening) waRoutes[0]?.focus();
     });
 
     if (waClose) {
       waClose.addEventListener('click', () => {
-        waBox.classList.add('hidden');
+        closePopup(true);
       });
     }
 
-    if (waSendBtn && waInput) {
-      waSendBtn.addEventListener('click', () => {
-        const data = store.getData();
-        const msg = waInput.value.trim() || 'Здравствуйте. Меня интересует продукция Муосир пласт. Хотел бы получить информацию по экспортным поставкам.';
-        analytics.trackWhatsAppClick('Floating Widget', msg);
-        const url = `https://wa.me/${data.company.whatsappClean || '992922992000'}?text=${encodeURIComponent(msg)}`;
-        window.open(url, '_blank');
-        waBox.classList.add('hidden');
-        waInput.value = '';
-      });
+    waRoutes.forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        const isDomestic = link.dataset.whatsappDestination === 'domestic';
+        const company = store.getData().company;
+        const number = String(isDomestic
+          ? company.phoneClean || '992925505050'
+          : company.whatsappClean || '992922992000').replace(/\D/g, '');
+        const fallback = isDomestic ? '992925505050' : '992922992000';
+        const message = waInput?.value.trim() || '';
+        const query = message ? `?text=${encodeURIComponent(message)}` : '';
+        const url = `https://wa.me/${number || fallback}${query}`;
 
-      waInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          waSendBtn.click();
-        }
+        analytics?.trackWhatsAppClick?.(
+          isDomestic ? 'Floating Widget - Domestic' : 'Floating Widget - Export'
+        );
+        window.open(url, '_blank', 'noopener,noreferrer');
+        closePopup();
+        if (waInput) waInput.value = '';
       });
-    }
+    });
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !waBox.classList.contains('hidden')) {
+        closePopup(true);
+      }
+    });
   }
 });
