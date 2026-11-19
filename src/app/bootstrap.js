@@ -121,35 +121,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const items = [
       {
         icon: `<svg class="w-4 h-4 sm:w-6 sm:h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>`,
-        badge: "МОЛОЧНАЯ ПРОМЫШЛЕННОСТЬ",
         titleKey: "ind_dairy",
         descKey: "ind_dairy_desc",
         tag: "Стаканы Ø 95 мм, нахлобучки"
       },
       {
         icon: `<svg class="industry-icon-svg w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3.25c-3.68 0-6.75 5.8-6.75 10.1a6.75 6.75 0 0013.5 0c0-4.3-3.07-10.1-6.75-10.1Z"/><path stroke-linecap="round" stroke-width="2" d="M9.25 14.5c0 1.5.9 2.5 2.25 2.75"/></svg>`,
-        badge: "ФАСОВКА И ПТИЦЕФАБРИКИ",
         titleKey: "ind_eggs",
         descKey: "ind_eggs_desc",
         tag: "Упаковка для 10 и 15 яиц"
       },
       {
         icon: `<svg class="industry-icon-svg w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>`,
-        badge: "КОНДИТЕРСКИЕ ФАБРИКИ",
         titleKey: "ind_confect",
         descKey: "ind_confect_desc",
         tag: "Тортовницы, коррексы"
       },
       {
         icon: `<svg class="w-4 h-4 sm:w-6 sm:h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>`,
-        badge: "ПИЩЕВЫЕ ПРОИЗВОДСТВА И ФАСОВКА",
         titleKey: "ind_food",
         descKey: "ind_food_desc",
         tag: "Ланч-боксы, салатники"
       },
       {
         icon: `<svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>`,
-        badge: "HORECA И FAST FOOD",
         titleKey: "ind_horeca",
         descKey: "ind_horeca_desc",
         tag: "Стаканы, супницы, соусники"
@@ -164,9 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="industry-card__icon w-8 h-8 sm:w-12 sm:h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center">
               ${item.icon}
             </div>
-          <span class="industry-card__badge max-w-[5rem] text-right text-[9px] leading-tight sm:text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-500/30 px-2 py-0.5 rounded-full">
-              ${item.badge}
-            </span>
           </div>
         <div class="industry-card__content">
         <h3 class="text-xs sm:text-base font-bold text-white mb-2" data-i18n="${item.titleKey}">

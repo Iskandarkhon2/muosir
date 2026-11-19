@@ -511,17 +511,6 @@
   stroke: var(--accent) !important;
 }
 
-#industries-grid .industry-card__badge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  max-width: 7rem;
-  border-color: var(--accent-border) !important;
-  background: var(--accent-soft) !important;
-  color: var(--accent) !important;
-  letter-spacing: 0.035em;
-}
-
 #industries-grid .industry-card__top {
   display: flex;
   min-height: 48px;
@@ -1135,6 +1124,21 @@
   }
 }
 
+@media (min-width: 640px) and (max-width: 1279px) {
+  #industries-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #industries-grid .industry-card,
+  #industries-grid .industry-card:nth-child(n + 4) {
+    grid-column: auto;
+  }
+
+  #industries-grid .industry-card__top {
+    justify-content: center;
+  }
+}
+
 .page-hero {
   background: linear-gradient(180deg, var(--surface-1), transparent 88%);
 }
@@ -1381,6 +1385,15 @@
     gap: 40px;
   }
 
+  #industries-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #industries-grid .industry-card,
+  #industries-grid .industry-card:nth-child(n + 4) {
+    grid-column: auto;
+  }
+
   #advantages-grid > .advantage-card {
     flex-basis: calc((100% - 16px) / 2);
   }
@@ -1398,6 +1411,15 @@
 @media (max-width: 767px) {
   .site-content .glass-card {
     border-radius: 16px;
+  }
+
+  #industries-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #industries-grid .industry-card,
+  #industries-grid .industry-card:nth-child(n + 4) {
+    grid-column: auto;
   }
 
   .site-hero {
@@ -1517,6 +1539,7 @@
 
 @media (max-width: 639px) {
   #industries-grid {
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
   }
 
@@ -1527,10 +1550,6 @@
 
   #industries-grid .industry-card__top {
     margin-bottom: 12px;
-  }
-
-  #industries-grid .industry-card__badge {
-    display: none;
   }
 
   #industries-grid .industry-card__content h3 {
