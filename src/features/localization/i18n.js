@@ -20,6 +20,8 @@ const TRANSLATIONS = {
     nav_cta: "Получить предложение",
     nav_admin: "Панель управления",
     nav_visualizer: "Примерка логотипа",
+    page_show_stage_2: "Подробнее о производстве и экспорте",
+    page_show_stage_3: "Показать больше о качестве и сотрудничестве",
     theme_light: "Светлая тема",
     theme_dark: "Тёмная тема",
 
@@ -233,6 +235,8 @@ const TRANSLATIONS = {
     nav_cta: "Get Quotation",
     nav_admin: "Admin Console",
     nav_visualizer: "Logo Preview",
+    page_show_stage_2: "More about production and exports",
+    page_show_stage_3: "More about quality and cooperation",
     theme_light: "Light Theme",
     theme_dark: "Dark Theme",
 
@@ -446,6 +450,8 @@ const TRANSLATIONS = {
     nav_cta: "Taklif olish",
     nav_admin: "Boshqaruv paneli",
     nav_visualizer: "Logotip maketi",
+    page_show_stage_2: "Ishlab chiqarish va eksport haqida batafsil",
+    page_show_stage_3: "Sifat va hamkorlik haqida batafsil",
     theme_light: "Yorug' mavzu",
     theme_dark: "Qorong'i mavzu",
 
@@ -659,6 +665,8 @@ const TRANSLATIONS = {
     nav_cta: "Ұсыныс алу",
     nav_admin: "Басқару панелі",
     nav_visualizer: "Логотип макеті",
+    page_show_stage_2: "Өндіріс пен экспорт туралы толығырақ",
+    page_show_stage_3: "Сапа мен ынтымақтастық туралы толығырақ",
     theme_light: "Ашық тақырып",
     theme_dark: "Күңгірт тақырып",
 

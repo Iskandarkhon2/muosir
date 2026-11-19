@@ -37,6 +37,57 @@
     });
   }
 
+  function setupProgressiveHomepage() {
+    const stages = Array.from(document.querySelectorAll('[data-homepage-stage]'));
+    const buttons = Array.from(document.querySelectorAll('[data-homepage-stage-toggle]'));
+    if (!stages.length || !buttons.length) return;
+
+    const revealThrough = targetStage => {
+      const targetIndex = stages.indexOf(targetStage);
+      if (targetIndex < 0) return;
+
+      stages.slice(0, targetIndex + 1).forEach(stage => stage.classList.remove('hidden'));
+      updateButtons();
+    };
+
+    const updateButtons = () => {
+      const nextStage = stages.find(stage => stage.classList.contains('hidden'));
+      buttons.forEach(button => {
+        const isNext = nextStage && button.dataset.homepageStageToggle === nextStage.id;
+        const buttonStage = stages.find(stage => stage.id === button.dataset.homepageStageToggle);
+        button.classList.toggle('hidden', !isNext);
+        button.setAttribute('aria-expanded', String(Boolean(buttonStage && !buttonStage.classList.contains('hidden'))));
+      });
+    };
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const stage = document.getElementById(button.dataset.homepageStageToggle);
+        if (stage) revealThrough(stage);
+      });
+    });
+
+    document.addEventListener('click', event => {
+      if (!(event.target instanceof Element)) return;
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      const targetStage = target?.closest('[data-homepage-stage]');
+      if (targetStage) revealThrough(targetStage);
+    });
+
+    updateButtons();
+    const initialTarget = window.location.hash
+      ? document.getElementById(window.location.hash.slice(1))
+      : null;
+    const initialStage = initialTarget?.closest('[data-homepage-stage]');
+    if (initialStage) {
+      revealThrough(initialStage);
+      requestAnimationFrame(() => initialTarget.scrollIntoView());
+    }
+  }
+
   function setupCompanyContacts() {
     const store = window.muosirStore;
     if (!store) return;
@@ -83,6 +134,7 @@
   function initialize() {
     setupLanguageSwitcher();
     setupMobileMenu();
+    setupProgressiveHomepage();
     setupCompanyContacts();
     setupProductExplorer();
     setupPhotoLightbox();

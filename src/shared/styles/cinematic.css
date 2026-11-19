@@ -584,6 +584,13 @@
   }
 }
 
+@media (max-width: 639px) {
+  #industries-grid .glass-card h3 {
+    font-size: 0.75rem;
+    line-height: 1.35;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .motion-reveal,
   .page-transition-curtain {
