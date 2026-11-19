@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCatalogTabs();
   renderCatalogProducts();
   renderAdvantages();
+  setupAdvantagesCarousel();
   renderProductionShowcase();
   renderDocuments();
   setupForms();
@@ -126,14 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
         tag: "Стаканы Ø 95 мм, нахлобучки"
       },
       {
-        icon: `<svg class="w-4 h-4 sm:w-6 sm:h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>`,
+        icon: `<svg class="industry-icon-svg w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3.25c-3.68 0-6.75 5.8-6.75 10.1a6.75 6.75 0 0013.5 0c0-4.3-3.07-10.1-6.75-10.1Z"/><path stroke-linecap="round" stroke-width="2" d="M9.25 14.5c0 1.5.9 2.5 2.25 2.75"/></svg>`,
         badge: "ФАСОВКА И ПТИЦЕФАБРИКИ",
         titleKey: "ind_eggs",
         descKey: "ind_eggs_desc",
         tag: "Упаковка для 10 и 15 яиц"
       },
       {
-        icon: `<svg class="w-4 h-4 sm:w-6 sm:h-6 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>`,
+        icon: `<svg class="industry-icon-svg w-4 h-4 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>`,
         badge: "КОНДИТЕРСКИЕ ФАБРИКИ",
         titleKey: "ind_confect",
         descKey: "ind_confect_desc",
@@ -339,10 +340,10 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (lang === 'kk') { title = a.titleKk || title; desc = a.descKk || desc; }
 
       return `
-        <div class="glass-card rounded-2xl p-6 interactive-card border border-slate-800 hover:border-blue-500/40 transition-all flex flex-col justify-between">
+        <div class="glass-card advantage-card rounded-2xl p-6 interactive-card border border-slate-800 hover:border-blue-500/40 transition-all flex flex-col justify-between">
           <div class="card-shine"></div>
           <div>
-            <div class="w-14 h-14 rounded-2xl bg-slate-900/90 border border-slate-700/60 flex items-center justify-center mb-5 shadow-inner">
+            <div class="advantage-card__icon w-14 h-14 rounded-2xl bg-slate-900/90 border border-slate-700/60 flex items-center justify-center mb-5 shadow-inner">
               ${iconSvgs[a.icon] || iconSvgs.factory}
             </div>
             <h3 class="text-base sm:text-lg font-bold text-white mb-2.5">
@@ -355,6 +356,230 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       `;
     }).join('');
+    window.dispatchEvent(new CustomEvent('muosir_advantages_rendered'));
+  }
+
+  function setupAdvantagesCarousel() {
+    const root = document.querySelector('[data-advantages-carousel]');
+    const viewport = root?.querySelector('[data-advantages-viewport]');
+    const track = root?.querySelector('[data-advantages-track]');
+    const dotsContainer = root?.querySelector('[data-advantages-dots]');
+    const previousButton = root?.querySelector('[data-advantages-prev]');
+    const nextButton = root?.querySelector('[data-advantages-next]');
+    const toggleButton = root?.querySelector('[data-advantages-toggle]');
+    const pauseIcon = root?.querySelector('[data-advantages-pause-icon]');
+    const playIcon = root?.querySelector('[data-advantages-play-icon]');
+    if (!root || !viewport || !track || !dotsContainer || !previousButton || !nextButton || !toggleButton || !pauseIcon || !playIcon) return;
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const autoplayDelay = 5200;
+    let slideCount = 0;
+    let slideIndex = 0;
+    let autoplayTimer = null;
+    let isAnimating = false;
+    let isPausedByUser = false;
+    let isHovered = false;
+    let isFocused = false;
+    let isVisible = true;
+    let pointerStart = null;
+
+    const currentSlide = () => slideCount
+      ? ((slideIndex % slideCount) + slideCount) % slideCount
+      : 0;
+
+    const updatePagination = () => {
+      const activeIndex = currentSlide();
+      dotsContainer.querySelectorAll('[data-advantages-index]').forEach((dot, index) => {
+        const isActive = index === activeIndex;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-current', String(isActive));
+      });
+    };
+
+    const updateToggleButton = () => {
+      pauseIcon.classList.toggle('hidden', isPausedByUser);
+      playIcon.classList.toggle('hidden', !isPausedByUser);
+      toggleButton.setAttribute('aria-pressed', String(isPausedByUser));
+      toggleButton.setAttribute('aria-label', i18n.translate(
+        isPausedByUser ? 'why_carousel_play' : 'why_carousel_pause'
+      ));
+    };
+
+    const setPosition = animate => {
+      const firstCard = track.firstElementChild;
+      if (!slideCount || !firstCard) return;
+
+      if (!animate || reducedMotion.matches) track.style.transition = 'none';
+      const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0;
+      const step = firstCard.getBoundingClientRect().width + gap;
+      track.style.transform = `translate3d(${-slideIndex * step}px, 0, 0)`;
+
+      if (!animate || reducedMotion.matches) {
+        track.getBoundingClientRect();
+        track.style.removeProperty('transition');
+      }
+      updatePagination();
+    };
+
+    const clearAutoplay = () => {
+      if (autoplayTimer) window.clearTimeout(autoplayTimer);
+      autoplayTimer = null;
+    };
+
+    const canAutoplay = () => !isPausedByUser
+      && !isHovered
+      && !isFocused
+      && isVisible
+      && !document.hidden
+      && !reducedMotion.matches;
+
+    const scheduleAutoplay = (delay = autoplayDelay) => {
+      clearAutoplay();
+      if (!canAutoplay()) return;
+      autoplayTimer = window.setTimeout(() => {
+        moveBy(1, false);
+      }, delay);
+    };
+
+    const normalizeLoopPosition = () => {
+      const normalizedIndex = slideCount + currentSlide();
+      if (normalizedIndex === slideIndex) return;
+      slideIndex = normalizedIndex;
+      setPosition(false);
+    };
+
+    const moveTo = (index, userInitiated = true) => {
+      if (!slideCount || isAnimating) return;
+      clearAutoplay();
+      slideIndex = index;
+      isAnimating = !reducedMotion.matches;
+      setPosition(isAnimating);
+      if (!isAnimating) normalizeLoopPosition();
+      if (userInitiated) scheduleAutoplay();
+      else if (!isAnimating) scheduleAutoplay();
+    };
+
+    const moveBy = (direction, userInitiated = true) => {
+      if (!slideCount || isAnimating) return;
+      moveTo(slideIndex + direction, userInitiated);
+    };
+
+    const rebuildSlides = () => {
+      const previousIndex = currentSlide();
+      track.querySelectorAll('[data-advantages-clone]').forEach(clone => clone.remove());
+      const originalCards = Array.from(track.children);
+      slideCount = originalCards.length;
+      if (!slideCount) return;
+
+      const createClone = card => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('data-advantages-clone', '');
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelectorAll('a, button, [tabindex]').forEach(element => element.setAttribute('tabindex', '-1'));
+        return clone;
+      };
+
+      track.prepend(...originalCards.map(createClone));
+      track.append(...originalCards.map(createClone));
+      slideIndex = slideCount + Math.min(previousIndex, slideCount - 1);
+      dotsContainer.innerHTML = originalCards.map((_, index) => `
+        <button
+          type="button"
+          class="advantages-carousel__dot"
+          data-advantages-index="${index}"
+          aria-label="${i18n.translate('why_carousel_slide')} ${index + 1}"
+          aria-current="${index === previousIndex}"
+        ></button>
+      `).join('');
+
+      dotsContainer.querySelectorAll('[data-advantages-index]').forEach(dot => {
+        dot.addEventListener('click', () => moveTo(slideCount + Number(dot.dataset.advantagesIndex)));
+      });
+      isAnimating = false;
+      updateToggleButton();
+      setPosition(false);
+      scheduleAutoplay();
+    };
+
+    previousButton.addEventListener('click', () => moveBy(-1));
+    nextButton.addEventListener('click', () => moveBy(1));
+    toggleButton.addEventListener('click', () => {
+      isPausedByUser = !isPausedByUser;
+      updateToggleButton();
+      scheduleAutoplay();
+    });
+
+    track.addEventListener('transitionend', event => {
+      if (event.target !== track || event.propertyName !== 'transform') return;
+      normalizeLoopPosition();
+      isAnimating = false;
+      scheduleAutoplay();
+    });
+
+    viewport.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        moveBy(event.key === 'ArrowRight' ? 1 : -1);
+      }
+    });
+    viewport.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      pointerStart = { x: event.clientX, y: event.clientY };
+      clearAutoplay();
+    });
+    viewport.addEventListener('pointerup', event => {
+      if (!pointerStart) return;
+      const deltaX = event.clientX - pointerStart.x;
+      const deltaY = event.clientY - pointerStart.y;
+      pointerStart = null;
+      if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        moveBy(deltaX < 0 ? 1 : -1);
+      } else {
+        scheduleAutoplay();
+      }
+    });
+    viewport.addEventListener('pointercancel', () => {
+      pointerStart = null;
+      scheduleAutoplay();
+    });
+
+    root.addEventListener('mouseenter', () => {
+      isHovered = true;
+      clearAutoplay();
+    });
+    root.addEventListener('mouseleave', () => {
+      isHovered = false;
+      scheduleAutoplay();
+    });
+    root.addEventListener('focusin', () => {
+      isFocused = true;
+      clearAutoplay();
+    });
+    root.addEventListener('focusout', () => {
+      requestAnimationFrame(() => {
+        isFocused = root.contains(document.activeElement);
+        scheduleAutoplay();
+      });
+    });
+    document.addEventListener('visibilitychange', scheduleAutoplay);
+    window.addEventListener('resize', () => {
+      isAnimating = false;
+      normalizeLoopPosition();
+      setPosition(false);
+      scheduleAutoplay();
+    }, { passive: true });
+
+    if ('IntersectionObserver' in window) {
+      isVisible = false;
+      const observer = new IntersectionObserver(entries => {
+        isVisible = entries.some(entry => entry.isIntersecting);
+        scheduleAutoplay();
+      }, { threshold: 0.1 });
+      observer.observe(root);
+    }
+
+    window.addEventListener('muosir_advantages_rendered', rebuildSlides);
+    rebuildSlides();
   }
 
   // Section 12 of ТЗ: Visual Production Showcase with Tabs & Video Modal
@@ -381,11 +606,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <button 
           type="button" 
           data-prod-tab="${t.id}"
-          class="px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
-            currentProdTab === t.id
-              ? 'bg-cyan-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/30'
-              : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
-          }"
+          class="production-tab${currentProdTab === t.id ? ' is-active' : ''}"
+          aria-pressed="${currentProdTab === t.id}"
         >
           ${t.label}
         </button>
@@ -395,6 +617,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
           currentProdTab = btn.getAttribute('data-prod-tab');
           renderProductionShowcase();
+          tabsContainer.querySelector('.production-tab.is-active')
+            ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         });
       });
     }
@@ -411,20 +635,20 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (lang === 'kk') { title = item.titleKk || title; desc = item.descKk || desc; }
 
       return `
-        <div class="glass-card rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/40 transition-all interactive-card flex flex-col">
+        <div class="glass-card production-card rounded-2xl border border-slate-800 hover:border-blue-500/40 transition-all interactive-card flex flex-col">
           <div class="card-shine"></div>
-          <div class="production-card-visual" aria-hidden="true">
-            ${productionIllustrations[item.category] || productionIllustrations.lines}
+          <div class="production-card__main">
+            <div class="production-card-visual" aria-hidden="true">
+              ${productionIllustrations[item.category] || productionIllustrations.lines}
+            </div>
+            <div class="production-card__content">
+              <h3 class="production-card__title">${title}</h3>
+              <p class="production-card__description">${desc}</p>
+            </div>
           </div>
-          <div class="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="text-base font-bold text-white mb-2">${title}</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">${desc}</p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500">
-              <span>Согдийская область, Таджикистан</span>
-              <span class="text-emerald-400 font-semibold">Пищевая безопасность</span>
-            </div>
+          <div class="production-card__meta">
+            <span>Согдийская область, Таджикистан</span>
+            <span>Пищевая безопасность</span>
           </div>
         </div>
       `;

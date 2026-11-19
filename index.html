@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
   <!-- Shared Styles & Cinematic Motion -->
   <link rel="stylesheet" href="src/shared/styles/main.css">
-  <link rel="stylesheet" href="src/shared/styles/cinematic.css">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=8">
   <script type="module" src="src/app/theme.js"></script>
 
   <!-- Schema.org Microdata for Manufacturer & Catalog (Section 20 of ТЗ) -->
@@ -79,7 +79,7 @@
 
   <!-- ================= CINEMATIC BACKDROP ================= -->
 
-  <div class="site-content relative z-10">
+  <div class="site-content relative z-10" data-page="home">
 
     <!-- ================= HEADER & TOPBAR (Блок 1 & Раздел 4 ТЗ) ================= -->
     <header class="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-2xl border-b border-slate-800/80 transition-all duration-300 shadow-xl shadow-black/20">
@@ -428,7 +428,7 @@
           </p>
         </div>
 
-        <div id="industries-grid" class="grid grid-cols-3 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-5">
+        <div id="industries-grid" class="industries-grid">
           <!-- Populated dynamically from bootstrap.js -->
         </div>
 
@@ -451,9 +451,25 @@
           </p>
         </div>
 
-        <!-- Advantages Grid: 7 Cards from Section 7 of ТЗ -->
-        <div id="advantages-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          <!-- Populated dynamically from store.js -->
+        <div class="advantages-carousel" data-advantages-carousel role="region" aria-label="Преимущества Муосир пласт" data-i18n-aria-label="why_carousel_label">
+          <div class="advantages-carousel__viewport" data-advantages-viewport tabindex="0" aria-label="Карточки преимуществ" data-i18n-aria-label="why_carousel_viewport">
+            <div id="advantages-grid" class="advantages-carousel__track" data-advantages-track aria-live="off">
+              <!-- Populated dynamically from store.js -->
+            </div>
+          </div>
+          <div class="advantages-carousel__controls" role="group" aria-label="Управление каруселью" data-i18n-aria-label="why_carousel_controls">
+            <button type="button" class="advantages-carousel__button" data-advantages-prev aria-label="Предыдущая карточка" data-i18n-aria-label="why_carousel_prev">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m7 7-7-7 7-7"/></svg>
+            </button>
+            <div class="advantages-carousel__dots" data-advantages-dots aria-label="Выбрать карточку" data-i18n-aria-label="why_carousel_slide"></div>
+            <button type="button" class="advantages-carousel__button" data-advantages-toggle aria-label="Остановить автопрокрутку" aria-pressed="false" data-i18n-aria-label="why_carousel_pause">
+              <svg class="w-5 h-5" data-advantages-pause-icon fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+              <svg class="w-5 h-5 hidden" data-advantages-play-icon fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button type="button" class="advantages-carousel__button" data-advantages-next aria-label="Следующая карточка" data-i18n-aria-label="why_carousel_next">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -683,12 +699,12 @@
         </div>
 
         <!-- Production Department Tabs (Раздел 12 ТЗ: предприятие, линии, процесс, склад, готовая продукция, упаковка, отгрузка) -->
-        <div id="production-tabs" class="flex flex-wrap gap-2 pt-2">
+        <div id="production-tabs" class="production-tabs pt-2" role="group" tabindex="0" aria-label="Фильтры производства" data-i18n-aria-label="prod_filters_label">
           <!-- Populated dynamically from bootstrap.js -->
         </div>
 
         <!-- Production Gallery Grid -->
-        <div id="production-gallery-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="production-gallery-container" class="production-gallery-grid">
           <!-- Populated dynamically from store.js -->
         </div>
 
