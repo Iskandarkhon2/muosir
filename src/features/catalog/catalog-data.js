@@ -138,18 +138,58 @@ const SEARCH_SYNONYMS = new Map([
   ['яйцами', 'яиц'],
   ['яйцам', 'яиц'],
   ['яйцах', 'яиц'],
-  ['яйцом', 'яиц']
+  ['яйцом', 'яиц'],
+  ['tuxum', 'яиц'],
+  ['жумыртка', 'яиц'],
+  ['жумыртқа', 'яиц']
 ]);
 
+const SEARCH_TRANSLATIONS = [
+  ['egg', 'яиц', 'tuxum', 'жумыртка', 'жумыртқа'],
+  ['cake', 'торт', 'tort', 'торт'],
+  ['cup', 'стакан', 'stakan', 'стакан'],
+  ['container', 'контейнер', 'quti', 'контейнер'],
+  ['lid', 'крышка', 'qopqoq', 'қақпақ'],
+  ['bowl', 'миска', 'salat', 'тостан'],
+  ['soup', 'супница', 'shoрva', 'сорпа'],
+  ['sauce', 'соусница', 'sous', 'соуста'],
+  ['donut', 'пончик', 'ponchik', 'пончик'],
+  ['baking', 'выпечка', 'pishiriq', 'қамыр'],
+  ['deli', 'дели', 'deli', 'дели'],
+  ['dairy', 'молоч', 'sut', 'сүт'],
+  ['cheese', 'творог', 'tvorog', 'ірімшік'],
+  ['food', 'пищев', 'oziq', 'тамақ'],
+  ['drink', 'напит', 'ichimlik', 'сусын'],
+  ['dessert', 'десерт', 'shirinlik', 'десерт'],
+  ['confectionery', 'кондитер', 'qandolatchilik', 'кондитер'],
+  ['lunch', 'ланч', 'tushlik', 'түскі'],
+  ['box', 'коробка', 'quti', 'қорап'],
+  ['tray', 'коррекс', 'lagan', 'науа'],
+  ['plastic', 'пластик', 'plastik', 'пластик']
+];
+
+function expandSearchTerm(term) {
+  const translation = SEARCH_TRANSLATIONS.find(group =>
+    group.some(alias => normalizeCatalogSearchText(alias) === term)
+  );
+  return translation
+    ? [...new Set([...translation, term].map(alias => normalizeCatalogSearchText(alias)))]
+    : [term];
+}
+
 export function matchesCatalogSearch(product, query) {
-  const queryTerms = normalizeCatalogSearchText(query)
+  const queryTermGroups = normalizeCatalogSearchText(query)
     .split(' ')
     .filter(Boolean)
-    .map(term => SEARCH_SYNONYMS.get(term) || term);
-  if (!queryTerms.length) return true;
+    .map(term => SEARCH_SYNONYMS.get(term) || term)
+    .map(expandSearchTerm);
+  if (!queryTermGroups.length) return true;
 
   const searchableText = [
     product.title,
+    product.titleEn,
+    product.titleUz,
+    product.titleKk,
     product.specificationText,
     product.material,
     product.volume,
@@ -157,7 +197,9 @@ export function matchesCatalogSearch(product, query) {
   ].join(' ');
   const productTerms = normalizeCatalogSearchText(searchableText).split(' ');
 
-  return queryTerms.every(term => productTerms.some(productTerm => productTerm.includes(term)));
+  return queryTermGroups.every(group =>
+    group.some(term => productTerms.some(productTerm => productTerm.includes(term)))
+  );
 }
 
 function normalizeCatalogSearchText(value) {
@@ -190,12 +232,16 @@ function createCatalogProduct(filename) {
   const [name, ...specifications] = fileStem.split('_');
   const override = PRODUCT_OVERRIDES[filename];
   const details = override?.details || specifications.map(parseSpecification).filter(Boolean);
+  const title = override?.title || formatProductName(name);
 
   return {
     id: filename,
     filename,
     image: override?.image || `assets/images/${filename}`,
-    title: override?.title || formatProductName(name),
+    title,
+    titleEn: override?.titleEn || formatLocalizedProductName(title, 'en'),
+    titleUz: override?.titleUz || formatLocalizedProductName(title, 'uz'),
+    titleKk: override?.titleKk || formatLocalizedProductName(title, 'kk'),
     categoryId: override?.categoryId || getCategoryId(name),
     material: details.find(detail => detail.label === 'Материал')?.value || '',
     specifications,
@@ -211,6 +257,9 @@ function createAdditionalProduct(product) {
 
   return {
     ...product,
+    titleEn: product.titleEn || formatLocalizedProductName(product.title, 'en'),
+    titleUz: product.titleUz || formatLocalizedProductName(product.title, 'uz'),
+    titleKk: product.titleKk || formatLocalizedProductName(product.title, 'kk'),
     material,
     specifications: [],
     specificationText,
@@ -237,6 +286,75 @@ function getCategoryId(name) {
 function formatProductName(value) {
   const name = value.replace(/-/g, ' ');
   return name.charAt(0).toLocaleUpperCase('ru') + name.slice(1);
+}
+
+function formatLocalizedProductName(title, lang) {
+  const replacements = {
+    en: [
+      ['Контейнер для яиц', 'Egg container'],
+      ['Контейнер для торта', 'Cake container'],
+      ['Контейнер для пончиков', 'Donut container'],
+      ['Контейнер для выпечки', 'Bakery container'],
+      ['Упаковка для творога', 'Cottage cheese package'],
+      ['Упаковка для выпечки', 'Bakery packaging'],
+      ['Стакан для сметаны', 'Sour cream cup'],
+      ['Стакан для мохито', 'Mojito cup'],
+      ['Стакан', 'Cup'],
+      ['Супница', 'Soup bowl'],
+      ['Соусница', 'Sauce cup'],
+      ['Коррекс', 'Confectionery tray'],
+      ['Контейнер', 'Container'],
+      ['Упаковка', 'Packaging'],
+      ['Ланч-бокс', 'Lunch box'],
+      ['Крышка', 'Lid'],
+      ['Полимерная лента', 'Polymer tape']
+    ],
+    uz: [
+      ['Контейнер для яиц', 'Tuxum konteyneri'],
+      ['Контейнер для торта', 'Tort konteyneri'],
+      ['Контейнер для пончиков', 'Ponchik konteyneri'],
+      ['Контейнер для выпечки', 'Pishiriq konteyneri'],
+      ['Упаковка для творога', 'Tvorog qadoqi'],
+      ['Упаковка для выпечки', 'Pishiriq qadoqi'],
+      ['Стакан для сметаны', 'Qatiq stakani'],
+      ['Стакан', 'Stakan'],
+      ['Супница', 'Sho‘rva idishi'],
+      ['Соусница', 'Sous idishi'],
+      ['Коррекс', 'Qandolat lagani'],
+      ['Контейнер', 'Konteyner'],
+      ['Упаковка', 'Qadoq'],
+      ['Ланч-бокс', 'Tushlik qutisi'],
+      ['Крышка', 'Qopqoq'],
+      ['Полимерная лента', 'Polimer lenta']
+    ],
+    kk: [
+      ['Контейнер для яиц', 'Жұмыртқа контейнері'],
+      ['Контейнер для торта', 'Торт контейнері'],
+      ['Контейнер для пончиков', 'Пончик контейнері'],
+      ['Контейнер для выпечки', 'Пісіру контейнері'],
+      ['Упаковка для творога', 'Ірімшік орамасы'],
+      ['Упаковка для выпечки', 'Пісіру орамасы'],
+      ['Стакан для сметаны', 'Қаймақ стақан'],
+      ['Стакан', 'Стақан'],
+      ['Супница', 'Сорпа ыдысы'],
+      ['Соусница', 'Тұздық ыдысы'],
+      ['Коррекс', 'Кондитерлік науа'],
+      ['Контейнер', 'Контейнер'],
+      ['Упаковка', 'Орам'],
+      ['Ланч-бокс', 'Түскі ас жәшігі'],
+      ['Крышка', 'Қақпақ'],
+      ['Полимерная лента', 'Полимер таспа']
+    ]
+  };
+
+  let result = title;
+  for (const [source, translated] of replacements[lang] || []) {
+    if (result.includes(source)) {
+      result = result.replace(source, translated);
+      break;
+    }
+  }
+  return result;
 }
 
 function formatSpecificationValue(value) {
