@@ -198,6 +198,36 @@ body :is(.text-red-300, .text-red-400, .text-red-500, .text-rose-300, .text-rose
   color: var(--danger) !important;
 }
 
+html[data-theme="light"] body :is(.text-purple-300, .text-purple-400, .text-purple-500, .text-violet-300, .text-violet-400, .text-violet-500, .text-indigo-300, .text-indigo-400, .text-indigo-500, .text-pink-300, .text-pink-400, .text-pink-500) {
+  color: #5b21b6 !important;
+}
+
+html[data-theme="light"] body [class*="bg-purple-950"],
+html[data-theme="light"] body [class*="bg-violet-950"],
+html[data-theme="light"] body [class*="bg-indigo-950"],
+html[data-theme="light"] body [class*="bg-pink-950"] {
+  background-color: #ede9fe !important;
+}
+
+html[data-theme="light"] body [class*="border-purple-500"],
+html[data-theme="light"] body [class*="border-violet-500"],
+html[data-theme="light"] body [class*="border-indigo-500"],
+html[data-theme="light"] body [class*="border-pink-500"] {
+  border-color: #c4b5fd !important;
+}
+
+html[data-theme="light"] body [class*="bg-emerald-950"],
+html[data-theme="light"] body [class*="bg-green-950"],
+html[data-theme="light"] body [class*="bg-teal-950"] {
+  background-color: #d1fae5 !important;
+}
+
+html[data-theme="light"] body [class*="border-emerald-500"],
+html[data-theme="light"] body [class*="border-green-500"],
+html[data-theme="light"] body [class*="border-teal-500"] {
+  border-color: #6ee7b7 !important;
+}
+
 body :is(.button-primary, .btn-primary, .btn-primary-glow),
 body :is(.button-primary, .btn-primary, .btn-primary-glow) :is(.text-white, .text-slate-50, .text-slate-100) {
   color: var(--text-inverse) !important;
@@ -1451,7 +1481,18 @@ dialog {
 
 .catalog-product-specs--compact dt,
 .catalog-product-specs--compact dd {
-  font-size: 0.7rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.catalog-product-specs--compact dt {
+  color: var(--text-secondary);
+  font-weight: 650;
+}
+
+.catalog-product-specs--compact dd {
+  color: var(--text-primary);
+  font-weight: 800;
 }
 
 .product-quickview__main-image {
