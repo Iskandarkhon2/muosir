@@ -228,6 +228,28 @@ html[data-theme="light"] body [class*="border-teal-500"] {
   border-color: #6ee7b7 !important;
 }
 
+html[data-theme="light"] body [class*="bg-blue-950"],
+html[data-theme="light"] body [class*="bg-blue-900"],
+html[data-theme="light"] body [class*="bg-cyan-950"],
+html[data-theme="light"] body [class*="bg-cyan-900"] {
+  background-color: #dbeafe !important;
+}
+
+html[data-theme="light"] body [class*="border-blue-500"],
+html[data-theme="light"] body [class*="border-cyan-500"] {
+  border-color: #93c5fd !important;
+}
+
+html[data-theme="light"] body [class*="bg-blue-950"] :is(.text-blue-300, .text-blue-400, .text-blue-500),
+html[data-theme="light"] body [class*="bg-cyan-950"] :is(.text-cyan-300, .text-cyan-400, .text-cyan-500) {
+  color: #1d4ed8 !important;
+}
+
+html[data-theme="light"] body [class*="bg-blue-900"] :is(.text-blue-300, .text-blue-400, .text-blue-500),
+html[data-theme="light"] body [class*="bg-cyan-900"] :is(.text-cyan-300, .text-cyan-400, .text-cyan-500) {
+  color: #1e40af !important;
+}
+
 body :is(.button-primary, .btn-primary, .btn-primary-glow),
 body :is(.button-primary, .btn-primary, .btn-primary-glow) :is(.text-white, .text-slate-50, .text-slate-100) {
   color: var(--text-inverse) !important;
@@ -997,9 +1019,10 @@ dialog {
 
   .product-card__body h3 {
     margin: 0;
-    color: var(--text-primary);
-    font-size: 1rem;
-    line-height: 1.4;
+    color: var(--text-primary) !important;
+    font-size: 1.0625rem !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
   }
 
   .product-card__description {
@@ -1452,15 +1475,16 @@ dialog {
 }
 
 .catalog-product-specs dt {
-  color: var(--text-muted);
-  font-size: 0.8rem;
+  color: var(--text-primary) !important;
+  font-size: 0.875rem !important;
+  font-weight: 700 !important;
 }
 
 .catalog-product-specs dd {
   margin: 0;
-  color: var(--text-primary);
-  font-size: 0.875rem;
-  font-weight: 600;
+  color: var(--text-primary) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 800 !important;
   overflow-wrap: anywhere;
 }
 
@@ -1481,18 +1505,18 @@ dialog {
 
 .catalog-product-specs--compact dt,
 .catalog-product-specs--compact dd {
-  font-size: 0.78rem;
-  line-height: 1.45;
+  font-size: 0.8125rem !important;
+  line-height: 1.45 !important;
 }
 
 .catalog-product-specs--compact dt {
-  color: var(--text-secondary);
-  font-weight: 650;
+  color: var(--text-primary) !important;
+  font-weight: 800 !important;
 }
 
 .catalog-product-specs--compact dd {
-  color: var(--text-primary);
-  font-weight: 800;
+  color: var(--text-primary) !important;
+  font-weight: 800 !important;
 }
 
 .product-quickview__main-image {
