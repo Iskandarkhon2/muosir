@@ -1130,6 +1130,46 @@
   gap: clamp(16px, 2vw, 28px);
 }
 
+a[aria-label^="Instagram"] {
+  position: relative;
+  overflow: visible;
+}
+
+a[aria-label^="Instagram"] svg {
+  width: 16px;
+  height: 16px;
+  overflow: visible;
+  opacity: 0;
+}
+
+a[aria-label^="Instagram"]::before,
+a[aria-label^="Instagram"]::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+a[aria-label^="Instagram"]::before {
+  width: 15px;
+  height: 15px;
+  left: 50%;
+  top: 50%;
+  border: 1.8px solid currentColor;
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+}
+
+a[aria-label^="Instagram"]::after {
+  width: 5.5px;
+  height: 5.5px;
+  left: 50%;
+  top: 50%;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  box-shadow: 4.5px -4.5px 0 -2.1px currentColor;
+}
+
 .news-featured-card {
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
