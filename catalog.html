@@ -151,14 +151,14 @@
               <button type="submit" class="catalog-search-submit" aria-label="Искать по каталогу">
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               </button>
-              <input type="search" id="catalog-search-input" placeholder="Название или характеристики товара..." aria-label="Поиск по каталогу" class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors">
+              <input type="search" id="catalog-search-input" data-i18n="catalog_search_placeholder" placeholder="Название или характеристики товара..." aria-label="Поиск по каталогу" class="w-full pl-12 pr-4 py-3.5 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors">
             </form>
             <button type="button" id="catalog-filter-open" class="catalog-filter-trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="catalog-filter-dialog">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9M13 4v6M7 14v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-              <span>Фильтры</span>
+              <span data-i18n="catalog_filters">Фильтры</span>
               <span id="catalog-filter-active-count" class="catalog-filter-trigger__count" hidden>0</span>
             </button>
-            <div class="catalog-result-count">Найдено: <strong id="product-count">—</strong></div>
+            <div class="catalog-result-count"><span data-i18n="catalog_found">Найдено:</span> <strong id="product-count">—</strong></div>
           </div>
         </div>
 
@@ -166,44 +166,44 @@
           <div class="catalog-filter-dialog__panel">
             <header class="catalog-filter-dialog__header">
               <div>
-                <p class="catalog-filter-dialog__eyebrow">Настройте выдачу</p>
-                <h2 id="catalog-filter-title">Фильтры каталога</h2>
+                <p class="catalog-filter-dialog__eyebrow" data-i18n="catalog_filter_setup">Настройте выдачу</p>
+                <h2 id="catalog-filter-title" data-i18n="catalog_filter_title">Фильтры каталога</h2>
               </div>
-              <button type="button" class="catalog-filter-dialog__close" data-close-catalog-filters aria-label="Закрыть фильтры">×</button>
+              <button type="button" class="catalog-filter-dialog__close" data-close-catalog-filters data-i18n-aria-label="catalog_close_filters" aria-label="Закрыть фильтры">×</button>
             </header>
             <div class="catalog-filter-dialog__groups">
               <details class="catalog-filter-group" data-filter-details="industry" open>
                 <summary class="catalog-filter-group__summary">
-                  <span>Решения по отраслям</span>
+                  <span data-i18n="catalog_filter_industry">Решения по отраслям</span>
                   <span class="catalog-filter-group__selected-count" data-filter-selected-count="industry" hidden>0</span>
                 </summary>
                 <div id="catalog-industry-filters" class="catalog-filter-options"></div>
               </details>
               <details class="catalog-filter-group" data-filter-details="category">
                 <summary class="catalog-filter-group__summary">
-                  <span>Категория продукции</span>
+                  <span data-i18n="catalog_filter_category">Категория продукции</span>
                   <span class="catalog-filter-group__selected-count" data-filter-selected-count="category" hidden>0</span>
                 </summary>
                 <div id="catalog-category-filters" class="catalog-filter-options"></div>
               </details>
               <details class="catalog-filter-group" data-filter-details="material">
                 <summary class="catalog-filter-group__summary">
-                  <span>Материал</span>
+                  <span data-i18n="catalog_filter_material">Материал</span>
                   <span class="catalog-filter-group__selected-count" data-filter-selected-count="material" hidden>0</span>
                 </summary>
                 <div id="catalog-material-filters" class="catalog-filter-options"></div>
               </details>
               <details class="catalog-filter-group" data-filter-details="box-quantity">
                 <summary class="catalog-filter-group__summary">
-                  <span>Количество в коробке</span>
+                  <span data-i18n="catalog_filter_box_quantity">Количество в коробке</span>
                   <span class="catalog-filter-group__selected-count" data-filter-selected-count="box-quantity" hidden>0</span>
                 </summary>
                 <div id="catalog-box-quantity-filters" class="catalog-filter-options"></div>
               </details>
             </div>
             <footer class="catalog-filter-dialog__footer">
-              <button type="button" id="catalog-reset-filter" class="catalog-filter-reset">Сбросить всё</button>
-              <button type="button" class="catalog-filter-done" data-close-catalog-filters>Показать товары</button>
+              <button type="button" id="catalog-reset-filter" class="catalog-filter-reset" data-i18n="catalog_reset">Сбросить всё</button>
+              <button type="button" class="catalog-filter-done" data-close-catalog-filters data-i18n="catalog_show_products">Показать товары</button>
             </footer>
           </div>
         </dialog>
@@ -216,8 +216,8 @@
         <!-- Empty Results Message -->
         <div id="no-products-msg" class="hidden text-center py-16">
           <svg class="w-16 h-16 text-slate-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <h3 class="text-lg font-bold text-white">По вашему запросу ничего не найдено</h3>
-          <p class="text-sm text-slate-400 mt-1">Попробуйте изменить поисковый запрос или сбросить фильтры.</p>
+          <h3 class="text-lg font-bold text-white" data-i18n="catalog_empty_title">По вашему запросу ничего не найдено</h3>
+          <p class="text-sm text-slate-400 mt-1" data-i18n="catalog_empty_text">Попробуйте изменить поисковый запрос или сбросить фильтры.</p>
         </div>
 
         <dialog id="catalog-product-dialog" class="product-quickview-dialog" aria-label="Информация о товаре">
