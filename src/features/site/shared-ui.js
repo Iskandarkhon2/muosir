@@ -17,14 +17,17 @@
     const closeMenu = () => {
       menu.classList.add('hidden');
       toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Открыть навигационное меню');
     };
 
+    toggle.setAttribute('aria-controls', menu.id);
     toggle.setAttribute('aria-expanded', 'false');
     toggle.addEventListener('click', event => {
       event.stopPropagation();
       const isOpen = !menu.classList.contains('hidden');
       menu.classList.toggle('hidden', isOpen);
       toggle.setAttribute('aria-expanded', String(!isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Открыть навигационное меню' : 'Закрыть навигационное меню');
     });
 
     menu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));

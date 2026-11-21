@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Контакты · Муосир Пласт (Muosir Plast)</title>
+  <title data-i18n="contacts_page_title">Контакты · Муосир Пласт (Muosir Plast)</title>
   <meta name="description" content="Контакты отдела продаж и международного отдела Muosir Plast. Производство в Б. Гафуровском районе Согдийской области.">
   <link rel="icon" type="image/png" href="assets/images/logo.png">
   <script src="src/app/theme-init.js"></script>
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
-  <link rel="stylesheet" href="src/shared/styles/main.css?v=contrast-2">
-  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=cards-route-4">
+  <link rel="stylesheet" href="src/shared/styles/main.css?v=typography-2">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=header-12">
   <script type="module" src="src/app/theme.js"></script>
   <!-- Meta Pixel Code -->
   <script>
@@ -44,7 +44,7 @@
           <!-- Navigation Links -->
           <nav class="hidden xl:flex items-center space-x-3.5 2xl:space-x-5 text-xs font-bold tracking-wider uppercase text-slate-300 mx-2">
             <a href="index.html" data-i18n="nav_home" class="hover:text-cyan-400 transition-colors py-1">Главная</a>
-            <a href="about.html" data-i18n="nav_about" class="hover:text-cyan-400 transition-colors py-1">О компании</a>
+            <a href="about.html" data-i18n="nav_about" class="hover:text-cyan-400 transition-colors py-1">О нас</a>
             <a href="catalog.html" data-i18n="nav_products" class="hover:text-cyan-400 transition-colors py-1">Продукция</a>
             <a href="solutions.html" data-i18n="nav_solutions" class="hover:text-cyan-400 transition-colors py-1">Решения</a>
             <a href="production.html" data-i18n="nav_production" class="hover:text-cyan-400 transition-colors py-1">Производство</a>
@@ -84,8 +84,14 @@
               <svg class="theme-icon-sun w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
               <svg class="theme-icon-moon w-4 h-4 text-blue-600 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
             </button>
-            <button type="button" id="mobile-menu-toggle" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+            <div class="flex items-center p-1 rounded-lg bg-slate-900/90 border border-slate-800 text-[10px] font-bold">
+              <button type="button" data-lang-btn="ru" class="px-1.5 py-1 rounded-md">RU</button>
+              <button type="button" data-lang-btn="en" class="px-1.5 py-1 rounded-md text-slate-400">EN</button>
+              <button type="button" data-lang-btn="uz" class="px-1.5 py-1 rounded-md text-slate-400">UZ</button>
+              <button type="button" data-lang-btn="kk" class="px-1.5 py-1 rounded-md text-slate-400">KK</button>
+            </div>
+            <button type="button" id="mobile-menu-toggle" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300" aria-label="Открыть навигационное меню" aria-controls="mobile-nav-menu" aria-expanded="false">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
           </div>
 
@@ -95,7 +101,7 @@
         <div id="mobile-nav-menu" class="hidden xl:hidden py-4 border-t border-slate-800 space-y-3">
           <div class="grid grid-cols-2 gap-2 text-xs font-bold uppercase tracking-wider text-slate-300 pb-3 border-b border-slate-800/80">
             <a href="index.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_home">Главная</a>
-            <a href="about.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_about">О компании</a>
+            <a href="about.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_about">О нас</a>
             <a href="catalog.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_products">Продукция</a>
             <a href="solutions.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_solutions">Решения</a>
             <a href="production.html" class="p-2 rounded-lg hover:bg-slate-900" data-i18n="nav_production">Производство</a>
@@ -121,14 +127,14 @@
     <!-- ================= HERO ================= -->
     <section class="py-16 md:py-24 relative border-b border-slate-800/80">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 mb-6">
+        <span data-i18n="contacts_hero_badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 mb-6">
           <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
           Прямой контакт с заводом
         </span>
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight">
+        <h1 data-i18n="contacts_hero_title" class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight max-w-4xl mx-auto leading-tight">
           Контакты и реквизиты ООО «Муосир пласт»
         </h1>
-        <p class="mt-4 text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+        <p data-i18n="contacts_hero_subtitle" class="mt-4 text-base sm:text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
           Свяжитесь с отделом продаж или международным отделом Muosir Plast.
         </p>
       </div>
@@ -142,41 +148,41 @@
           <!-- Contact Cards -->
           <div class="space-y-6">
             <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
-              <span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
+              <span data-i18n="contacts_sales_badge" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-950/80 text-emerald-400 border border-emerald-500/30">
                 Отдел продаж
               </span>
-              <h3 class="text-lg font-bold text-white">Запросы по продукции</h3>
+              <h3 data-i18n="contacts_sales_title" class="text-lg font-bold text-white">Запросы по продукции</h3>
               <div class="space-y-2 text-xs text-slate-300 pt-1">
                 <div>
-                  <span class="text-slate-500 block">Телефон:</span>
+                  <span data-i18n="contacts_sales_phone_label" class="text-slate-500 block">Телефон:</span>
                   <a href="tel:992925505050" class="text-white font-bold hover:text-cyan-400 text-sm">+992 (92) 550-50-50</a>
                   <div><a href="tel:992995505050" class="text-white font-bold hover:text-cyan-400 text-sm">+992 (99) 550-50-50</a></div>
                 </div>
                 <div>
-                  <span class="text-slate-500 block">Официальная почта:</span>
+                  <span data-i18n="contacts_sales_email_label" class="text-slate-500 block">Официальная почта:</span>
                   <a href="mailto:info@muosirplast.tj" class="text-cyan-400 hover:underline">info@muosirplast.tj</a>
                 </div>
               </div>
             </div>
 
             <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
-              <span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-950/80 text-blue-400 border border-blue-500/30">
+              <span data-i18n="contacts_factory_badge" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-blue-950/80 text-blue-400 border border-blue-500/30">
                 Адрес предприятия
               </span>
-              <h3 class="text-lg font-bold text-white">Производство</h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
+              <h3 data-i18n="contacts_factory_title" class="text-lg font-bold text-white">Производство</h3>
+              <p data-i18n="contacts_factory_address" class="text-xs text-slate-300 leading-relaxed">
                 Республика Таджикистан, Согдийская область, Б. Гафуровский район, ул. Вахдат, 15.
               </p>
             </div>
 
             <div class="glass-card p-6 rounded-2xl border border-slate-800 space-y-3">
-              <span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-purple-950/80 text-purple-400 border border-purple-500/30">
+              <span data-i18n="contacts_export_badge" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-purple-950/80 text-purple-400 border border-purple-500/30">
                 Международный отдел
               </span>
-              <h3 class="text-base font-bold text-white">Экспортные запросы</h3>
+              <h3 data-i18n="contacts_export_title" class="text-base font-bold text-white">Экспортные запросы</h3>
               <div class="space-y-2 text-xs text-slate-400">
-                <p>WhatsApp: <a href="https://wa.me/992922992000" target="_blank" rel="noopener noreferrer" data-export-whatsapp class="text-emerald-400">+992 92 299 2000</a></p>
-                <p>Рынки: Узбекистан, Казахстан, Россия, Кыргызстан и другие направления.</p>
+                <p><span data-i18n="contacts_export_whatsapp_label">WhatsApp:</span> <a href="https://wa.me/992922992000" target="_blank" rel="noopener noreferrer" data-export-whatsapp class="text-emerald-400">+992 92 299 2000</a></p>
+                <p data-i18n="contacts_export_markets">Рынки: Узбекистан, Казахстан, Россия, Кыргызстан и другие направления.</p>
               </div>
             </div>
           </div>
@@ -185,9 +191,9 @@
           <div class="lg:col-span-2 glass-card rounded-3xl p-6 border border-slate-800 flex flex-col justify-between">
             <div class="space-y-3 mb-4">
               <div class="flex items-center justify-between">
-                <h3 class="text-base font-bold text-white">Адрес предприятия</h3>
+                <h3 data-i18n="contacts_map_title" class="text-base font-bold text-white">Адрес предприятия</h3>
               </div>
-              <p class="text-xs text-slate-400 leading-relaxed">
+              <p data-i18n="contacts_map_note" class="text-xs text-slate-400 leading-relaxed">
                 Для навигации используйте точную метку производства на карте.
               </p>
             </div>
@@ -201,11 +207,11 @@
                   <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
                 <div>
-                  <h4 class="text-base font-bold text-white">Производство</h4>
-                  <p class="text-xs text-slate-400 mt-1">Б. Гафуровский район, ул. Вахдат, 15</p>
+                  <h4 data-i18n="contacts_map_factory" class="text-base font-bold text-white">Производство</h4>
+                  <p data-i18n="contacts_map_address" class="text-xs text-slate-400 mt-1">Б. Гафуровский район, ул. Вахдат, 15</p>
                 </div>
                 <div class="flex flex-wrap gap-2 justify-center pt-2">
-                  <a href="https://www.google.com/maps/place/%D0%9C%D1%83%D0%BE%D1%81%D0%B8%D1%80+%D0%9F%D0%BB%D0%B0%D1%81%D1%82.+%D0%9F%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C+%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%BE%D0%B2%D0%BE%D0%B9+%D0%BE%D0%B4%D0%BD%D0%BE%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%BE%D0%B9+%D0%BF%D0%BE%D1%81%D1%83%D0%B4%D1%8B/@40.240871,69.707747,1657m/data=!3m1!1e3!4m16!1m9!3m8!1s0x38b1b2ddc3ab3e0d:0x1f4cdc45cf4fee37!2z0KXRg9C00LbQsNC90LQsINCi0LDQtNC20LjQutC40YHRgtCw0L0!3b1!8m2!3d40.2735091!4d69.6392354!10e5!16zL20vMDNqNzRx!3m5!1s0x38b053002c5e0fa7:0x7f3d054d169bf0cd!8m2!3d40.2409497!4d69.7114151!16s%2Fg%2F11y3w__k15?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900 transition-colors">
+                  <a href="https://www.google.com/maps/place/%D0%9C%D1%83%D0%BE%D1%81%D0%B8%D1%80+%D0%9F%D0%BB%D0%B0%D1%81%D1%82.+%D0%9F%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D1%8C+%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%BE%D0%B2%D0%BE%D0%B9+%D0%BE%D0%B4%D0%BD%D0%BE%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%BE%D0%B9+%D0%BF%D0%BE%D1%81%D1%83%D0%B4%D1%8B/@40.240871,69.707747,1657m/data=!3m1!1e3!4m16!1m9!3m8!1s0x38b1b2ddc3ab3e0d:0x1f4cdc45cf4fee37!2z0KXRg9C00LbQsNC90LQsINCi0LDQtNC20LjQutC40YHRgtCw0L0!3b1!8m2!3d40.2735091!4d69.6392354!10e5!16zL20vMDNqNzRx!3m5!1s0x38b053002c5e0fa7:0x7f3d054d169bf0cd!8m2!3d40.2409497!4d69.7114151!16s%2Fg%2F11y3w__k15?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" data-i18n="contacts_map_link" class="px-4 py-2 rounded-xl text-xs font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 hover:bg-cyan-900 transition-colors">
                     Найти производство на карте
                   </a>
                 </div>
@@ -223,11 +229,11 @@
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-2xl">
           <div class="text-center space-y-3 mb-8">
-            <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-cyan-950/60 text-cyan-400 border border-cyan-500/30">
+            <span data-i18n="contacts_feedback_badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-cyan-950/60 text-cyan-400 border border-cyan-500/30">
               Обратная связь
             </span>
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Отправить сообщение в приёмную завода</h2>
-            <p class="text-xs sm:text-sm text-slate-400">
+            <h2 data-i18n="contacts_feedback_title" class="text-2xl sm:text-3xl font-extrabold text-white">Отправить сообщение в приёмную завода</h2>
+            <p data-i18n="contacts_feedback_subtitle" class="text-xs sm:text-sm text-slate-400">
               Менеджер отдела продаж свяжется с вами для уточнения деталей.
             </p>
           </div>
@@ -235,32 +241,32 @@
           <form id="direct-contact-form" class="space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Ваше имя *</label>
-                <input type="text" name="name" required placeholder="Контактное лицо" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+                <label data-i18n="contacts_form_name_label" class="block text-xs font-semibold text-slate-300 mb-1.5">Ваше имя *</label>
+                <input type="text" name="name" required data-i18n="contacts_form_name_placeholder" placeholder="Контактное лицо" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Компания</label>
-                <input type="text" name="company" placeholder="Название организации" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+                <label data-i18n="contacts_form_company_label" class="block text-xs font-semibold text-slate-300 mb-1.5">Компания</label>
+                <input type="text" name="company" data-i18n="contacts_form_company_placeholder" placeholder="Название организации" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
               </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5">Телефон / WhatsApp *</label>
-                <input type="tel" name="phone" required placeholder="+992 / +998 / +7 ..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
+                <label data-i18n="contacts_form_phone_label" class="block text-xs font-semibold text-slate-300 mb-1.5">Телефон / WhatsApp *</label>
+                <input type="tel" name="phone" required data-i18n="contacts_form_phone_placeholder" placeholder="+992 / +998 / +7 ..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-300 mb-1.5">E-mail *</label>
+                <label data-i18n="contacts_form_email_label" class="block text-xs font-semibold text-slate-300 mb-1.5">E-mail *</label>
                 <input type="email" name="email" required placeholder="info@company.com" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500">
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5">Ваше сообщение или вопрос</label>
-              <textarea name="message" rows="4" required placeholder="Задайте вопрос по закупкам, сотрудничеству или посещению производства..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500"></textarea>
+              <label data-i18n="contacts_form_message_label" class="block text-xs font-semibold text-slate-300 mb-1.5">Ваше сообщение или вопрос</label>
+              <textarea name="message" rows="4" required data-i18n="contacts_form_message_placeholder" placeholder="Задайте вопрос по закупкам, сотрудничеству или посещению производства..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyan-500"></textarea>
             </div>
 
-            <button type="submit" class="w-full form-submit-button">
+            <button type="submit" data-i18n="contacts_form_submit" class="w-full form-submit-button">
               Отправить сообщение
             </button>
           </form>
@@ -269,9 +275,12 @@
     </section>
 
     <!-- ================= FOOTER ================= -->
-    <footer class="bg-slate-950 border-t border-slate-800 pt-16 pb-12 relative z-20">
+    <footer id="contacts" class="bg-slate-950 border-t border-slate-800 pt-16 pb-12 relative z-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <!-- Col 1: Brand & Desc -->
           <div class="space-y-4">
             <a href="index.html" class="inline-flex">
               <img src="assets/images/logo.png" alt="Муосир пласт" class="h-11 sm:h-12 w-auto object-contain">
@@ -279,56 +288,87 @@
             <p class="text-xs text-slate-400 leading-relaxed" data-i18n="footer_about_desc">
               Муосир пласт — производитель жесткой пластиковой упаковки для пищевой промышленности в Таджикистане.
             </p>
+            <!-- Socials (Instagram, Facebook по п. 16 ТЗ) -->
+            <div class="pt-2 flex items-center space-x-3">
+              <a href="https://www.instagram.com/muosir.plast/" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors" title="Instagram Муосир пласт">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.25" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="https://www.facebook.com/muosirplast" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors" title="Facebook Муосир пласт">
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.7 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"/></svg>
+              </a>
+              <a href="https://muosirplast.tj" target="_blank" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors" title="Официальный сайт">
+                <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+              </a>
+            </div>
           </div>
 
+          <!-- Col 2: Navigation Links -->
           <div class="space-y-3">
             <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="footer_nav_title">Разделы сайта</h4>
             <ul class="space-y-2 text-xs text-slate-400">
-              <li><a href="about.html" class="hover:text-white transition-colors" data-i18n="nav_about">О компании</a></li>
-              <li><a href="catalog.html" class="hover:text-white transition-colors" data-i18n="nav_products">Продукция</a></li>
+              <li><a href="about.html" class="hover:text-white transition-colors" data-i18n="nav_about">О нас</a></li>
               <li><a href="solutions.html" class="hover:text-white transition-colors" data-i18n="nav_solutions">Решения для бизнеса</a></li>
+              <li><a href="catalog.html" class="hover:text-white transition-colors" data-i18n="nav_products">Каталог упаковки</a></li>
               <li><a href="production.html" class="hover:text-white transition-colors" data-i18n="nav_production">Производство</a></li>
               <li><a href="quality.html" class="hover:text-white transition-colors" data-i18n="nav_docs">Качество и безопасность</a></li>
               <li><a href="export.html" class="hover:text-white transition-colors" data-i18n="nav_export">Экспорт</a></li>
               <li><a href="news.html" class="hover:text-white transition-colors" data-i18n="nav_news">Новости</a></li>
-              <li><a href="contacts.html" class="text-cyan-400 font-bold" data-i18n="nav_contacts">Контакты</a></li>
-              <li><a href="admin.html" class="text-blue-400 hover:text-blue-300 font-semibold" data-i18n="nav_admin">Admin Console</a></li>
+              <li><a href="logo-visualizer.html" class="text-violet-400 hover:text-violet-300 font-semibold" data-i18n="nav_visualizer">Визуализатор логотипа логотипа</a></li>
+              <li><a href="admin.html" class="text-blue-400 hover:text-blue-300 font-semibold" data-i18n="nav_admin">Панель управления (Admin)</a></li>
             </ul>
           </div>
 
+          <!-- Col 3: Export Contacts (Строго по Пункту 16 ТЗ) -->
           <div class="space-y-3">
-            <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="contacts_title">Контакты отдела экспорта</h4>
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="contacts_title">Контакты экспортного отдела</h4>
             <div class="space-y-2 text-xs text-slate-400">
               <div>
-                <span class="block text-slate-500" data-i18n="contacts_phone_label">Телефон:</span>
-                <a href="tel:992925505050" class="text-white font-bold hover:text-cyan-400">+992 (92) 550-50-50</a>
-              </div>
-              <div>
-                <span class="block text-slate-500">Отдел продаж:</span>
-                <a href="tel:992995505050" class="text-white font-bold hover:text-cyan-400">+992 (99) 550-50-50</a>
-              </div>
-              <div>
-                <span class="block text-slate-500">Мы в соцсетях:</span>
-                <div class="flex items-center gap-2 pt-1">
-                  <a href="https://www.instagram.com/muosir.plast/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Муосир пласт" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0 3.675a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm6.406 1.12a1.44 1.44 0 1 0 0-2.88 1.44 1.44 0 0 0 0 2.88z"/></svg></a>
-                  <a href="https://www.facebook.com/muosirplast" target="_blank" rel="noopener noreferrer" aria-label="Facebook Муосир пласт" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors"><svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.7 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"/></svg></a>
+                <span class="block text-slate-500" data-i18n="contacts_footer_sales_label">Отдел продаж:</span>
+                <div>
+                  <span data-i18n="footer_hujand_label">Худжанд:</span>
+                  <a href="tel:992925505050" onclick="window.muosirAnalytics.trackPhoneClick('Footer Khujand Sales Phone')" class="text-white font-bold hover:text-cyan-400">+992 (92) 550-50-50</a>
+                </div>
+                <div>
+                  <span data-i18n="footer_dushanbe_label">Душанбе:</span>
+                  <a href="tel:992995505050" onclick="window.muosirAnalytics.trackPhoneClick('Footer Dushanbe Sales Phone')" class="text-white font-bold hover:text-cyan-400">+992 (99) 550-50-50</a>
                 </div>
               </div>
               <div>
-                <span class="block text-slate-500" data-i18n="contacts_email_label">Email:</span>
-                <a href="mailto:info@muosirplast.tj" class="text-slate-200 hover:text-cyan-400">info@muosirplast.tj</a>
+                <span class="block text-slate-500" data-i18n="contacts_footer_export_label">Отдел экспорта:</span>
+                <a href="tel:992922992000" onclick="window.muosirAnalytics.trackPhoneClick('Footer Export Phone')" class="text-white font-bold hover:text-cyan-400">+992 (92) 299-20-00</a>
               </div>
               <div>
-                <span class="block text-slate-500" data-i18n="contacts_address_label">Адрес:</span>
-                <span class="text-slate-300">Согд: ул. Вахдат, 15</span>
-                <span class="block text-slate-300 mt-1">Душанбе: ул. Джаббор Расулов, 10</span>
+                <span class="block text-slate-500" data-i18n="contacts_footer_social_label">Мы в соцсетях:</span>
+                <div class="flex items-center gap-2 pt-1">
+                  <a href="https://www.instagram.com/muosir.plast/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Муосир пласт" data-i18n-aria-label="contacts_instagram_aria" title="Instagram" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  </a>
+                  <a href="https://www.facebook.com/muosirplast" target="_blank" rel="noopener noreferrer" aria-label="Facebook Муосир пласт" data-i18n-aria-label="contacts_facebook_aria" title="Facebook" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.7 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"/></svg>
+                  </a>
+                </div>
+              </div>
+              <div>
+                <span class="block text-slate-500" data-i18n="contacts_email_label">Электронная почта:</span>
+                <a href="mailto:info@muosirplast.tj" class="dynamic-email-link text-slate-200 hover:text-cyan-400">info@muosirplast.tj</a>
+              </div>
+              <div>
+                <span class="block text-slate-500" data-i18n="contacts_address_label">Адреса офисов и склада:</span>
+                <span class="text-slate-300" data-i18n="footer_address_hujand">Худжанд: завод и главный офис — ул. Вахдат, 15</span>
+                <span class="block text-slate-300 mt-1" data-i18n="footer_address_dushanbe">Душанбе: склад и отдел продаж — ул. Джаббор Расулов, 10</span>
               </div>
             </div>
           </div>
 
+          <!-- Col 4: Catalog & Export Summary -->
           <div class="space-y-4">
-            <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="footer_materials_title">Материалы</h4>
-            <a href="assets/docs/muosir-plast-export-catalog.pdf" download class="w-full py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-all flex items-center justify-center gap-2">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="footer_materials_title">Материалы для закупщиков</h4>
+            <a
+              href="assets/docs/muosir-plast-export-catalog.pdf"
+              download
+              onclick="window.muosirAnalytics.trackDownloadCatalog('Footer Catalog Button')"
+              class="w-full py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-all flex items-center justify-center gap-2"
+            >
               <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
               <span data-i18n="contacts_download_catalog">PDF-каталог продукции</span>
             </a>
@@ -336,16 +376,20 @@
               Прямые экспортные поставки в Узбекистан, Казахстан, Россию, Кыргызстан и страны СНГ.
             </div>
           </div>
+
         </div>
 
         <div class="pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-          <div>© Муосир пласт (Muosir Plast). <span data-i18n="footer_rights">Все права защищены. B2B Экспортные поставки полимерной упаковки.</span></div>
+          <div>
+            © Муосир пласт (Muosir Plast). <span data-i18n="footer_rights">Все права защищены. B2B Экспортные поставки полимерной упаковки.</span>
+          </div>
           <div class="flex items-center space-x-4">
-            <a href="admin.html" class="hover:text-blue-400" data-i18n="footer_employee_login">Вход для сотрудников</a>
+            <a href="admin.html" class="hover:text-blue-400 transition-colors" data-i18n="footer_employee_login">Вход для сотрудников</a>
             <span>·</span>
             <span data-i18n="footer_city_country">Таджикистан, Согдийская область</span>
           </div>
         </div>
+
       </div>
     </footer>
 
@@ -359,7 +403,7 @@
   </div>
 
   <script src="src/shared/data/store.js"></script>
-  <script src="src/features/localization/i18n.js"></script>
+  <script src="src/features/localization/i18n.js?v=footer-locations-1"></script>
   <script src="src/features/analytics/analytics.js"></script>
   <script src="src/features/site/shared-ui.js"></script>
   <script src="src/features/motion/scroll-motion.js"></script>

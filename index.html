@@ -23,8 +23,8 @@
   <script src="src/app/theme-init.js"></script>
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
   <!-- Shared Styles & Cinematic Motion -->
-  <link rel="stylesheet" href="src/shared/styles/main.css?v=contrast-2">
-  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=home-cake-feature-1">
+  <link rel="stylesheet" href="src/shared/styles/main.css?v=typography-2">
+  <link rel="stylesheet" href="src/shared/styles/cinematic.css?v=header-12">
   <script type="module" src="src/app/theme.js"></script>
 
   <!-- Schema.org Microdata for Manufacturer & Catalog (Section 20 of ТЗ) -->
@@ -94,7 +94,7 @@
           <!-- Desktop Navigation Menu (Visible on xl: 1280px+) -->
           <nav class="hidden xl:flex items-center space-x-3.5 2xl:space-x-5 text-xs font-bold tracking-wider uppercase text-slate-300 mx-2">
             <a href="index.html" data-i18n="nav_home" class="text-cyan-400 hover:text-cyan-300 transition-colors py-1">Главная</a>
-            <a href="about.html" data-i18n="nav_about" class="hover:text-cyan-400 transition-colors py-1">О компании</a>
+            <a href="about.html" data-i18n="nav_about" class="hover:text-cyan-400 transition-colors py-1">О нас</a>
             <a href="catalog.html" data-i18n="nav_products" class="hover:text-cyan-400 transition-colors py-1">Продукция</a>
             <a href="solutions.html" data-i18n="nav_solutions" class="hover:text-cyan-400 transition-colors py-1">Решения</a>
             <a href="production.html" data-i18n="nav_production" class="hover:text-cyan-400 transition-colors py-1">Производство</a>
@@ -203,8 +203,10 @@
               id="mobile-menu-toggle" 
               class="p-2 rounded-xl bg-slate-900/90 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 transition-all focus:outline-none"
               aria-label="Открыть навигационное меню"
+              aria-controls="mobile-nav-menu"
+              aria-expanded="false"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
           </div>
 
@@ -215,7 +217,7 @@
       <div id="mobile-nav-menu" class="hidden xl:hidden bg-slate-950/95 backdrop-blur-2xl border-b border-slate-800 px-6 py-6 space-y-3.5 shadow-2xl">
         <div class="grid grid-cols-2 gap-2 pb-2 border-b border-slate-800/80 text-xs font-bold uppercase tracking-wider">
           <a href="index.html" data-i18n="nav_home" class="py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-cyan-400 transition-colors">Главная</a>
-          <a href="about.html" data-i18n="nav_about" class="py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-cyan-400 transition-colors">О компании</a>
+          <a href="about.html" data-i18n="nav_about" class="py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-cyan-400 transition-colors">О нас</a>
           <a href="catalog.html" data-i18n="nav_products" class="py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-cyan-400 transition-colors">Продукция</a>
           <a href="solutions.html" data-i18n="nav_solutions" class="py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-cyan-400 transition-colors">Решения</a>
           <a href="production.html" data-i18n="nav_production" class="py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-300 hover:text-cyan-400 transition-colors">Производство</a>
@@ -1030,9 +1032,9 @@
     </div>
     <footer id="contacts" class="bg-slate-950 border-t border-slate-800 pt-16 pb-12 relative z-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          
+
           <!-- Col 1: Brand & Desc -->
           <div class="space-y-4">
             <a href="index.html" class="inline-flex">
@@ -1059,7 +1061,7 @@
           <div class="space-y-3">
             <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="footer_nav_title">Разделы сайта</h4>
             <ul class="space-y-2 text-xs text-slate-400">
-              <li><a href="about.html" class="hover:text-white transition-colors" data-i18n="nav_about">О компании</a></li>
+              <li><a href="about.html" class="hover:text-white transition-colors" data-i18n="nav_about">О нас</a></li>
               <li><a href="solutions.html" class="hover:text-white transition-colors" data-i18n="nav_solutions">Решения для бизнеса</a></li>
               <li><a href="catalog.html" class="hover:text-white transition-colors" data-i18n="nav_products">Каталог упаковки</a></li>
               <li><a href="production.html" class="hover:text-white transition-colors" data-i18n="nav_production">Производство</a></li>
@@ -1076,27 +1078,27 @@
             <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="contacts_title">Контакты экспортного отдела</h4>
             <div class="space-y-2 text-xs text-slate-400">
               <div>
-                <span class="block text-slate-500">Отдел продаж:</span>
+                <span class="block text-slate-500" data-i18n="contacts_footer_sales_label">Отдел продаж:</span>
                 <div>
-                  Согд:
-                  <a href="tel:992925505050" onclick="window.muosirAnalytics.trackPhoneClick('Footer Sughd Sales Phone')" class="text-white font-bold hover:text-cyan-400">+992 (92) 550-50-50</a>
+                  <span data-i18n="footer_hujand_label">Худжанд:</span>
+                  <a href="tel:992925505050" onclick="window.muosirAnalytics.trackPhoneClick('Footer Khujand Sales Phone')" class="text-white font-bold hover:text-cyan-400">+992 (92) 550-50-50</a>
                 </div>
                 <div>
-                  Душанбе:
+                  <span data-i18n="footer_dushanbe_label">Душанбе:</span>
                   <a href="tel:992995505050" onclick="window.muosirAnalytics.trackPhoneClick('Footer Dushanbe Sales Phone')" class="text-white font-bold hover:text-cyan-400">+992 (99) 550-50-50</a>
                 </div>
               </div>
               <div>
-                <span class="block text-slate-500">Отдел экспорта:</span>
+                <span class="block text-slate-500" data-i18n="contacts_footer_export_label">Отдел экспорта:</span>
                 <a href="tel:992922992000" onclick="window.muosirAnalytics.trackPhoneClick('Footer Export Phone')" class="text-white font-bold hover:text-cyan-400">+992 (92) 299-20-00</a>
               </div>
               <div>
-                <span class="block text-slate-500">Мы в соцсетях:</span>
+                <span class="block text-slate-500" data-i18n="contacts_footer_social_label">Мы в соцсетях:</span>
                 <div class="flex items-center gap-2 pt-1">
-                  <a href="https://www.instagram.com/muosir.plast/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Муосир пласт" title="Instagram" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                  <a href="https://www.instagram.com/muosir.plast/" target="_blank" rel="noopener noreferrer" aria-label="Instagram Муосир пласт" data-i18n-aria-label="contacts_instagram_aria" title="Instagram" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                   </a>
-                  <a href="https://www.facebook.com/muosirplast" target="_blank" rel="noopener noreferrer" aria-label="Facebook Муосир пласт" title="Facebook" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                  <a href="https://www.facebook.com/muosirplast" target="_blank" rel="noopener noreferrer" aria-label="Facebook Муосир пласт" data-i18n-aria-label="contacts_facebook_aria" title="Facebook" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white transition-colors">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.7 5H18V0h-3.808C10.596 0 9 1.583 9 4.615V8z"/></svg>
                   </a>
                 </div>
@@ -1106,9 +1108,9 @@
                 <a href="mailto:info@muosirplast.tj" class="dynamic-email-link text-slate-200 hover:text-cyan-400">info@muosirplast.tj</a>
               </div>
               <div>
-                <span class="block text-slate-500" data-i18n="contacts_address_label">Наш адрес:</span>
-                <span class="dynamic-address-text text-slate-300">Согд: ул. Вахдат, 15</span>
-                <span class="block text-slate-300 mt-1">Душанбе: ул. Джаббор Расулов, 10</span>
+                <span class="block text-slate-500" data-i18n="contacts_address_label">Адреса офисов и склада:</span>
+                <span class="text-slate-300" data-i18n="footer_address_hujand">Худжанд: завод и главный офис — ул. Вахдат, 15</span>
+                <span class="block text-slate-300 mt-1" data-i18n="footer_address_dushanbe">Душанбе: склад и отдел продаж — ул. Джаббор Расулов, 10</span>
               </div>
             </div>
           </div>
@@ -1116,9 +1118,9 @@
           <!-- Col 4: Catalog & Export Summary -->
           <div class="space-y-4">
             <h4 class="text-xs font-bold text-white uppercase tracking-wider" data-i18n="footer_materials_title">Материалы для закупщиков</h4>
-            <a 
-              href="assets/docs/muosir-plast-export-catalog.pdf" 
-              download 
+            <a
+              href="assets/docs/muosir-plast-export-catalog.pdf"
+              download
               onclick="window.muosirAnalytics.trackDownloadCatalog('Footer Catalog Button')"
               class="w-full py-3 px-4 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700/80 transition-all flex items-center justify-center gap-2"
             >
@@ -1385,7 +1387,7 @@
 
   <!-- Core JavaScript Modules -->
   <script src="src/shared/data/store.js"></script>
-  <script src="src/features/localization/i18n.js"></script>
+  <script src="src/features/localization/i18n.js?v=footer-locations-1"></script>
   <script src="src/features/analytics/analytics.js"></script>
   <script src="src/features/site/shared-ui.js"></script>
   <script src="src/features/motion/scroll-motion.js"></script>

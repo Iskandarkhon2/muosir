@@ -9,12 +9,12 @@
   <link rel="icon" type="image/png" href="assets/images/logo.png">
   <script src="src/app/theme-init.js"></script>
   <link rel="stylesheet" href="src/shared/styles/utilities.css">
-  <link rel="stylesheet" href="src/shared/styles/main.css">
+  <link rel="stylesheet" href="src/shared/styles/main.css?v=typography-2">
   <link rel="stylesheet" href="src/shared/styles/cinematic.css">
   <link rel="stylesheet" href="src/features/visualizer/visualizer.css?v=logo-ux">
   <script type="module" src="src/app/theme.js"></script>
   <script src="src/shared/data/store.js" defer></script>
-  <script src="src/features/localization/i18n.js" defer></script>
+  <script src="src/features/localization/i18n.js?v=visualizer-locale-1" defer></script>
   <script src="src/features/analytics/analytics.js" defer></script>
   <script src="src/features/site/shared-ui.js" defer></script>
   <script src="src/features/motion/scroll-motion.js" defer></script>
@@ -24,10 +24,10 @@
   <header class="visualizer-header">
     <a class="visualizer-brand" href="index.html" data-i18n-aria-label="viz_brand_home">
       <img src="assets/images/logo.png" alt="Муосир пласт">
-      <span class="visualizer-brand-caption">Muosir Plast <span>·</span> Tajikistan</span>
+      <span class="visualizer-brand-caption"><span data-i18n="viz_brand_name">Muosir Plast</span> <span>·</span> <span data-i18n="viz_country_name">Tajikistan</span></span>
     </a>
     <div class="visualizer-header-actions">
-      <button type="button" class="theme-toggle-btn visualizer-theme" aria-label="Переключить тему">
+      <button type="button" class="theme-toggle-btn visualizer-theme" aria-label="Переключить тему" data-i18n-aria-label="viz_theme_toggle">
         <span class="theme-icon-sun" aria-hidden="true">☼</span>
         <span class="theme-icon-moon hidden" aria-hidden="true">☾</span>
       </button>
@@ -52,7 +52,7 @@
       <section class="preview-panel" data-i18n-aria-label="viz_preview_region">
         <div class="preview-toolbar">
           <div>
-            <p class="panel-kicker">LIVE PREVIEW</p>
+            <p class="panel-kicker" data-i18n="viz_live_preview">LIVE PREVIEW</p>
             <h2 id="preview-product-name">Стакан 500 мл</h2>
           </div>
           <button type="button" class="preview-upload-button preview-upload-button--toolbar" data-upload-trigger data-i18n="viz_upload_action">Добавить логотип</button>
@@ -67,11 +67,11 @@
             </div>
           </div>
           <span class="preview-drag-hint" id="preview-drag-hint" data-i18n="viz_drag_logo" hidden>Перетащите логотип, чтобы изменить положение</span>
-          <span class="preview-corner preview-corner-top">MP / STUDIO 01</span>
-          <span class="preview-corner preview-corner-bottom">PREVIEW · NOT FOR PRODUCTION</span>
+          <span class="preview-corner preview-corner-top" data-i18n="viz_preview_mark">MP / STUDIO 01</span>
+          <span class="preview-corner preview-corner-bottom" data-i18n="viz_preview_not_production">PREVIEW · NOT FOR PRODUCTION</span>
         </div>
         <div class="preview-footer">
-          <span>MUOSIR PLAST <span>—</span> PRIVATE LABEL PREVIEW</span>
+          <span data-i18n="viz_preview_footer">MUOSIR PLAST — PRIVATE LABEL PREVIEW</span>
           <button type="button" id="download-preview" class="text-action" data-i18n="viz_btn_download">Сохранить макет</button>
         </div>
       </section>
@@ -81,7 +81,7 @@
           <div class="section-heading">
             <span class="step-index">01</span>
             <div>
-              <p class="panel-kicker">PRODUCT</p>
+              <p class="panel-kicker" data-i18n="viz_product_kicker">PRODUCT</p>
               <h2 data-i18n="viz_select_product">Выберите упаковку</h2>
             </div>
           </div>
@@ -92,15 +92,15 @@
             </button>
             <button type="button" class="product-option" data-product="container" aria-pressed="false">
               <img src="assets/images/container_3d_base.jpg" alt="">
-              <span><strong data-i18n="viz_prod_container">Контейнер с крышкой</strong><small>PET · FOOD</small></span>
+              <span><strong data-i18n="viz_prod_container">Контейнер с крышкой</strong><small data-i18n="viz_product_meta_container">PET · FOOD</small></span>
             </button>
             <button type="button" class="product-option" data-product="dairy-cup" aria-pressed="false">
               <img src="assets/images/dairy_cup_3d_base.jpg" alt="">
-              <span><strong data-i18n="viz_prod_dairy_cup">Молочный стакан</strong><small>PP · DAIRY</small></span>
+              <span><strong data-i18n="viz_prod_dairy_cup">Молочный стакан</strong><small data-i18n="viz_product_meta_dairy">PP · DAIRY</small></span>
             </button>
             <button type="button" class="product-option" data-product="egg-tray" aria-pressed="false">
               <img src="assets/images/egg_tray_3d_base.jpg" alt="">
-              <span><strong data-i18n="viz_prod_egg_tray">Лоток для яиц</strong><small>PET · 10 PCS</small></span>
+              <span><strong data-i18n="viz_prod_egg_tray">Лоток для яиц</strong><small data-i18n="viz_product_meta_egg">PET · 10 PCS</small></span>
             </button>
           </div>
         </section>
@@ -109,7 +109,7 @@
           <div class="section-heading">
             <span class="step-index">02</span>
             <div>
-              <p class="panel-kicker">YOUR BRAND</p>
+              <p class="panel-kicker" data-i18n="viz_your_brand">YOUR BRAND</p>
               <h2 data-i18n="viz_upload_label">Загрузите ваш логотип</h2>
             </div>
           </div>
@@ -160,11 +160,11 @@
     <form id="quote-form">
       <div class="dialog-heading">
         <div>
-          <p class="panel-kicker">NEXT STEP</p>
+          <p class="panel-kicker" data-i18n="viz_next_step">NEXT STEP</p>
           <h2 id="quote-title" data-i18n="viz_btn_get_quote">Запросить предложение</h2>
           <p id="quote-product-name">Стакан 500 мл</p>
         </div>
-        <button type="button" id="close-quote" class="dialog-close" aria-label="Закрыть">×</button>
+        <button type="button" id="close-quote" class="dialog-close" aria-label="Закрыть" data-i18n-aria-label="viz_dialog_close">×</button>
       </div>
       <label for="quote-name" data-i18n="form_name">Ваше имя *</label>
       <input id="quote-name" name="name" autocomplete="name" required>
@@ -175,7 +175,7 @@
       <label for="quote-email" data-i18n="form_email">Email</label>
       <input id="quote-email" name="email" type="email" autocomplete="email">
       <button class="visualizer-quote" type="submit" data-i18n="form_submit">Отправить запрос</button>
-      <p class="dialog-note">Нажимая кнопку, вы продолжите общение с менеджером в WhatsApp.</p>
+      <p class="dialog-note" data-i18n="viz_dialog_note">Нажимая кнопку, вы продолжите общение с менеджером в WhatsApp.</p>
     </form>
   </dialog>
 </body>

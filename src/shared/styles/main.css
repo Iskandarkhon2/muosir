@@ -1,4 +1,4 @@
-@import url("./tokens.css");
+@import url("./tokens.css?v=typography-1");
 
 *,
 *::before,
@@ -26,9 +26,10 @@ body {
   min-height: 100vh;
   overflow-x: clip;
   background: var(--canvas) !important;
-  color: var(--text-primary) !important;
+  color: var(--text-secondary) !important;
   font-family: var(--font-sans) !important;
   font-size: 0.9375rem;
+  font-weight: 500;
   line-height: 1.65;
   letter-spacing: -0.01em;
   transition: background-color var(--duration-normal) var(--ease-out), color var(--duration-normal) var(--ease-out);
@@ -95,6 +96,12 @@ video {
   line-height: 1.15;
   letter-spacing: -0.03em;
   text-wrap: balance;
+}
+
+body .site-content > header nav a:not([data-i18n="nav_cta"]),
+body .site-content > header #mobile-nav-menu a {
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
 }
 
 .site-content h1 {
@@ -634,10 +641,10 @@ dialog {
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   background: var(--surface-1);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 0.8125rem;
-  font-weight: 650;
+  font-weight: 500;
   transition: border-color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
 }
 
@@ -677,7 +684,7 @@ dialog {
 
 .catalog-result-count strong {
   color: var(--text-primary);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .catalog-filter-dialog {
@@ -750,7 +757,7 @@ dialog {
   margin: 0;
   color: var(--text-primary);
   font-size: 1.2rem;
-  font-weight: 750;
+  font-weight: 600;
   line-height: 1.3;
 }
 
@@ -788,7 +795,7 @@ dialog {
   color: var(--text-secondary);
   cursor: pointer;
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 500;
   list-style: none;
 }
 
@@ -845,9 +852,10 @@ dialog {
   gap: 0.7rem;
   padding: 0.45rem 0.6rem;
   border-radius: var(--radius-md);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 0.8125rem;
+  font-weight: 500;
   transition: background-color var(--duration-fast) var(--ease-out);
 }
 
@@ -1013,16 +1021,20 @@ dialog {
 
   .product-card__spec {
     margin: 0 0 0.5rem;
-    color: var(--accent);
-    font: 0.75rem var(--font-mono);
+    color: var(--text-secondary);
+    font: 500 0.75rem var(--font-mono);
   }
 
   .product-card__body h3 {
     margin: 0;
     color: var(--text-primary) !important;
-    font-size: 1.0625rem !important;
-    font-weight: 800 !important;
-    line-height: 1.35 !important;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+  }
+
+  .product-card__spec {
+    font-size: 0.875rem !important;
   }
 
   .product-card__description {
@@ -1035,6 +1047,7 @@ dialog {
   .product-card__actions {
     display: grid;
     gap: 0.5rem;
+    margin-top: auto;
     padding-top: 1rem;
   }
 
@@ -1466,7 +1479,8 @@ dialog {
 
 .catalog-product-specs > div {
   display: grid;
-  grid-template-columns: minmax(7.5rem, 0.75fr) minmax(0, 1.25fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: baseline;
   gap: 0.75rem;
   padding: 0.8rem 0.9rem;
   border: 1px solid var(--border-subtle);
@@ -1475,17 +1489,23 @@ dialog {
 }
 
 .catalog-product-specs dt {
-  color: var(--text-primary) !important;
-  font-size: 0.875rem !important;
-  font-weight: 700 !important;
+  min-width: 0;
+  color: var(--text-spec-label) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 500 !important;
+  text-align: left;
 }
 
 .catalog-product-specs dd {
+  min-width: 0;
+  justify-self: stretch;
   margin: 0;
-  color: var(--text-primary) !important;
-  font-size: 0.9375rem !important;
-  font-weight: 800 !important;
-  overflow-wrap: anywhere;
+  color: var(--text-data) !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  overflow-wrap: break-word;
+  text-align: right;
+  white-space: normal;
 }
 
 .catalog-product-specs--compact {
@@ -1494,8 +1514,8 @@ dialog {
 }
 
 .catalog-product-specs--compact > div {
-  grid-template-columns: minmax(5.5rem, 0.65fr) minmax(0, 1.35fr);
-  gap: 0.5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 0.75rem;
   padding: 0.35rem 0;
   border: 0;
   border-bottom: 1px solid var(--border-subtle);
@@ -1505,18 +1525,18 @@ dialog {
 
 .catalog-product-specs--compact dt,
 .catalog-product-specs--compact dd {
-  font-size: 0.8125rem !important;
+  font-size: 1rem !important;
   line-height: 1.45 !important;
 }
 
 .catalog-product-specs--compact dt {
-  color: var(--text-primary) !important;
-  font-weight: 800 !important;
+  color: var(--text-spec-label) !important;
+  font-weight: 500 !important;
 }
 
 .catalog-product-specs--compact dd {
-  color: var(--text-primary) !important;
-  font-weight: 800 !important;
+  color: var(--text-data) !important;
+  font-weight: 600 !important;
 }
 
 .product-quickview__main-image {
