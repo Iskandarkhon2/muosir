@@ -36,20 +36,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   const industries = [
-    { id: 'dairy', categories: ['dairy'], labels: ['Молочная промышленность', 'Dairy industry', 'Sut sanoati', 'Сүт өнеркәсібі'] },
-    { id: 'eggs', categories: ['eggs'], labels: ['Птицеводство и фасовка яиц', 'Poultry and egg packing', 'Parrandachilik va tuxum qadoqlash', 'Құс шаруашылығы және жұмыртқа'] },
-    { id: 'confectionery', categories: ['confectionery'], labels: ['Кондитерские предприятия', 'Confectionery', 'Qandolatchilik korxonalari', 'Кондитерлік кәсіпорындар'] },
-    { id: 'food', categories: ['containers'], labels: ['Пищевые производства и фасовка', 'Food production and packing', 'Oziq-ovqat ishlab chiqarish va qadoqlash', 'Азық-түлік өндірісі және қаптау'] },
-    { id: 'horeca', categories: ['cups', 'containers'], labels: ['HoReCa и Fast Food', 'HoReCa and fast food', 'HoReCa va tezkor ovqatlanish', 'HoReCa және жылдам тамақтану'] }
+    { id: 'dairy', categories: ['dairy'], labels: ['Молочная промышленность', 'Dairy industry', 'Sut sanoati', 'Сүт өнеркәсібі', 'Сүт өнөр жайы'] },
+    { id: 'eggs', categories: ['eggs'], labels: ['Птицеводство и фасовка яиц', 'Poultry and egg packing', 'Parrandachilik va tuxum qadoqlash', 'Құс шаруашылығы және жұмыртқа', 'Канаттуулар жана жумуртка таңгактоо'] },
+    { id: 'confectionery', categories: ['confectionery'], labels: ['Кондитерские предприятия', 'Confectionery', 'Qandolatchilik korxonalari', 'Кондитерлік кәсіпорындар', 'Кондитердик ишканалар'] },
+    { id: 'food', categories: ['containers'], labels: ['Пищевые производства и фасовка', 'Food production and packing', 'Oziq-ovqat ishlab chiqarish va qadoqlash', 'Азық-түлік өндірісі және қаптау', 'Тамак-аш өндүрүшү жана таңгактоо'] },
+    { id: 'horeca', categories: ['cups', 'containers'], labels: ['HoReCa и Fast Food', 'HoReCa and fast food', 'HoReCa va tezkor ovqatlanish', 'HoReCa және жылдам тамақтану', 'HoReCa жана Fast Food'] }
   ];
 
   const categories = [
-    { id: 'dairy', labels: ['Молочная упаковка', 'Dairy packaging', 'Sut qadoqlari', 'Сүт қаптамасы'] },
-    { id: 'eggs', labels: ['Упаковка для яиц', 'Egg packaging', 'Tuxum qadoqlari', 'Жұмыртқа қаптамасы'] },
-    { id: 'confectionery', labels: ['Кондитерская тара', 'Confectionery packaging', 'Qandolatchilik qadoqlari', 'Кондитерлік қаптамалар'] },
-    { id: 'containers', labels: ['Контейнеры и ланч-боксы', 'Containers and lunch boxes', 'Konteynerlar va tushlik qutilari', 'Контейнерлер және түскі ас қораптары'] },
-    { id: 'cups', labels: ['Стаканы и крышки', 'Cups and lids', 'Stakanlar va qopqoqlar', 'Стақандар және қақпақтар'] },
-    { id: 'polymer-tape', labels: ['Полимерные ленты', 'Polymer tape', 'Polimer lentalar', 'Полимер таспалар'] }
+    { id: 'dairy', labels: ['Молочная упаковка', 'Dairy packaging', 'Sut qadoqlari', 'Сүт қаптамасы', 'Сүт таңгактары'] },
+    { id: 'eggs', labels: ['Упаковка для яиц', 'Egg packaging', 'Tuxum qadoqlari', 'Жұмыртқа қаптамасы', 'Жумуртка таңгактары'] },
+    { id: 'confectionery', labels: ['Кондитерская тара', 'Confectionery packaging', 'Qandolatchilik qadoqlari', 'Кондитерлік қаптамалар', 'Кондитердик таңгактар'] },
+    { id: 'containers', labels: ['Контейнеры и ланч-боксы', 'Containers and lunch boxes', 'Konteynerlar va tushlik qutilari', 'Контейнерлер және түскі ас қораптары', 'Контейнерлер жана түшкү тамак кутулары'] },
+    { id: 'cups', labels: ['Стаканы и крышки', 'Cups and lids', 'Stakanlar va qopqoqlar', 'Стақандар және қақпақтар', 'Стакандар жана капкачтар'] },
+    { id: 'polymer-tape', labels: ['Полимерные ленты', 'Polymer tape', 'Polimer lentalar', 'Полимер таспалар', 'Полимер тилкелер'] }
   ];
   const materials = [
     { id: 'PP', label: 'PP (Полипропилен)' },
@@ -57,12 +57,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     { id: 'PS', label: 'PS (Полистирол)' }
   ];
   const boxQuantityRanges = [
-    { id: 'up-to-100', labels: ['До 100 шт.', 'Up to 100 pcs.', '100 donagacha', '100 данаға дейін'], min: 1, max: 100 },
-    { id: '101-300', labels: ['101–300 шт.', '101–300 pcs.', '101–300 dona', '101–300 дана'], min: 101, max: 300 },
-    { id: '301-500', labels: ['301–500 шт.', '301–500 pcs.', '301–500 dona', '301–500 дана'], min: 301, max: 500 },
-    { id: '501-1000', labels: ['501–1000 шт.', '501–1000 pcs.', '501–1000 dona', '501–1000 дана'], min: 501, max: 1000 },
-    { id: 'over-1000', labels: ['Более 1000 шт.', 'Over 1000 pcs.', '1000 donadan ko‘p', '1000 данаға артық'], min: 1001, max: Infinity },
-    { id: 'not-specified', labels: ['Не указано', 'Not specified', 'Ko‘rsatilmagan', 'Көрсетілмеген'] }
+    { id: 'up-to-100', labels: ['До 100 шт.', 'Up to 100 pcs.', '100 donagacha', '100 данаға дейін', '100 даанагача'], min: 1, max: 100 },
+    { id: '101-300', labels: ['101–300 шт.', '101–300 pcs.', '101–300 dona', '101–300 дана', '101–300 даана'], min: 101, max: 300 },
+    { id: '301-500', labels: ['301–500 шт.', '301–500 pcs.', '301–500 dona', '301–500 дана', '301–500 даана'], min: 301, max: 500 },
+    { id: '501-1000', labels: ['501–1000 шт.', '501–1000 pcs.', '501–1000 dona', '501–1000 дана', '501–1000 даана'], min: 501, max: 1000 },
+    { id: 'over-1000', labels: ['Более 1000 шт.', 'Over 1000 pcs.', '1000 donadan ko‘p', '1000 данаға артық', '1000 даанадан көп'], min: 1001, max: Infinity },
+    { id: 'not-specified', labels: ['Не указано', 'Not specified', 'Ko‘rsatilmagan', 'Көрсетілмеген', 'Көрсөтүлгөн эмес'] }
   ];
   const requestedIndustry = new URLSearchParams(window.location.search).get('industry');
   let activeCategories = new Set();
@@ -164,14 +164,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function renderFilterDialog() {
-    const languageIndex = { ru: 0, en: 1, uz: 2, kk: 3 }[i18n.getLang()] || 0;
+    const languageIndex = { ru: 0, en: 1, uz: 2, kk: 3, kg: 4 }[i18n.getLang()] || 0;
     const openGroups = new Set(
       [...(filterDialog?.querySelectorAll('details[open]') || [])].map(group => group.dataset.filterDetails)
     );
     renderFilterOptions(
       industryFilters,
       'industry',
-      ['Все отрасли', 'All industries', 'Barcha sohalar', 'Барлық салалар'][languageIndex],
+      ['Все отрасли', 'All industries', 'Barcha sohalar', 'Барлық салалар', 'Бардык тармактар'][languageIndex],
       industries.map(industry => ({ id: industry.id, label: industry.labels[languageIndex] })),
       activeIndustries,
       id => countFilterOption('industry', id)
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderFilterOptions(
       categoryFilters,
       'category',
-      ['Все категории', 'All categories', 'Barcha kategoriyalar', 'Барлық категориялар'][languageIndex],
+      ['Все категории', 'All categories', 'Barcha kategoriyalar', 'Барлық категориялар', 'Бардык категориялар'][languageIndex],
       categories.map(category => ({ id: category.id, label: category.labels[languageIndex] })),
       activeCategories,
       id => countFilterOption('category', id)
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderFilterOptions(
       materialFilters,
       'material',
-      ['Все материалы', 'All materials', 'Barcha materiallar', 'Барлық материалдар'][languageIndex],
+      ['Все материалы', 'All materials', 'Barcha materiallar', 'Барлық материалдар', 'Бардык материалдар'][languageIndex],
       materials,
       activeMaterials,
       id => countFilterOption('material', id)
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderFilterOptions(
       boxQuantityFilters,
       'box-quantity',
-      ['Любое количество', 'Any quantity', 'Har qanday miqdor', 'Кез келген сан'][languageIndex],
+      ['Любое количество', 'Any quantity', 'Har qanday miqdor', 'Кез келген сан', 'Каалагандай сан'][languageIndex],
       boxQuantityRanges.map(option => ({ id: option.id, label: option.labels[languageIndex] })),
       activeBoxQuantities,
       id => countFilterOption('box-quantity', id)

@@ -242,6 +242,7 @@ function createCatalogProduct(filename) {
     titleEn: override?.titleEn || formatLocalizedProductName(title, 'en'),
     titleUz: override?.titleUz || formatLocalizedProductName(title, 'uz'),
     titleKk: override?.titleKk || formatLocalizedProductName(title, 'kk'),
+    titleKg: override?.titleKg || formatLocalizedProductName(title, 'kg'),
     categoryId: override?.categoryId || getCategoryId(name),
     material: details.find(detail => detail.label === 'Материал')?.value || '',
     specifications,
@@ -260,6 +261,7 @@ function createAdditionalProduct(product) {
     titleEn: product.titleEn || formatLocalizedProductName(product.title, 'en'),
     titleUz: product.titleUz || formatLocalizedProductName(product.title, 'uz'),
     titleKk: product.titleKk || formatLocalizedProductName(product.title, 'kk'),
+    titleKg: product.titleKg || formatLocalizedProductName(product.title, 'kg'),
     material,
     specifications: [],
     specificationText,
@@ -344,6 +346,25 @@ function formatLocalizedProductName(title, lang) {
       ['Ланч-бокс', 'Түскі ас жәшігі'],
       ['Крышка', 'Қақпақ'],
       ['Полимерная лента', 'Полимер таспа']
+    ],
+    kg: [
+      ['Контейнер для яиц', 'Жумуртка үчүн контейнер'],
+      ['Контейнер для торта', 'Торт үчүн контейнер'],
+      ['Контейнер для пончиков', 'Пончик үчүн контейнер'],
+      ['Контейнер для выпечки', 'Пештен чыккан нан азыктары үчүн контейнер'],
+      ['Упаковка для творога', 'Сүзмө үчүн таңгак'],
+      ['Упаковка для выпечки', 'Пештен чыккан нан азыктары үчүн таңгак'],
+      ['Стакан для сметаны', 'Каймак үчүн стакан'],
+      ['Стакан для мохито', 'Мохито үчүн стакан'],
+      ['Стакан', 'Стакан'],
+      ['Супница', 'Супница'],
+      ['Соусница', 'Соусница'],
+      ['Коррекс', 'Кондитердик коррекс'],
+      ['Контейнер', 'Контейнер'],
+      ['Упаковка', 'Таңгак'],
+      ['Ланч-бокс', 'Түшкү тамак кутусу'],
+      ['Крышка', 'Капкач'],
+      ['Полимерная лента', 'Полимер тилкеси']
     ]
   };
 
