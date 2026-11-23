@@ -17,10 +17,12 @@ const DEFAULT_DATA = {
     taglineEn: "Plastic packaging directly from manufacturer in Tajikistan",
     taglineUz: "Tojikistondan to'g'ridan-to'g'ri ishlab chiqaruvchi plastik qadoqlar",
     taglineKk: "Тәжікстаннан тікелей өндірушіден пластикалық қаптама",
+    taglineKg: "Тажикстандан өндүрүүчүнөн түз пластик таңгактар",
     subtagline: "Производство и поставка пластиковой упаковки для производителей продуктов питания, молочной, кондитерской и другой продукции. Оптовые и экспортные поставки.",
     subtaglineEn: "Mass production and wholesale export supply of plastic packaging for food, dairy, confectionery and other manufacturing industries.",
     subtaglineUz: "Oziq-ovqat, sut va qandolatchilik mahsulotlari uchun qattiq polimer qadoqlash vositalarini seriyali ishlab chiqarish va eksport qilish.",
     subtaglineKk: "Азық-түлік, сүт және кондитерлік өнімдер өндірушілеріне арналған сапалы полимерлі қаптамаларды сериялық өндіру және экспорттау.",
+    subtaglineKg: "Тамак-аш, сут жана кондитер продукциясын өндүрүүчүлөр үчүн катуу полимер таңгактарды сериялап өндүрүү жана экспорттоо.",
     phone: "+992 (92) 550-50-50",
     phoneClean: "992925505050",
     salesPhones: ["+992 (92) 550-50-50", "+992 (99) 550-50-50"],
@@ -31,6 +33,7 @@ const DEFAULT_DATA = {
     addressEn: "Republic of Tajikistan, Sughd Region, B. Gafurov District, 15 Vahdat Street",
     addressUz: "Tojikiston Respublikasi, Sug'd viloyati, B. G'afurov tumani, Vahdat ko'chasi, 15",
     addressKk: "Тәжікстан Республикасы, Соғды облысы, Б. Ғафуров ауданы, Вахдат көшесі, 15",
+    addressKg: "Тажикстан Республикасы, Суғд облусу, Б. Гафуров району, Вахдат көчөсү, 15",
     website: "https://muosirplast.tj",
     instagram: "https://www.instagram.com/muosir.plast/",
     facebook: "https://www.facebook.com/muosirplast",
@@ -41,18 +44,18 @@ const DEFAULT_DATA = {
     crmWebhookUrl: ""
   },
   stats: [
-    { id: "lines", number: "14+", label: "автоматизированные линии", labelEn: "automated production lines", labelUz: "avtomatlashtirilgan liniyalar", labelKk: "автоматтандырылған желілер" },
-    { id: "capacity", number: "20–60 млн", label: "единиц в год", labelEn: "units per year", labelUz: "dona yiliga", labelKk: "дана жылына" },
-    { id: "molds", number: "50+", label: "видов пресс-форм", labelEn: "mold types", labelUz: "qolip turlari", labelKk: "қалып түрлері" },
-    { id: "processes", number: "3", label: "основные технологии", labelEn: "core technologies", labelUz: "asosiy texnologiyalar", labelKk: "негізгі технологиялар" }
+    { id: "lines", number: "14+", label: "автоматизированные линии", labelEn: "automated production lines", labelUz: "avtomatlashtirilgan liniyalar", labelKk: "автоматтандырылған желілер", labelKg: "автоматташтырылган линиялар" },
+    { id: "capacity", number: "20–60 млн", label: "единиц в год", labelEn: "units per year", labelUz: "dona yiliga", labelKk: "дана жылына", labelKg: "даана жылына" },
+    { id: "molds", number: "50+", label: "видов пресс-форм", labelEn: "mold types", labelUz: "qolip turlari", labelKk: "қалып түрлері", labelKg: "пресс-калыптардын түрлөрү" },
+    { id: "processes", number: "3", label: "основные технологии", labelEn: "core technologies", labelUz: "asosiy texnologiyalar", labelKk: "негізгі технологиялар", labelKg: "негизги технологиялар" }
   ],
   categories: [
-    { id: "all", name: "Вся продукция", nameEn: "All Products", nameUz: "Barcha mahsulotlar", nameKk: "Барлық өнімдер" },
-    { id: "dairy", name: "Упаковка для молочной продукции", nameEn: "Dairy Packaging", nameUz: "Sut mahsulotlari uchun", nameKk: "Сүт өнімдеріне арналған" },
-    { id: "eggs", name: "Упаковка для яиц", nameEn: "Egg Packaging", nameUz: "Tuxum qutilari", nameKk: "Жұмыртқа қаптамасы" },
-    { id: "confectionery", name: "Упаковка для кондитерских изделий", nameEn: "Confectionery Packaging", nameUz: "Qandolatchilik idishlari", nameKk: "Кондитерлік қаптама" },
-    { id: "containers", name: "Контейнеры для пищевых продуктов", nameEn: "Food Containers", nameUz: "Oziq-ovqat konteynerlari", nameKk: "Тағамдық контейнерлер" },
-    { id: "cups", name: "Стаканы и крышки", nameEn: "Cups & Lids", nameUz: "Stakanlar va qopqoqlar", nameKk: "Стақандар мен қақпақтар" }
+    { id: "all", name: "Вся продукция", nameEn: "All Products", nameUz: "Barcha mahsulotlar", nameKk: "Барлық өнімдер", nameKg: "Бардык продукция" },
+    { id: "dairy", name: "Упаковка для молочной продукции", nameEn: "Dairy Packaging", nameUz: "Sut mahsulotlari uchun", nameKk: "Сүт өнімдеріне арналған", nameKg: "Сүт продукциясы үчүн таңгак" },
+    { id: "eggs", name: "Упаковка для яиц", nameEn: "Egg Packaging", nameUz: "Tuxum qutilari", nameKk: "Жұмыртқа қаптамасы", nameKg: "Жумуртка таңгактары" },
+    { id: "confectionery", name: "Упаковка для кондитерских изделий", nameEn: "Confectionery Packaging", nameUz: "Qandolatchilik idishlari", nameKk: "Кондитерлік қаптама", nameKg: "Кондитер изделиелери үчүн таңгак" },
+    { id: "containers", name: "Контейнеры для пищевых продуктов", nameEn: "Food Containers", nameUz: "Oziq-ovqat konteynerlari", nameKk: "Тағамдық контейнерлер", nameKg: "Тамак-аш контейнерлери" },
+    { id: "cups", name: "Стаканы и крышки", nameEn: "Cups & Lids", nameUz: "Stakanlar va qopqoqlar", nameKk: "Стақандар мен қақпақтар", nameKg: "Стакандар жана кыпкачтар" }
   ],
   products: [
     {

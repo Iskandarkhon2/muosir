@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lang === 'en') addr = data.company.addressEn || addr;
       else if (lang === 'uz') addr = data.company.addressUz || addr;
       else if (lang === 'kk') addr = data.company.addressKk || addr;
+      else if (lang === 'kg') addr = data.company.addressKg || addr;
       el.textContent = addr;
     });
   }
@@ -98,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lang === 'en') lbl = s.labelEn || lbl;
       else if (lang === 'uz') lbl = s.labelUz || lbl;
       else if (lang === 'kk') lbl = s.labelKk || lbl;
+      else if (lang === 'kg') lbl = s.labelKg || lbl;
 
       return `
         <div class="glass-card p-4 sm:p-6 rounded-2xl text-center interactive-card border border-slate-800/80 hover:border-cyan-500/50 transition-all">
@@ -188,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lang === 'en') name = c.nameEn || name;
       else if (lang === 'uz') name = c.nameUz || name;
       else if (lang === 'kk') name = c.nameKk || name;
+      else if (lang === 'kg') name = c.nameKg || name;
 
       return `
         <button 
@@ -236,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lang === 'en') { title = p.titleEn || title; desc = p.descEn || desc; }
       else if (lang === 'uz') { title = p.titleUz || title; desc = p.descUz || desc; }
       else if (lang === 'kk') { title = p.titleKk || title; desc = p.descKk || desc; }
+      else if (lang === 'kg') { title = p.titleKg || p.titleKk || title; desc = p.descKg || p.descKk || desc; }
 
       // WhatsApp prefilled message matching Section 11 of ТЗ:
       // «Здравствуйте. Меня интересует продукция Муосир пласт: {название товара}»
@@ -330,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lang === 'en') { title = a.titleEn || title; desc = a.descEn || desc; }
       else if (lang === 'uz') { title = a.titleUz || title; desc = a.descUz || desc; }
       else if (lang === 'kk') { title = a.titleKk || title; desc = a.descKk || desc; }
+      else if (lang === 'kg') { title = a.titleKg || a.titleKk || title; desc = a.descKg || a.descKk || desc; }
 
       return `
         <div class="glass-card advantage-card rounded-2xl p-6 interactive-card border border-slate-800 hover:border-blue-500/40 transition-all flex flex-col justify-between">
@@ -625,6 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lang === 'en') { title = item.titleEn || title; desc = item.descEn || desc; }
       else if (lang === 'uz') { title = item.titleUz || title; desc = item.descUz || desc; }
       else if (lang === 'kk') { title = item.titleKk || title; desc = item.descKk || desc; }
+      else if (lang === 'kg') { title = item.titleKg || item.titleKk || title; desc = item.descKg || item.descKk || desc; }
 
       return `
         <div class="glass-card production-card rounded-2xl border border-slate-800 hover:border-blue-500/40 transition-all interactive-card flex flex-col">
@@ -660,6 +666,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lang === 'en') title = d.titleEn || title;
       else if (lang === 'uz') title = d.titleUz || title;
       else if (lang === 'kk') title = d.titleKk || title;
+      else if (lang === 'kg') title = d.titleKg || d.titleKk || title;
       const documentActions = d.file
         ? `
           <button type="button" onclick="window.muosirApp.openPdfModal('${d.file}', '${d.title.replace(/'/g, "\\'")}')" class="inline-flex items-center gap-1 text-xs text-cyan-400 hover:text-cyan-300 font-semibold">
